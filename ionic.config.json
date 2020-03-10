@@ -1,0 +1,7 @@
+{
+  "name": "WellClap",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
