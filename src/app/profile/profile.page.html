@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="profile_banner">
+        <div class="profile_circle">
+            <div class="profile_edit">
+                <ion-icon name="create"></ion-icon>
+            </div>
+        </div>
+        <h6>Vipul Dimri</h6>
+        <p>vipul.dimri@avl.com</p>
+    </div>
+    <div class="profile_menu">
+        <ul>
+            <li (click)="order()">
+                <img src="/assets/imgs/asset_n1.png">
+                <p>My order</p>
+            </li>
+            <li (click)="rewards()">
+                <img src="/assets/imgs/asset_n2.png">
+                <p>My reward</p>
+            </li>
+            <li (click)="consultation()">
+                <img src="/assets/imgs/asset_n3.png">
+                <p>Consultation</p>
+            </li>
+            <li (click)="wallet()">
+                <img src="/assets/imgs/asset_n4.png">
+                <p>P24 Wallet</p>
+            </li>
+            <li (click)="wishlist()">
+                <img src="/assets/imgs/asset_n5.png">
+                <p>Wishlist</p>
+            </li>
+            <li routerLink="/notifications">
+                <img src="/assets/imgs/asset_n6.png">
+                <p>Notification</p>
+            </li>
+            <li (click)="prescription()">
+                <img src="/assets/imgs/asset_n7.png">
+                <p>Prescription</p>
+            </li>
+            <li (click)="changepass()">
+                <img src="/assets/imgs/asset_n4.png">
+                <p>Change Password</p>
+            </li>
+            <li>
+                <img src="/assets/imgs/asset_n4.png">
+                <p>Signout</p>
+            </li>
+
+        </ul>
+    </div>
+
+</ion-content>

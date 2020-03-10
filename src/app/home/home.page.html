@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="medium" >
+    <ion-buttons color="primary" slot="start">
+      <ion-menu-button style="color:white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="color:white">Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div  style="background-color: #31a3a0" class="top_menu nav_header">
+    <ul>
+        <li  (click)="ask()">
+            <img src="/assets/imgs/asset_m1.png">
+            <p>Ask Doctor</p>
+        </li>
+        <li (click)="vault()">
+            <img src="/assets/imgs/asset_m2.png">
+            <p>Vault</p>
+        </li>
+        <li>
+            <img src="/assets/imgs/asset_m3.png">
+            <p>Subscription</p>
+        </li>
+        <li class="borderNone" (click)="cart()">
+            <img src="/assets/imgs/asset_m4.png">
+            <p>My Order</p>
+        </li>
+    </ul>
+</div>
+<div class="home_offer_slider">
+    <ion-slides loop="true" slidesPerView="1.5" spaceBetween="5px">
+        <ion-slide (click)="medicinelist()">
+            <img src="assets/imgs/asset_poster1.png">
+        </ion-slide>
+        <ion-slide (click)="medicinelist()">
+            <img src="assets/imgs/asset_poster2.png">
+        </ion-slide>
+    </ion-slides>
+</div>
+<div style="height: 50px;" class="home_header">
+    <div class="home_header_left">
+        Order with prescriptions
+    </div>
+    <button 
+    (click)="Upload()"
+    class="upload_btn">UPLOAD</button>
+    <div class="clear"></div>
+</div>
+<h4>Shop by catagory</h4>
+
+<div class="catagory_list">
+    <ul>
+        <li (click)="medicinelist()">
+            <img src="assets/imgs/asset_t1.png">
+            <p>Prescription</p>
+        </li>
+        <li (click)="medicinelist()">
+            <img src="assets/imgs/asset_t2.png">
+            <p>Ayush</p>
+        </li>
+        <li (click)="medicinelist()">
+            <img src="assets/imgs/asset_t3.png">
+            <p>Personal Care</p>
+        </li>
+        <li (click)="medicinelist()">
+            <img src="assets/imgs/asset_t4.png">
+            <p>Fitness</p>
+        </li>
+    </ul>
+</div>
+
+
+
+</ion-content>

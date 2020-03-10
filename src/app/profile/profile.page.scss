@@ -1,0 +1,90 @@
+
+    .nav_header_title {
+        width: calc(100% - 100px);
+        padding-left: 25px;
+    }
+    .profile_banner {
+        width: 100%;
+        background: #4fb9b8;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        .profile_circle {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                object-fit: cover;
+                object-position: center;
+            }
+            .profile_edit {
+                width: 40px;
+                height: 40px;
+                background: #e1ba03;
+                border-radius: 50%;
+                color: #fff;
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                text-align: center;
+                padding: 10px;
+                font-size: 17px;
+            }
+        }
+        h6 {
+            text-align: center;
+            margin: 0px;
+            color: #fff;
+            padding-top: 10px;
+            font-size: 22px;
+            padding-bottom: 5px;
+        }
+        p {
+            text-align: center;
+            margin: 0px;
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+    }
+    .profile_menu {
+        width: 100%;
+        ul {
+            padding: 0px;
+            margin: 0px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            li {
+                list-style: none;
+                width: calc(100% - 68%);
+                display: inline-block;
+                text-align: center;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                img {
+                    width: 40px;
+                }
+                p {
+                    text-align: center;
+                    padding: 0px;
+                    margin: 0px;
+                    color: #767676;
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }

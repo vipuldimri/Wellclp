@@ -1,0 +1,50 @@
+
+
+<ion-header   [translucent]="true">
+  <ion-toolbar [color]="'medium'">
+    <ion-buttons slot="start">
+      <ion-back-button style="color:white"></ion-back-button> 
+       </ion-buttons>
+    <ion-title style="color:white">upload-prescription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="prescription_wrapper">
+    <h3>Upload Prescriptions</h3>
+    <div class="prescription_div" style="margin-bottom: 15px">
+        <div class="prescription_inner floatLeft"><img src="/assets/imgs/asset_camera.png">Camera</div>
+        <div class="prescription_inner floatRight borderNone"><img src="/assets/imgs/asset_gallery.png">Gallery</div>
+        <div class="clear"></div>
+    </div>
+    <br>
+    <p>We only accept valid and legible prescription, wirh doctor’s name and Registartion clearly Visible, <a>Watch a video</a> to know what valid means</p>
+    <hr>
+    <!-- <h2>Are you Ordering for yourself ?</h2>
+    <div class="radio_div" radio-group>
+        <ion-radio value="yes" checked></ion-radio>
+        <ion-label>Yes</ion-label>
+        <ion-radio value="no"></ion-radio>
+        <ion-label>No</ion-label>
+    </div> -->
+    <br>
+    <br>
+    <!-- <textarea 
+    
+    rows="5">Additional Comments</textarea> -->
+
+    <ion-item>
+        <ion-label position="stacked">Patient Name</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">Doctor Name</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+              
+            
+    <br>
+    <br>
+    <button ion-button class="btn_normal widthFull">Continue</button>
+</div>
+</ion-content>
