@@ -1,0 +1,43 @@
+<ion-header>
+        <ion-toolbar [color]="'medium'">
+            <ion-buttons slot="start">
+              <ion-back-button style="color:white"></ion-back-button> 
+               </ion-buttons>
+            <ion-title style="color:white">My prescriptions</ion-title>
+          </ion-toolbar>
+    </ion-header>
+    
+    
+
+<ion-content>
+    <div class="wishlist_wrapper">
+        <!-- <div class="wish_head">
+            <h5 class="floatLeft">Ayurvedic</h5>
+            <ion-icon class="floatRight" name="git-compare" (click)="add()"></ion-icon>
+            <div class="clear"></div>
+        </div> -->
+        <ul>
+            <li 
+            *ngFor="let item of list"
+            (click)="ViewPrescription(item.image)">
+                <div class="med_container">
+                    <img [src]="item.image">
+                </div>
+                <div class="med_container_details">
+                    <h4>{{item.patient_name}}</h4>
+                    <p>{{item.doctor_name}}</p>
+                    <h5 class="order_quantity p0 borderNone">{{item.added_date}}</h5>
+                </div>
+                <!-- <div class="med_container_remove textRight">
+                    <div class="clear"></div>
+                    <div class="add_btn floatRight" (click)="product()">View Order</div>
+                    <div class="clear"></div>
+                </div> -->
+                <div class="clear"></div>
+            </li>
+     
+
+        </ul>
+    </div>
+
+</ion-content>

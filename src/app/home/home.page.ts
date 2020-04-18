@@ -1,20 +1,101 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HomeService } from '../services/home/home.service';
+import { ProductService } from '../services/product/product.service';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { CartService } from '../services/cart/cart.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  providers: [CallNumber]
 })
 export class HomePage implements OnInit {
 
-  constructor(private router : Router) { }
-
+  BestSellersProducts: [];
+  BestDealsProducts: [];
+  Slides: any[];
+  CartCount: number;
+  Categories = [];
+  constructor(private router: Router,
+              private HS: HomeService,
+              private PS: ProductService,
+              private cartS: CartService,
+              private activatedRoute: ActivatedRoute,
+              private callNumber: CallNumber ) { }
+    sliderConfig = {
+      slidesPerView: 2.5,
+      spaceBetween: 15,
+      centeredSlides: false
+    };
   ngOnInit() {
+    this.CartCount =  this.cartS.GetCount();
+    this.cartS.cartCountsubject.subscribe(
+      (data: number) => {
+        this.CartCount =  data;
+      }
+    );
+    this.GetSlideShow();
+    this.GetHoimeProducts();
   }
 
   Upload()   {
-    this.router.navigate(['upload-prescription']);
+    this.router.navigate(['main/upload-prescription']);
+  }
+
+  GetSlideShow() {
+    this.HS.get_slidshow()
+    .subscribe(
+      (RES: any) => {
+        console.log(RES);
+        if (RES.Status) {
+              this.Slides =  RES.data;
+        } else {
+            alert(RES.Mess);
+        }
+      },
+      (error) => {
+        alert(error);
+      }
+    );
+  }
+
+  CommingSoon() {
+    alert('comming soon');
+  }
+
+  GetHoimeProducts() {
+        this.PS.GetHomeList()
+        .subscribe(
+          (Data: any) => {
+             console.log(Data);
+             if (Data.Status) {
+             this.BestSellersProducts = Data.data.BestSeller;
+             this.BestDealsProducts = Data.data.BestDeals;
+             this.Categories  = Data.data.Categories;
+             }
+          }
+        );
+  }
+  Search() {
+    this.router.navigate(['main/tabs/product-search'] );
+  }
+  Call() {
+    this.callNumber.callNumber('9540624611', true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
+  }
+
+  Nevigatetoproduct(product) {
+    this.router.navigate(['main/product-detail', product.product_id] ,
+);
+  }
+
+  Nevigatetocategory(catid) {
+    this.router
+    .navigate( ['main/products-list', catid ] , { queryParams: { option: '0'} ,
+     queryParamsHandling: 'merge' }  );
   }
 
 }

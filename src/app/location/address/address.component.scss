@@ -1,0 +1,62 @@
+
+    .familytree_wrapper {
+        width: 100%;
+        ul {
+            padding: 0px;
+            margin: 0px;
+            li {
+                list-style: none;
+                width: 100%;
+                background-image: url("/assets/imgs/asset_green_arrow.png");
+                color: #4f4f4f;
+                font-size: 20px;
+                background-size: 25px !important;
+                background-repeat: no-repeat;
+                background-position: right;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                .circle {
+                    width: 55px;
+                    height: 55px;
+                    background-image: url("/assets/imgs/asset_profile_avatar.png");
+                    float: left;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;
+                    background-position: center;
+                    background-size: cover;
+                    img {
+                        width: 100%;
+                        object-position: center;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        height: 100%;
+                    }
+                }
+                .circle_details {
+                    float: left;
+                    width: calc(100% - 55px);
+                    padding: 5px;
+                    padding-left: 15px;
+                    padding-right: 30px;
+                    h5 {
+                        margin: 0px;
+                        padding: 0px;
+                        font-size: 18px;
+                        padding-bottom: 5px;
+                    }
+                    p {
+                        margin: 0px;
+                        padding: 0px;
+                        font-size: 17px;
+                    }
+                }
+            }
+        }
+    }

@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar [color]="'medium'">
+        <ion-buttons slot="start">
+            <ion-icon 
+            (click)="dismiss()"
+            size="large"
+            style="color:white" name="arrow-back-outline"></ion-icon>        
+             </ion-buttons>
+        <ion-title style="color:white">{{Title}}</ion-title>
+        <ion-title 
+        (click)="ClearALL()"
+        slot="end" style="color:white">Clear All</ion-title>
+
+      </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-searchbar 
+    (ionInput)="SearchEvent($event)"
+    [placeholder]="Title"></ion-searchbar>
+   
+    <ion-list>
+
+      
+      <div *ngFor="let item of List">
+          <ion-item *ngIf="item.Show"
+          >
+              <ion-checkbox
+              [(ngModel)]="item.Ischecked"
+              slot="start"></ion-checkbox>
+            <ion-label>
+              <h2>{{item.title}}</h2>
+            </ion-label>
+          </ion-item>
+      </div>
+
+   
+
+
+      </ion-list>
+
+</ion-content>
+
+<ion-footer  style="border-top-style: solid; border-width: 1px;">
+        <ion-toolbar>
+         
+
+                <ion-grid>
+                        <ion-row>
+                          <ion-col 
+                          size=6>
+
+
+                          </ion-col>
+                          <ion-col  
+        
+                           
+                          size=6>
+                          <ion-button color="medium"
+                          (click)="Apply()"
+                          style="float: right;color:white" 
+                          shape="round"><span style="color:white">Apply</span></ion-button>
+
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+
+        </ion-toolbar>
+</ion-footer>

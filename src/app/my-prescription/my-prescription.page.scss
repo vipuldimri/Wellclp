@@ -1,0 +1,174 @@
+
+    .wishlist_wrapper {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        .wish_head {
+            h5 {
+                font-weight: 400;
+            }
+            .icon {
+                margin-top: 1.6rem;
+                margin-bottom: 1rem;
+            }
+        }
+        ul {
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            h4 {
+                margin: 0px;
+                padding: 0px;
+                color: #646464;
+                font-size: 17px;
+                font-weight: 400;
+            }
+            h6 {
+                margin: 0px;
+                padding: 0px;
+                color: #a8a8a8;
+                font-size: 14px;
+                font-weight: 400;
+                padding-top: 3px;
+                padding-bottom: 10px;
+            }
+            p {
+                margin: 0px;
+                padding: 0px;
+                color: #575757;
+                span {
+                    text-decoration: line-through;
+                    color: #949494;
+                }
+            }
+            li {
+                list-style: none;
+                padding-bottom: 15px;
+                padding-top: 15px;
+                border-bottom: 1px solid #d6d7d7;
+                .med_container {
+                    width: 80px;
+                    float: left;
+                    text-align: center;
+                    img {
+                        height: 60px;
+                    }
+                }
+                .med_container_details {
+                    width: calc(100% - 180px);
+                    float: left;
+                    padding-left: 10px;
+                    h4 {
+                        margin: 0px;
+                        padding: 0px;
+                        font-size: 18px;
+                        color: #4f4f4f;
+                        padding-bottom: 1px;
+                    }
+                    p {
+                        margin: 0px;
+                        padding: 0px;
+                        color: #4f4f4f;
+                        padding-bottom: 5px;
+                        font-size: 14px;
+                    }
+                    h5 {
+                        margin: 0px;
+                        font-size: 14px;
+                        padding-bottom: 4px;
+                        padding-top: 4px;
+                    }
+                    .order_price {
+                        color: #212121;
+                        font-weight: 600;
+                        border-right: 1px solid #afb0b1;
+                        padding-right: 10px;
+                        font-size: 16px;
+                    }
+                    .order_quantity {
+                        color: #da1c5c;
+                        font-weight: 400;
+                        border-right: 1px solid #afb0b1;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                    }
+                    .order_status {
+                        color: #868686;
+                        font-weight: 400;
+                        padding-left: 10px;
+                    }
+                    .order_delivered {
+                        background-image: url("/assets/imgs/asset_delivered.png");
+                        background-size: 12px;
+                        background-repeat: no-repeat;
+                        background-position: right;
+                        padding-right: 20px;
+                    }
+                    .order_notdelivered {
+                        background-image: url("/assets/imgs/asset_not_delivered.png");
+                        background-size: 12px;
+                        background-repeat: no-repeat;
+                        background-position: right;
+                        padding-right: 20px;
+                    }
+                    .circle {
+                        width: 20px;
+                        height: 20px;
+                        border: 1px solid #707070;
+                        text-align: center;
+                        color: #707070;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        display: inline-block;
+                        position: relative;
+                        bottom: 2px;
+                        font-size: 12px;
+                        padding: 2px;
+                    }
+                    .circle_cntrl {
+                        width: 20px;
+                        height: 20px;
+                        color: #707070;
+                        border: 1px solid transparent;
+                        text-align: center;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        display: inline-block;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                        position: relative;
+                        bottom: 2px;
+                    }
+                }
+                .med_container_remove {
+                    float: left;
+                    width: 100px;
+                    .icon {
+                        color: #d1d1d1;
+                    }
+                    .fav {
+                        color: #e1497d !important;
+                    }
+                    .add_btn {
+                        border: 2px solid #e6ae04;
+                        color: #424143;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        border-radius: 20px;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -ms-border-radius: 20px;
+                        -o-border-radius: 20px;
+                        font-weight: 500;
+                        margin-top: 15px;
+                    }
+                }
+            }
+        }
+    }

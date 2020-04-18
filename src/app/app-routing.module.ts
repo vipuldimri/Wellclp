@@ -1,39 +1,25 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { AuthGuardService } from './guards/skipslides-guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'intro-slides',
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'intro-slides',
+    loadChildren: () => import('./intro-slides/intro-slides.module')
+    .then( m => m.IntroSlidesPageModule),
+    canActivate: [AuthGuardService]
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'upload-prescription',
-    loadChildren: () => import('./upload-prescription/upload-prescription.module').then( m => m.UploadPrescriptionPageModule)
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'my-orders',
-    loadChildren: () => import('./my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
-  },
-  {
-    path: 'my-address',
-    loadChildren: () => import('./my-address/my-address.module').then( m => m.MyAddressPageModule)
-  },
-  {
-    path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then( m => m.NotificationsPageModule)
+    path: 'main',
+    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule)
   }
 ];
 

@@ -24,7 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 .btn_normal {
     height: 45px;
@@ -41,3 +46,456 @@
   .widthFull {
     width: 100% !important;
   }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  
+/*
+  Site Name: Pharmacy24
+  URI: http:
+  Description: This is the theme scss for Pharmacy24
+  Version: 0.1
+  Author: Amal-Techware Solution
+  Author URI:
+  Tags:
+
+	---------------------------
+	THEME STYLES
+	---------------------------
+
+	TABLE OF CONTENTS
+	---------------------------
+	 01. FONTS-N-SIZES
+	 02. FONTS-COLOR
+	 03. THEMES-N-BACKGROUNDS
+	 04. SPACING-N-POSITIONS
+	 05. ALIGMENTS
+	 06. ALERTS-N-MESSAGES
+	 07. BODY-STRUCTURE
+	 08. OVERWRITTEN
+
+*/
+/*-------------------------------
+
+01. FONTS-N-SIZES
+
+--------------------------------*/
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+/*-------------------------------
+
+02. FONTS-SETTINGS
+
+--------------------------------*/
+.text_color_white {
+  color: #fff !important;
+}
+
+.text_color_theme {
+  color: #31a3a0 !important;
+}
+
+.font_size_xs {
+  font-size: 12px !important;
+}
+
+.font_size_sm {
+  font-size: 14px !important;
+}
+
+.font_size_md {
+  font-size: 16px !important;
+}
+
+.font_size_lg {
+  font-size: 18px !important;
+}
+
+.font_size_xl {
+  font-size: 20px !important;
+}
+
+.font_size_vl {
+  font-size: 35px !important;
+}
+
+.font_weight300 {
+  font-weight: 300 !important;
+}
+
+.font_weight400 {
+  font-weight: 400 !important;
+}
+
+.font_weight500 {
+  font-weight: 500 !important;
+}
+
+.font_weight600 {
+  font-weight: 600 !important;
+}
+
+/*-------------------------------
+
+03. THEMES-N-BACKGROUNDS
+
+--------------------------------*/
+.theme_transparent {
+  background: transparent !important;
+}
+
+.theme_white {
+  background-color: #f7f8fd !important;
+}
+
+.theme_off_white {
+  background-color: #f4f4f4 !important;
+}
+
+.theme_dark_transparent {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.theme_white_transparent {
+  background-color: rgba(243, 243, 243, 0.6) !important;
+}
+
+.theme_bg {
+  background-color: #31a3a0 !important;
+}
+
+/*-------------------------------
+
+04. SPACING-N-POSITIONS
+
+--------------------------------*/
+.width25 {
+  width: 25% !important;
+}
+
+.width50 {
+  width: 50% !important;
+}
+
+.width75 {
+  width: 75% !important;
+}
+
+.widthFull {
+  width: 100% !important;
+}
+
+.widthAuto {
+  width: auto !important;
+}
+
+.height25 {
+  height: 25% !important;
+}
+
+.height50 {
+  height: 50% !important;
+}
+
+.height75 {
+  width: 75% !important;
+}
+
+.heightFull {
+  height: 100% !important;
+}
+
+.heightAuto {
+  height: auto !important;
+}
+
+.p0 {
+  padding: 0px !important;
+}
+
+.pl0 {
+  padding-left: 0px !important;
+}
+
+.pr0 {
+  padding-right: 0px !important;
+}
+
+.pt0 {
+  padding-top: 0px !important;
+}
+
+.pb0 {
+  padding-bottom: 0px !important;
+}
+
+.p10 {
+  padding: 10px !important;
+}
+
+.m0 {
+  margin: 0px !important;
+}
+
+.ml0 {
+  margin-left: 0px !important;
+}
+
+.mr0 {
+  margin-right: 0px !important;
+}
+
+.mt0 {
+  margin-top: 0px !important;
+}
+
+.mb0 {
+  margin-bottom: 0px !important;
+}
+
+.mAuto {
+  margin: 0 auto !important;
+}
+
+.clear {
+  clear: both !important;
+}
+
+.absolute {
+  position: absolute !important;
+}
+
+.relative {
+  position: relative !important;
+}
+
+.fixed {
+  position: fixed !important;
+}
+
+/*-------------------------------
+
+05. ALIGMENTS
+
+--------------------------------*/
+.floatLeft {
+  float: left !important;
+}
+
+.floatRight {
+  float: right !important;
+}
+
+.textLeft {
+  text-align: left !important;
+}
+
+.textRight {
+  text-align: right !important;
+}
+
+.textCenter {
+  text-align: center !important;
+}
+
+/*-------------------------------
+
+06. ALERTS-N-MESSAGES
+
+--------------------------------*/
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  position: fixed;
+  border-bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.warning {
+  color: #fff;
+  background-color: #8a6d3b;
+}
+
+.success {
+  color: #fff;
+  background-color: #3c763d;
+}
+
+.error {
+  color: #fff;
+  background-color: #a94442;
+}
+
+/*-------------------------------
+
+07. BODY-STRUCTURE
+
+--------------------------------*/
+.nav_header {
+  width: 100%;
+  z-index: 999;
+  background: #31a3a0;
+}
+
+.nav_btn {
+  width: 50px !important;
+  height: 50px !important;
+  background: transparent;
+  margin: 0px;
+  font-size: 25px;
+  color: #fff;
+  padding: 0px !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 25px !important;
+}
+
+.nav_header_title {
+  height: 100%;
+  font-size: 21px;
+  color: #fff;
+  padding: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+  width: calc(100% - 150px);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: left;
+}
+
+.nav_header_title img {
+  width: 170px;
+}
+
+.clear {
+  clear: both !important;
+}
+
+.border {
+  border: 1px solid;
+}
+
+.borderNone {
+  border: none !important;
+}
+
+.nav_header_title h5 {
+  color: #000;
+  margin: 0px;
+  padding: 7px;
+  text-align: left;
+  font-weight: 500;
+  padding-left: 0px;
+  font-size: 20px;
+}
+
+/*-------------------------------
+
+08. OVERWRITTEN
+
+--------------------------------*/
+.header-md::after,
+.tabs-md[tabsPlacement="top"] > .tabbar::after,
+.footer-md::before,
+.tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+  background: none !important;
+}
+
+.activated {
+  background: transparent !important;
+}
+
+button {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.item-input-has-focus .item-inner {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+
+.item-input-has-focus:last-child .item-inner {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+
+.item {
+  background: transparent !important;
+  padding: 0px !important;
+  border: none !important;
+}
+
+.item .item-inner {
+  padding: 0px !important;
+}
+
+.item .item-inner .input {
+  height: 100%;
+}
+
+.item .item-inner .input .text-input {
+  padding: 0px !important;
+  margin: 0px !important;
+  width: 100%;
+}
+
+.button-md:hover:not(.disable-hover) {
+  background: transparent !important;
+}
+
+.nav_menu {
+  background: url("/assets/imgs/asset_menu.png");
+}
+
+.nav_cart {
+  background: url("/assets/imgs/asset_cart.png");
+}
+.nav_whatapp {
+  background: url("/assets/imgs/whatsapp.png");
+}
+
+.nav_notification {
+  background: url("/assets/imgs/asset_notification.png");
+}
+
+.btn_normal {
+  height: 45px;
+  text-transform: capitalize !important;
+  font-size: 18px;
+  font-weight: 300;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+

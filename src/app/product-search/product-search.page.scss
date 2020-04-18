@@ -1,0 +1,19 @@
+.vault_wrapper {
+    width: 100%;
+    ul {
+        padding: 0px;
+        margin: 0px;
+        li {
+            list-style: none;
+            width: 100%;
+            background-image: url("/assets/imgs/asset_green_arrow.png");
+            color: #4f4f4f;
+            font-size: 15px;
+            background-size: 25px !important;
+            background-repeat: no-repeat;
+            background-position: right;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+}

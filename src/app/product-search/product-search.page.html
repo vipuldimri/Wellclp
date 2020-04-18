@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar [color]="'medium'">
+        <ion-buttons slot="start">
+          <ion-back-button style="color:white"></ion-back-button> 
+           </ion-buttons>
+           <ion-searchbar 
+           #mainSearchbar
+           name="Search"
+           [(ngModel)]="SearchTxt"
+           (ionInput)="SearchEvent($event)"
+           placeholder="Search medicine"></ion-searchbar>
+      </ion-toolbar>
+      <div  class="vault_wrapper">
+          <ul *ngIf="SearchTxt.length >= 1"  style="background-color: #dddddd">
+              <li 
+              (click)="SearchList()" 
+              ><span style="margin-left: 10px">Showing result for <strong>{{SearchTxt}} </strong> </span>
+              <span style="float: right;margin-right: 40px">{{SearchCount}} items</span>
+              </li>
+          </ul>
+      </div>
+</ion-header>
+
+
+<ion-content fullscreen>
+ 
+    <ion-list>
+      <ion-item 
+      (click)="goProducts(item)" 
+      *ngFor="let item of ProductList">
+        {{item.name}}
+      </ion-item>
+
+    </ion-list>
+  </ion-content>

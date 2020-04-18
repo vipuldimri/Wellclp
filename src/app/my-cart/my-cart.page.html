@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-toolbar [color]="'medium'">
+      <ion-buttons slot="start">
+        <ion-back-button style="color:white"></ion-back-button> 
+         </ion-buttons>
+      <ion-title style="color:white">Cart</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+        <ion-refresher slot="fixed" (ionRefresh)="RefreshCart()">
+                <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="Pull to refresh"
+                refreshingSpinner="circles"
+                 refreshingText="Refreshing Cart..."
+                >
+
+                    
+                </ion-refresher-content>
+         </ion-refresher>
+
+
+
+         <div *ngIf="CartProducts.length == 0">
+
+                <img 
+                class="center"
+                style="height: 20%;margin-top: 100px"
+                src="/assets/icon/emptycart.png" alt="">
+       
+       
+       
+                <div  class="center">
+                       <p
+               
+                       style="font-size: 20px;font-weight: bolder;
+                       ">Your Empty Is Cart
+                       </p>
+       
+                 
+                </div>
+                <ion-button    size="large"
+                color="medium" shape="round"
+                style="margin: 20px;color: white;" 
+                expand="block"> <span style="color: white">Continue Shopping</span>  </ion-button>
+           
+       
+         </div>
+
+
+  <div class="order_wrapper" *ngIf="CartProducts.length != 0">
+    <ul>
+        <!-- <li>
+            <div class="med_container">
+                <img src="/assets/imgs/asset_med1.png">
+            </div>
+            <div class="med_container_details">
+                <h4>Puthin hara pearls</h4>
+                <p>Lorem ipsum dummy</p>
+                <h5><strong class="order_price">$ 10.00</strong><span><div class="circle_cntrl">-</div></span><span><div class="circle">2</div></span>
+                    <div class="circle_cntrl">+</div>
+                </h5>
+                <h5 class="order_quantity p0 borderNone">Discount&nbsp;: &nbsp;<strong>&nbsp;$02.00</strong></h5>
+            </div>
+            <div class="med_container_remove textRight">
+                <button class="med_btn">Remove</button>
+            </div>
+            <div class="clear"></div>
+        </li> -->
+        <li *ngFor="let item of CartProducts; let i = index">
+            <div class="med_container">
+                <img [src]="item.image">
+            </div>
+            <div class="med_container_details">
+                <h4>{{item.product_name}}</h4>
+                <!-- <p>Lorem ipsum dummy</p> -->
+                <h5><strong class="order_price">$ {{item.unit_price}}</strong><span><div class="circle_cntrl">-</div></span><span><div class="circle">{{item.quantity}}</div></span>
+                    <div class="circle_cntrl">+</div>
+                </h5>
+                <h5 class="order_quantity p0 borderNone">{{item.attribute_name}}&nbsp;:&nbsp;<strong>&nbsp;{{item.attribute_name_value}}</strong></h5>
+            </div>
+            <div class="med_container_remove textRight">
+                <button 
+                (click)="RemoveItem(item.temp_id)"
+                class="med_btn">Remove</button>
+            </div>
+            <div class="clear"></div>
+        </li>
+    </ul>
+
+    <div class="payment order_wrapper" *ngIf="CartProducts.length != 0">
+        <h2>Order Summary</h2>
+        <ion-row>
+            <ion-col class="p0">Sub Total</ion-col>
+            <ion-col class="textRight p0">$ 100.00</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="p0">Tax</ion-col>
+            <ion-col class="textRight p0">$ 500.00</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="p0">Discount</ion-col>
+            <ion-col class="textRight p0">$ 50.00</ion-col>
+        </ion-row>
+    
+        <ion-row>
+            <ion-col color="medium" class="p0"><strong>Apply Offer</strong>
+              <ion-icon style="margin-left: 10px" name="pricetags-outline"></ion-icon>
+            </ion-col>
+
+         
+        </ion-row>
+
+        <ion-grid>
+
+        <ion-row>
+         
+            <ion-col  size="8" >
+    
+            <div class="form-group">
+              <input type="text" class="form-control" id="coupon_code"
+               placeholder="Apply Promocode" name="coupon_code">
+              <b><span id="message" style="color:green;"></span></b>
+            </div>
+
+            </ion-col>
+
+            <ion-col >
+    
+                <button id="apply" class="btn btn-default">Apply</button>
+
+            </ion-col>
+         
+        </ion-row>
+      </ion-grid>
+     
+        <ion-row style="margin-bottom: 8px">
+            <ion-col class="p0"><strong>Final Payable</strong></ion-col>
+            <ion-col class="textRight p0"><strong>$ {{TotalPrice}}</strong></ion-col>
+        </ion-row>
+    
+    
+    </div>
+    
+    <!-- <button ion-button class="btn_normal widthFull" (click)="confirm()">CHECKOUT</button> -->
+</div>
+</ion-content>
+
+
+
+<ion-footer *ngIf="CartProducts.length != 0" padding style="background-color: #efefef">
+
+     <ion-button    size="large"
+     color="medium" shape="round"
+     style="margin: 20px;color: white;" 
+     expand="block"> <span style="color: white">Check out : {{TotalPrice}}</span>  </ion-button>
+
+</ion-footer>

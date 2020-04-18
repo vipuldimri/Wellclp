@@ -1,15 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="medium">
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-    <ion-title>profile</ion-title>
+    <ion-title style="color:white">profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div class="profile_banner">
         <div class="profile_circle">
+            <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEWY4I6Wgj5_w/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=Jz7Zs91C46HrrpTYYVhRM9XMDem7uDJXlYjG0msHQUM" alt="">
             <div class="profile_edit">
                 <ion-icon name="create"></ion-icon>
             </div>
@@ -23,9 +24,9 @@
                 <img src="/assets/imgs/asset_n1.png">
                 <p>My order</p>
             </li>
-            <li (click)="rewards()">
+            <li [routerLink]="['/main/location/address']" routerLinkActive="router-link-active" >
                 <img src="/assets/imgs/asset_n2.png">
-                <p>My reward</p>
+                <p>Address</p>
             </li>
             <li (click)="consultation()">
                 <img src="/assets/imgs/asset_n3.png">
@@ -43,15 +44,15 @@
                 <img src="/assets/imgs/asset_n6.png">
                 <p>Notification</p>
             </li>
-            <li (click)="prescription()">
+            <li routerLink="/my-prescription">
                 <img src="/assets/imgs/asset_n7.png">
                 <p>Prescription</p>
             </li>
-            <li (click)="changepass()">
+            <li [routerLink]="['changepassword']"  >
                 <img src="/assets/imgs/asset_n4.png">
                 <p>Change Password</p>
             </li>
-            <li>
+            <li (click)="Signout()">
                 <img src="/assets/imgs/asset_n4.png">
                 <p>Signout</p>
             </li>

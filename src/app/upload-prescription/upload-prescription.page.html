@@ -5,16 +5,56 @@
     <ion-buttons slot="start">
       <ion-back-button style="color:white"></ion-back-button> 
        </ion-buttons>
-    <ion-title style="color:white">upload-prescription</ion-title>
+
+       <ion-icon 
+       style="color:white;margin-right:15px" slot="end" name="help-outline"></ion-icon>
+
+    <ion-title style="color:white">Upload Prescription</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="prescription_wrapper">
-    <h3>Upload Prescriptions</h3>
-    <div class="prescription_div" style="margin-bottom: 15px">
-        <div class="prescription_inner floatLeft"><img src="/assets/imgs/asset_camera.png">Camera</div>
-        <div class="prescription_inner floatRight borderNone"><img src="/assets/imgs/asset_gallery.png">Gallery</div>
+    <h4>Upload photo of your prescription</h4>
+    <h4    *ngIf="Images.length == 0"> <ion-icon
+       src="/assets/icon/prescription.svg"></ion-icon></h4>
+
+       <div class="thumbnail" *ngIf="Images.length != 0">
+          <img 
+          
+          *ngFor="let IMG of Images"
+      class="center"
+      (click)="Picclick(IMG)"
+      style="width: 150px;height: 210px;margin: auto auto;border: 5"
+      [src]="IMG"
+      
+      />
+           <ion-icon 
+           size="large"
+           (click)="removepic()" class="cross" name="close-outline"></ion-icon>
+      </div>
+
+      <!-- The Modal -->
+<div id="myModal" class="modal" *ngIf="ShowIMG">
+
+    <!-- The Close Button -->
+    <span
+    (click)="ShowIMG = false"
+    class="close">&times;</span>
+  
+    <!-- Modal Content (The Image) -->
+    <img  [src]="Images[0]" class="modal-content" id="img01">
+  
+  </div>
+   
+    
+    <div
+    *ngIf="Images.length == 0"
+    class="prescription_div" style="margin-bottom: 15px">
+        <div (click)="CameraClick()" class="prescription_inner floatLeft">
+          <img src="/assets/imgs/asset_camera.png">Camera</div>
+        <div (click)="Galary()" class="prescription_inner floatRight borderNone">
+          <img src="/assets/imgs/asset_gallery.png">Gallery</div>
         <div class="clear"></div>
     </div>
     <br>
@@ -27,13 +67,11 @@
         <ion-radio value="no"></ion-radio>
         <ion-label>No</ion-label>
     </div> -->
-    <br>
-    <br>
     <!-- <textarea 
     
     rows="5">Additional Comments</textarea> -->
 
-    <ion-item>
+     <ion-item>
         <ion-label position="stacked">Patient Name</ion-label>
         <ion-input></ion-input>
       </ion-item>
@@ -41,10 +79,23 @@
           <ion-label position="stacked">Doctor Name</ion-label>
           <ion-input></ion-input>
         </ion-item>
+<!--               
+            <br>
+            <ion-slides class="image-slider" loop="true" style="height: 400px;"  >
+                <ion-slide *ngFor="let IMG of Images" >
+                  <img [src]="IMG" class="thumb-img" />
+                </ion-slide>
               
-            
+              </ion-slides> -->
     <br>
     <br>
-    <button ion-button class="btn_normal widthFull">Continue</button>
+    <!-- <button ion-button class="btn_normal widthFull">Continue</button> -->
+
+    <ion-button 
+    (click)="Upload_prescription()"
+    style="bottom: 20px"
+    expand="block">Continue</ion-button>
+
+
 </div>
 </ion-content>

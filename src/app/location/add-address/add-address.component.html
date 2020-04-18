@@ -1,0 +1,64 @@
+<ion-header>
+    <div class="nav_header">
+        <button 
+        (click)="Dismiss()"
+        ion-button class="nav_btn floatLeft" >
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </button>
+        <div class="nav_header_title floatLeft">
+            Address details
+        </div>
+        <button ion-button class="nav_btn floatLeft">
+            <ion-icon name="save-outline"></ion-icon>
+                  </button>
+        <div class="clear"></div>
+    </div>
+</ion-header>
+
+
+<ion-content padding>
+    <div class="personal_detail_wrapper">
+
+        <div class="personal_details_form">
+
+            <ion-item>
+                <ion-label>Address Type</ion-label>
+                <ion-select placeholder="Select One">
+                  <ion-select-option value="1">Home</ion-select-option>
+                  <ion-select-option value="2">Office</ion-select-option>
+                  <ion-select-option value="0">Other</ion-select-option>
+
+                </ion-select>
+              </ion-item>
+
+            <ion-item>
+                <ion-input placeholder="Name" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input placeholder="Mobile Number" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <textarea class="personal_textarea" rows="3">Address</textarea>
+            </ion-item>
+            <ion-item>
+                <ion-input placeholder="State" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input placeholder="City" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input placeholder="Pincode" type="number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input placeholder="Landmark" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-input placeholder="Place" type="text"></ion-input>
+            </ion-item>
+          
+           
+        </div>
+    </div>
+</ion-content>

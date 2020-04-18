@@ -1,0 +1,87 @@
+<ion-header>
+    <ion-toolbar [color]="'medium'">
+        <ion-buttons slot="start">
+          <ion-back-button style="color:white"></ion-back-button> 
+           </ion-buttons>
+        <ion-title style="color:white">Address</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content >
+    <div class="familytree_wrapper">
+        <ul style="margin: 15px">
+        
+                <div class="card" *ngFor="let item of Address">
+                      
+
+                    <div class="row">
+
+                        <div class="col-2">
+
+                        <ion-icon
+                        *ngIf="item.address_type == 1"
+                        style="margin-left: 50%;margin-top: 50%"
+                        size = "large"
+                        src="assets/icon/home.svg"></ion-icon>
+
+
+                        <ion-icon 
+                        *ngIf="item.address_type == 2"
+                        style="margin-left: 50%;margin-top: 50%"
+                        size = "large"
+                        src="assets/icon/office.svg"></ion-icon>
+
+
+                        </div>
+
+                        <div class="col-10">
+                                <div class="card-body">
+                                        <h5 
+                                        *ngIf="item.address_type == 1"
+                                        class="card-title">Home</h5>
+                                        <h5 
+                                        *ngIf="item.address_type == 2"
+                                        class="card-title">Office</h5>
+                                        <p class="card-text">
+
+                                        {{item.address}}  <br>
+                                        {{item.landmark}}  <br>
+                                        {{item.name}}  <br>
+                                        {{item.phone}}  <br>
+
+                                        </p>
+                                      </div>
+                                      <div class="card-body">
+                                        <a href="#" class="card-link">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            Remove</a>
+                                        <a 
+                                        style="float: right"
+                                        href="#" class="card-link">
+                                        <ion-icon  name="create-outline"></ion-icon>
+                                        Edit</a>
+                                      </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+              
+
+        </ul>
+    </div>
+
+      <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button 
+      (click)="NewAddress()"
+      color="medium">
+        <ion-icon style="color:white" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+</ion-content>

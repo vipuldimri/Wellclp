@@ -1,0 +1,90 @@
+<ion-content>
+    <div class="login_wrapper">
+        <div class="login_form">
+            <h3>Sign Up</h3>
+            <hr>
+
+            <form
+            (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm"
+            name="myForm">
+                <ion-item>
+                    <ion-input type="text" 
+                    required
+                    [(ngModel)]="Name"
+                    name="name"
+                    minlength="3"
+                    placeholder="Name"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input type="mail"
+                    [(ngModel)]="Email"
+                    required
+                    email
+                    name="Email"
+                     placeholder="Email ID"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input type="text" 
+                    [(ngModel)]="Mobile"
+                    required
+                    minlength="10"
+                    maxlength="10"
+                    name="PhoneNumber"
+                    placeholder="Phone number"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input 
+                    [(ngModel)]="Password"
+                    required
+                    minlength="6"
+                    name="Password"
+                    type="password" placeholder="Password"></ion-input>
+                </ion-item>
+                <div radio-group class="checkbox_group_container">
+                    <div class="checkbox_group">
+                        <ion-checkbox 
+                        required
+                        [(ngModel)]="TermsChecked"
+                        name="Terms"
+                        class="">
+                        </ion-checkbox>
+                    </div>
+                    <div class="checkbox_group">
+                        <ion-label 
+                        style="margin-left: 10px"
+                        class="">I accept to the terms and conditions</ion-label>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+        
+
+                <ion-button  class="ion-activatable ripple-parent" 
+                type="Submit"
+                [disabled]="f.form.pristine || f.form.invalid || !TermsChecked"
+                size="large"
+                color="medium" shape="round"
+                style="margin: 20px;color: white;" 
+                expand="block"> <span style="color: white"> 
+                  
+                   Signup now</span>
+                
+                   <ion-ripple-effect></ion-ripple-effect>
+                </ion-button>
+
+
+
+                <p>Already have an account? <strong 
+                  [routerLink]="['/login']"
+                  >Login</strong></p>
+
+
+
+
+                </form>
+           
+
+         
+        </div>
+    </div>
+</ion-content>

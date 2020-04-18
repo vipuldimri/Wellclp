@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "422524281155",
+    "firebase_url": "https://wellclap-ca081.firebaseio.com",
+    "project_id": "wellclap-ca081",
+    "storage_bucket": "wellclap-ca081.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422524281155:android:53c7fdfe72aa8081b9cff6",
+        "android_client_info": {
+          "package_name": "io.ionic.wellclap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422524281155-7dnecfsmgq87v8dtdr2ds9ip9f4lct7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxcfUSnm2Gv4aKyxQ0UC0o3dmJPWsrJC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422524281155-7dnecfsmgq87v8dtdr2ds9ip9f4lct7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

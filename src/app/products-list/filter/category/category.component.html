@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar [color]="'medium'">
+        <ion-buttons slot="start">
+            <ion-icon 
+            (click)="dismiss()"
+            size="large"
+            style="color:white" name="arrow-back-outline"></ion-icon>        
+             </ion-buttons>
+        <ion-title style="color:white">Categories</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let p of data" text-wrap>
+          {{p.category}}
+          <ion-list>
+            <ion-item *ngFor="let s of p.subs" text-wrap>
+              {{s.subcategory}}
+            </ion-item>
+          </ion-list>
+        </ion-item>
+      </ion-list>
+
+</ion-content>
+
+<ion-footer  style="border-top-style: solid; border-width: 1px;">
+        <ion-toolbar>
+         
+
+                <ion-grid>
+                        <ion-row>
+                          <ion-col 
+                          (click)="sortActionSheet()"
+                          size=6>
+
+
+                          </ion-col>
+                          <ion-col  
+                          (click)="presentModal()"
+                           
+                          size=6>
+                          <ion-button color="medium"
+                          style="float: right;color:white" 
+                          shape="round"><span style="color:white">Apply</span></ion-button>
+
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+
+        </ion-toolbar>
+</ion-footer>

@@ -3,6 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
+import { AuthService } from './services/auth/auth.service';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { User } from './services/auth/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,65 +16,96 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'mail'
-    },
-    {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'Profile',
-      url: '/profile',
-      icon: 'paper-plane'
-    },
-    {
-      title: 'Notifications',
-      url: '/notifications',
-      icon: 'heart'
-    },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private fcm: FCM,
+    private nativeStorage: NativeStorage,
+    private router: Router,
+    private AuthS: AuthService,
+    private deeplinks: Deeplinks,
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
+      this.statusBar.backgroundColorByHexString('#31a3a0');
+      // this.SetUpDeepLinks();
+
+      try {
+        this.fcm.subscribeToTopic('marketing');
+      } catch (error) {
+        alert('error 1' );
+      }
+      try {
+        this.fcm.getToken().then(token => {
+          // this.AuthS.SaveToken(10 , token)
+          // .subscribe();
+          // console.log(token);
+        });
+      } catch (error) {
+        alert('error 2');
+      }
+      this.fcm.onNotification().subscribe(data => {
+      if (data.wasTapped) {
+        console.log('Received in background');
+        alert('Mess b ');
+      } else {
+        console.log('Received in foreground');
+        alert('Mess f');
+      }
+    });
+      console.log('Getting');
+
+      // this.nativeStorage.getItem('user')
+      // .then(
+      //   data => {
+      //     const user =  new User();
+      //     user.UserId =  data.UserId;
+      //     user.Email =  data.Email;
+      //     user.Contact =  data.Contact;
+      //     user.Name =  data.Name;
+      //     console.log('found');
+      //     console.log(data);
+      //     console.log(user);
+      //     this.AuthS.SaveLoginUser(user);
+      //     this.router.navigate(['main']);
+      //   },
+      //   error => {
+      //     console.log('ERROR CAUTH : Notfound');
+      //     console.error(error);
+      //   }
+      // );
+
+
+    });
+
+
+  }
+
+
+
+  SetUpDeepLinks() {
+    this.deeplinks.route({
+
+    }).subscribe(match => {
+      // match.$route - the route we matched, which is the matched entry from the arguments to route()
+      // match.$args - the args passed in the link
+      // match.$link - the full link data
+       console.log('Successfully matched route', match);
+       // alert(match);
+    }, nomatch => {
+      // nomatch.$link - the full link data
+      console.error('Got a deeplink that didn\'t match', nomatch);
+      // alert(' not match');
     });
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
   }
 }
