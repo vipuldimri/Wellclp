@@ -48,9 +48,9 @@
                 slidesPerView="3.5" spaceBetween="5px">
                     <ion-slide      
                     *ngFor="let item of Images" 
+                    (click)="ViewPrescription(item)"
                      >
                         <img 
-                        (click)="ViewPrescription(item.image)"
                         [src]="item">
                     </ion-slide>
                 

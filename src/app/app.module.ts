@@ -24,6 +24,8 @@ import { AuthGuardService } from './guards/skipslides-guard';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Sim } from '@ionic-native/sim/ngx';
+
 const firebaseConfig = {
    apiKey: 'AIzaSyCvSr9rntVsKJ0qIbylZpJbb00AuL3WEoA',
    authDomain: 'wellclap-ca081.firebaseapp.com',
@@ -49,6 +51,7 @@ const firebaseConfig = {
    ],
    providers: [
       GooglePlus,
+      Sim,
       StatusBar,
       SplashScreen,
       FCM,

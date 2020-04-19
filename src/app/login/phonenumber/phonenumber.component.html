@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="login_wrapper">
+      <div class="login_form">
+               
+  <ion-icon class="float-right"
+  style="margin: 22px" 
+  (click)="Dismiss()"
+  size="large"
+  name="close-outline"></ion-icon>
+   
+          <h3>Phone number</h3>
+          <hr>
+          <br>
+
+          <form
+          (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm"
+          name="myForm">
+              <ion-item>
+                  <ion-input type="text" 
+                  required
+                  [(ngModel)]="PhoneNo"
+                  name="name"
+                  minlength="10"
+                  maxlength="10"
+                  placeholder="Phone number"></ion-input>
+              </ion-item>
+
+              <p>When you tap "Confirm". WellClap will send a text SMS with verification code.</p>
+           
+
+      
+
+              <ion-button  class="ion-activatable ripple-parent" 
+              type="button"
+              (click)="OTP()"
+              size="large"
+              color="medium" shape="round"
+              style="margin: 20px;color: white;" 
+              expand="block"> <span style="color: white"> 
+                
+                 Confirm</span>
+              
+                 <ion-ripple-effect></ion-ripple-effect>
+              </ion-button>
+
+
+
+              </form>
+         
+
+       
+      </div>
+  </div>
+</ion-content>

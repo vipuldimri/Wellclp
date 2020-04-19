@@ -3,20 +3,20 @@
       <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-    <ion-title style="color:white">profile</ion-title>
+    <ion-title style="color:white">Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div class="profile_banner">
         <div class="profile_circle">
-            <img src="https://media-exp1.licdn.com/dms/image/C4D03AQEWY4I6Wgj5_w/profile-displayphoto-shrink_200_200/0?e=1586390400&v=beta&t=Jz7Zs91C46HrrpTYYVhRM9XMDem7uDJXlYjG0msHQUM" alt="">
+            <img [src]="LogedInUser.Image" alt="">
             <div class="profile_edit">
                 <ion-icon name="create"></ion-icon>
             </div>
         </div>
-        <h6>Vipul Dimri</h6>
-        <p>vipul.dimri@avl.com</p>
+        <h6>{{LogedInUser.Name}}</h6>
+        <p>{{LogedInUser.Email}}</p>
     </div>
     <div class="profile_menu">
         <ul>
@@ -28,11 +28,11 @@
                 <img src="/assets/imgs/asset_n2.png">
                 <p>Address</p>
             </li>
-            <li (click)="consultation()">
-                <img src="/assets/imgs/asset_n3.png">
-                <p>Consultation</p>
+            <li [routerLink]="['/main/my-prescription']">
+                <img src="/assets/imgs/asset_n7.png">
+                <p>Prescription</p>
             </li>
-            <li (click)="wallet()">
+            <!-- <li (click)="wallet()">
                 <img src="/assets/imgs/asset_n4.png">
                 <p>P24 Wallet</p>
             </li>
@@ -43,8 +43,8 @@
             <li routerLink="/notifications">
                 <img src="/assets/imgs/asset_n6.png">
                 <p>Notification</p>
-            </li>
-            <li routerLink="/my-prescription">
+            </li> -->
+            <li [routerLink]="['/main/my-prescription']">
                 <img src="/assets/imgs/asset_n7.png">
                 <p>Prescription</p>
             </li>

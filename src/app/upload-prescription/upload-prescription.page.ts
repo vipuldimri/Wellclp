@@ -18,8 +18,8 @@ export class UploadPrescriptionPage implements OnInit {
   IMG2;
   ShowIMG = false;
   data;
-  doctname = '';
-  patientname = '';
+  DoctorName = '';
+  PatientName = '';
   // tslint:disable-next-line:max-line-length
   Images = [ ];
   LogedInUser: User;
@@ -39,29 +39,12 @@ export class UploadPrescriptionPage implements OnInit {
 
     const srcType = this.camera.PictureSourceType.CAMERA;
     const options = this.setOptions(srcType);
-    // const func = createNewFileEntry;
-
-    // const options: CameraOptions = {
-    //   quality: 100,
-    //   destinationType: this.camera.DestinationType.FILE_URI,
-    //   encodingType: this.camera.EncodingType.JPEG,
-    //   mediaType: this.camera.MediaType.PICTURE
-    // };
-
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      // this.IMG2 = 'data:image/jpeg;base64,' + imageData;
-
-      // this.IMG2 =  this.pathForImage(this.file.dataDirectory + imageData.substr(0, imageData.lastIndexOf('/') + 1));
-      // this.IMG = this.pathForImage(this.file.dataDirectory + imageData.substr(0, imageData.lastIndexOf('/') + 1));
-      // this.IMG3 = imageData.substr(0, imageData.lastIndexOf('/') + 1);
        this.IMG2 = 'data:image/jpeg;base64,' + imageData;
        this.data =  imageData;
        this.Images.push(this.pathForImage(imageData));
        this.I = true;
      }, (err) => {
-      // Handle error
      });
 
 
@@ -75,21 +58,15 @@ export class UploadPrescriptionPage implements OnInit {
     const srcType = this.camera.PictureSourceType.SAVEDPHOTOALBUM;
     const options = this.setOptions(srcType);
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      // let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.Images.push(this.pathForImage(imageData));
      }, (err) => {
-      // Handle error
      });
 }
 
    setOptions(srcType) {
     const options = {
-        // Some common settings are 20, 50, and 100
         quality: 50,
         destinationType: this.camera.DestinationType.FILE_URI,
-        // In this app, dynamically set the picture source, Camera or photo gallery
         sourceType: srcType,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
@@ -114,7 +91,6 @@ startUpload(path) {
           ( < FileEntry > entry).file(file => this.readFile(file));
       })
       .catch(err => {
-          // error
       });
 }
 
@@ -127,17 +103,31 @@ readFile(file: any) {
       });
       formData.append('image', imgBlob, file.name);
       formData.append('user_id', this.LogedInUser.UserId + '' );
-      formData.append('doctor_name', 'd');
-      formData.append('patient_name', 'p');
+      formData.append('doctor_name', this.DoctorName);
+      formData.append('patient_name', this.PatientName);
+
+      if (!this.DoctorName || this.DoctorName.length <= 3 ) {
+        alert('Provide doctor name');
+        return;
+      }
+
+      if (!this.PatientName || this.PatientName.length <= 3 ) {
+        alert('Provide patient name');
+        return;
+      }
 
       this.uploadImageData(formData);
   };
   reader.readAsArrayBuffer(file);
 }
 
-uploadImageData(formData: FormData) {
+  async uploadImageData(formData: FormData) {
+
+  await this.CommonS.loadingPresent('Please wait..');
+
   this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/upload_prescription.php', formData)
-  .subscribe((data: any) => {
+  .subscribe(async (data: any) => {
+          await this.CommonS.loadingDismiss();
           if (data.Status) {
             this.CommonS.presentToast('Prescription uploded successfully.');
 
@@ -145,7 +135,8 @@ uploadImageData(formData: FormData) {
             this.CommonS.presentToast(data.Mess);
           }
   },
-  (error) => {
+  async (error) => {
+    await this.CommonS.loadingDismiss();
     console.log(error);
     this.CommonS.presentToast('Opps , Something went wrong.');
   });

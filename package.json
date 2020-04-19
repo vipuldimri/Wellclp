@@ -33,6 +33,7 @@
     "@ionic-native/native-storage": "^5.23.0",
     "@ionic-native/photo-viewer": "^5.22.0",
     "@ionic-native/secure-storage": "^5.23.0",
+    "@ionic-native/sim": "^5.24.0",
     "@ionic-native/social-sharing": "^5.23.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
@@ -60,10 +61,10 @@
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^7.14.1",
     "ionic-plugin-deeplinks": "^1.0.20",
+    "mx.ferreyra.callnumber": "~0.0.2",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1",
-    "mx.ferreyra.callnumber": "~0.0.2"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
@@ -134,7 +135,8 @@
       "cordova-plugin-secure-storage": {},
       "cordova-plugin-googleplus": {
         "PLAY_SERVICES_VERSION": "15.0.1"
-      }
+      },
+      "cordova-plugin-sim": {}
     },
     "platforms": [
       "android"

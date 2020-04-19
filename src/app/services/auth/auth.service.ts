@@ -23,12 +23,21 @@ login(userphone, userpassword) {
 
   return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/login.php',
   formData );
+}
 
-  // return this.http.post('http://mob-api.wellclap.com/login.php',
-  // formData );
+Googlelogin(email) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
 
-  // return this.http.post('http://mob-api.wellclap.com/login.php',
-  // {phone : userphone , password : userpassword } , httpOptions );
+  };
+
+  const formData = new FormData();
+  formData.append('email', email);
+
+  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/googlelogin.php',
+  formData );
 }
 
 SaveToken(userid ,  Token) {
@@ -37,9 +46,13 @@ SaveToken(userid ,  Token) {
       'Content-Type':  'application/json'
     })
   };
-  // return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/savetoken.php',
-  //   { user_id: userid, token: Token } , httpOptions
-  // );
+
+  const formData = new FormData();
+  formData.append('user_id', userid);
+  formData.append('token', Token);
+  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/savetoken.php',
+  formData
+  );
 }
 SaveLoginUser(user: User) {
   this.LoginUser =  user;

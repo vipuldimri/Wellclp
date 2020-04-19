@@ -5,21 +5,19 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CommonProviderService {
-
+  loading;
   constructor(private loadingController: LoadingController,
               public toastController: ToastController,
               public http: HttpClient
               ) { }
 
   async loadingPresent(message: string = null, duration: number = null) {
-      const loading = await this.loadingController.create({ message, duration });
-      return await loading.present();
+      this.loading = await this.loadingController.create({ message, duration });
+      await this.loading.present();
   }
 
   async loadingDismiss() {
-      setTimeout(() => {
-          return this.loadingController.dismiss();
-      }, 1000);
+    await   this.loading.dismiss();
   }
 
   async presentToast(mss) {

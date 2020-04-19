@@ -9,6 +9,8 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { SignupComponent } from './signup/signup.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PhonenumberComponent } from './phonenumber/phonenumber.component';
+import { OTPComponent } from './otp/otp.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     IonicModule,
     LoginPageRoutingModule
   ],
-  declarations: [LoginPage , SignupComponent , ChangePasswordComponent]
+  declarations: [LoginPage , SignupComponent ,
+    ChangePasswordComponent, PhonenumberComponent , OTPComponent],
+    entryComponents: [PhonenumberComponent , OTPComponent ]
 })
 export class LoginPageModule {}

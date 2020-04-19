@@ -43,6 +43,7 @@ export class ProductDetailPage implements OnInit {
 
     this.route.params.subscribe(params => {
         const id = params.id;
+        this.ShowProduct =  false;
         // const id =  this.route.snapshot.params.id;
         this.GetProductData(id);
 
@@ -85,7 +86,8 @@ export class ProductDetailPage implements OnInit {
         );
   }
   ViewPrescription(img) {
-    this.photoViewer.show(img);
+    console.log(img);
+    this.photoViewer.show(img[0]);
   }
 
   Addtocart() {
@@ -120,6 +122,7 @@ export class ProductDetailPage implements OnInit {
   }
 
   Nevigatetoproduct(product) {
+    this.ShowProduct =  false;
     this.router.navigate(['main/product-detail', product.product_id] ,
 );
   }

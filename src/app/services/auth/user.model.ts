@@ -3,4 +3,5 @@ export class User {
     Email: string;
     Contact: string;
     Name: string;
+    Image = '';
 }

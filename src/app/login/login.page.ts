@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
-import { AlertController, LoadingController, Platform } from '@ionic/angular';
+import { AlertController, LoadingController, Platform, ModalController } from '@ionic/angular';
 import { CommonProviderService } from '../services/CommonProvider.service';
 import { User } from '../services/auth/user.model';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
@@ -9,7 +9,9 @@ import { Subscription, fromEvent, Observable } from 'rxjs';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
-import { __await } from 'tslib';
+import { Sim } from '@ionic-native/sim/ngx';
+import { PhonenumberComponent } from './phonenumber/phonenumber.component';
+import { FCM } from '@ionic-native/fcm/ngx';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -30,6 +32,8 @@ export class LoginPage implements OnInit,  OnDestroy {
               private platform: Platform,
               private googlePlus: GooglePlus,
               private afAuth: AngularFireAuth,
+              public modalController: ModalController,
+              private fcm: FCM,
               private nativeStorage: NativeStorage) {
                   this.user =  this.afAuth.authState;
               }
@@ -43,7 +47,45 @@ export class LoginPage implements OnInit,  OnDestroy {
   GOOGLE() {
     if (this.platform.is('cordova')) {
         this.nativegooglelogin()
-        .then(res => console.log(res))
+        .then(async res => {
+          console.log(res.user.email);
+          await this.common.loadingPresent('Please wait..');
+          this.AuthS.Googlelogin(res.user.email)
+          .subscribe(
+            async (RES: any) => {
+              console.log(RES);
+              await this.common.loadingDismiss();
+              if (RES.Status) {
+                const user =  new User();
+                user.UserId =  RES.data.user_id;
+
+
+
+                user.Email =  RES.data.email;
+                user.Contact =  RES.data.phone_no;
+                user.Name =  RES.data.name;
+                user.Image =  res.user.photoURL;
+                this.AuthS.SaveLoginUser(user);
+                this.nativeStorage.setItem('user' , user)
+                .then(
+                  () => console.log('Stored item!'),
+                  error => console.error('Error storing item', error)
+                );
+                this.saveFirebaseToken(user.UserId);
+                this.router.navigate(['main']);
+              } else {
+               this.common.presentToast(RES.Mess);
+              }
+          },
+          async (error) => {
+            console.log(error);
+            console.log(error.headers);
+            console.log(error.error);
+            await this.common.loadingDismiss();
+            this.common.presentToast('Login Failed.');
+          }
+          );
+        })
         .catch(err => console.error(err));
     } else {
       this.webgooglelogin()
@@ -58,14 +100,12 @@ export class LoginPage implements OnInit,  OnDestroy {
         const gplusUser: any =  await this.googlePlus.login( {
           webClientId: '422524281155-7dnecfsmgq87v8dtdr2ds9ip9f4lct7u.apps.googleusercontent.com',
           offline: true,
-          scopes: 'profile email phonenumbers' }
+          scopes: 'profile email' }
         );
 
         const dd: firebase.auth.OAuthCredential =  firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken);
 
         return await  this.afAuth.auth.signInWithCredential(dd);
-
-
       } catch (err) {
         console.log(err);
       }
@@ -82,19 +122,19 @@ export class LoginPage implements OnInit,  OnDestroy {
     }
 
 }
-  onSubmit($event) {
+  async onSubmit($event) {
       const checkN = +$event.value.phone;
       if (isNaN(checkN)) {
               alert('Invalid Phone number');
               return;
       }
 
-      this.common.loadingPresent('Please wait..');
+      await this.common.loadingPresent('Please wait..');
       this.AuthS.login($event.value.phone, $event.value.Password)
       .subscribe(
-        (RES: any) => {
+        async (RES: any) => {
             console.log(RES);
-            this.common.loadingDismiss();
+            await this.common.loadingDismiss();
 
             if (RES.Status) {
               const user =  new User();
@@ -109,18 +149,18 @@ export class LoginPage implements OnInit,  OnDestroy {
                 () => console.log('Stored item!'),
                 error => console.error('Error storing item', error)
               );
-
+              this.saveFirebaseToken(user.UserId);
               this.router.navigate(['main']);
 
             } else {
              this.common.presentToast(RES.Mess);
             }
         },
-        (error) => {
+        async (error) => {
           console.log(error);
           console.log(error.headers);
           console.log(error.error);
-          this.common.loadingDismiss();
+          await this.common.loadingDismiss();
           this.common.presentToast('Login Failed.');
 
         }
@@ -138,6 +178,27 @@ export class LoginPage implements OnInit,  OnDestroy {
 
   ngOnDestroy(): void {
     this.BackButtonSub.unsubscribe();
+  }
+
+
+
+  async SIM() {
+    const modal = await this.modalController.create({
+      component: PhonenumberComponent
+    });
+    return await modal.present();
+  }
+
+  saveFirebaseToken(userid) {
+    try {
+      this.fcm.getToken().then(token => {
+        this.AuthS.SaveToken(userid , token)
+        .subscribe();
+        console.log(token);
+      });
+    } catch (error) {
+      alert('error 2');
+    }
   }
 
 }

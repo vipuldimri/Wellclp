@@ -60,24 +60,19 @@
     <br>
     <p>We only accept valid and legible prescription, wirh doctor’s name and Registartion clearly Visible, <a>Watch a video</a> to know what valid means</p>
     <hr>
-    <!-- <h2>Are you Ordering for yourself ?</h2>
-    <div class="radio_div" radio-group>
-        <ion-radio value="yes" checked></ion-radio>
-        <ion-label>Yes</ion-label>
-        <ion-radio value="no"></ion-radio>
-        <ion-label>No</ion-label>
-    </div> -->
-    <!-- <textarea 
-    
-    rows="5">Additional Comments</textarea> -->
+
 
      <ion-item>
         <ion-label position="stacked">Patient Name</ion-label>
-        <ion-input></ion-input>
+        <ion-input
+        [(ngModel)]="PatientName"
+        ></ion-input>
       </ion-item>
       <ion-item>
           <ion-label position="stacked">Doctor Name</ion-label>
-          <ion-input></ion-input>
+          <ion-input
+          [(ngModel)]="DoctorName"
+          ></ion-input>
         </ion-item>
 <!--               
             <br>

@@ -26,6 +26,7 @@ export class AuthGuardService implements CanActivate {
         user.Email =  item.Email;
         user.Contact =  item.Contact;
         user.Name =  item.Name;
+        user.Image =  item.Image;
         console.log('found');
         console.log(item);
         console.log(user);

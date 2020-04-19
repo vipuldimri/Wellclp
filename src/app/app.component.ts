@@ -42,15 +42,7 @@ export class AppComponent implements OnInit {
       } catch (error) {
         alert('error 1' );
       }
-      try {
-        this.fcm.getToken().then(token => {
-          // this.AuthS.SaveToken(10 , token)
-          // .subscribe();
-          // console.log(token);
-        });
-      } catch (error) {
-        alert('error 2');
-      }
+
       this.fcm.onNotification().subscribe(data => {
       if (data.wasTapped) {
         console.log('Received in background');
@@ -61,28 +53,6 @@ export class AppComponent implements OnInit {
       }
     });
       console.log('Getting');
-
-      // this.nativeStorage.getItem('user')
-      // .then(
-      //   data => {
-      //     const user =  new User();
-      //     user.UserId =  data.UserId;
-      //     user.Email =  data.Email;
-      //     user.Contact =  data.Contact;
-      //     user.Name =  data.Name;
-      //     console.log('found');
-      //     console.log(data);
-      //     console.log(user);
-      //     this.AuthS.SaveLoginUser(user);
-      //     this.router.navigate(['main']);
-      //   },
-      //   error => {
-      //     console.log('ERROR CAUTH : Notfound');
-      //     console.error(error);
-      //   }
-      // );
-
-
     });
 
 
