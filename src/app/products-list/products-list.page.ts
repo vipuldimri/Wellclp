@@ -108,13 +108,15 @@ export class ProductsListPage implements OnInit {
         handler: () => {
           console.log('Share clicked');
         }
-      }, {
-        text: 'Discount',
-        icon: 'pricetags',
-        handler: () => {
-          console.log('Play clicked');
-        }
-      }, {
+      },
+      // }, {
+      //   text: 'Discount',
+      //   icon: 'pricetags',
+      //   handler: () => {
+      //     console.log('Play clicked');
+      //   }
+      // },
+      {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',

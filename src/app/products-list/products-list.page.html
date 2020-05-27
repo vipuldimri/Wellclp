@@ -326,9 +326,13 @@
                     <img [src]="item.image">
                 </div>
                 <div class="med_container_details">
-                    <h4>{{item.name}}</h4>
-                    <p><span>&#x20b9; {{item.discount}}</span>&nbsp;&nbsp;&#x20b9;{{item.productPrice}}</p>
-                    <h5 class="order_quantity p0 borderNone">10% OFF</h5>
+                    <h4>{{item.name }}</h4>
+                  
+                    <p *ngIf="item.productPrice  <= item.discount "> &#x20b9;{{item.discount | number:'1.0-0'}}</p>
+
+                    <p *ngIf="item.productPrice > item.discount "><span>&#x20b9; {{item.productPrice | number:'1.0-0'}}</span>&nbsp;&nbsp;&#x20b9;{{item.discount | number:'1.0-0'}}</p>
+                    
+                    <h5 class="order_quantity p0 borderNone">{{ item | discount:item.productPrice:item.discount }} </h5>
                 </div>
                 <!-- <div class="med_container_remove textRight">
                     <ion-icon name="heart" class="fav"></ion-icon>
@@ -369,7 +373,7 @@
 </ion-content>
 
 
-<ion-footer>
+<!-- <ion-footer>
         <ion-toolbar>
          
 
@@ -407,4 +411,4 @@
                     </ion-grid>
 
         </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

@@ -26,6 +26,7 @@ export class LoginPage implements OnInit,  OnDestroy {
   LoginProgress;
   BackButtonSub: Subscription;
   constructor(private router: Router,
+              private fcm: FCM,
               private AuthS: AuthService,
               private common: CommonProviderService,
               public alertController: AlertController,
@@ -33,7 +34,6 @@ export class LoginPage implements OnInit,  OnDestroy {
               private googlePlus: GooglePlus,
               private afAuth: AngularFireAuth,
               public modalController: ModalController,
-              private fcm: FCM,
               private nativeStorage: NativeStorage) {
                   this.user =  this.afAuth.authState;
               }
@@ -74,7 +74,14 @@ export class LoginPage implements OnInit,  OnDestroy {
                 this.saveFirebaseToken(user.UserId);
                 this.router.navigate(['main']);
               } else {
-               this.common.presentToast(RES.Mess);
+
+                if (RES.Mess === 'Not Registered') {
+
+                  this.SIM(res.user.email , res.user.displayName);
+
+                } else {
+                  this.common.presentToast(RES.Mess);
+                }
               }
           },
           async (error) => {
@@ -182,9 +189,15 @@ export class LoginPage implements OnInit,  OnDestroy {
 
 
 
-  async SIM() {
+  async SIM(Email: string , Name: string) {
+    console.log(Email);
+    console.log(Name);
     const modal = await this.modalController.create({
-      component: PhonenumberComponent
+      component: PhonenumberComponent,
+      componentProps: {
+        GoogleEmail: Email,
+        GoogleName: Name
+      }
     });
     return await modal.present();
   }

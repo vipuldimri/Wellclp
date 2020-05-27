@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.statusBar.backgroundColorByHexString('#31a3a0');
-      // this.SetUpDeepLinks();
+      this.SetUpDeepLinks();
 
       try {
         this.fcm.subscribeToTopic('marketing');
@@ -47,9 +47,11 @@ export class AppComponent implements OnInit {
       if (data.wasTapped) {
         console.log('Received in background');
         alert('Mess b ');
+        console.log(data);
       } else {
         console.log('Received in foreground');
         alert('Mess f');
+        console.log(data);
       }
     });
       console.log('Getting');
@@ -68,11 +70,13 @@ export class AppComponent implements OnInit {
       // match.$args - the args passed in the link
       // match.$link - the full link data
        console.log('Successfully matched route', match);
+       // alert('HERE');
        // alert(match);
     }, nomatch => {
       // nomatch.$link - the full link data
       console.error('Got a deeplink that didn\'t match', nomatch);
       // alert(' not match');
+      // alert('HERE not match');
     });
   }
 

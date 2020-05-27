@@ -25,6 +25,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Sim } from '@ionic-native/sim/ngx';
+import { SmsRetriever  } from '@ionic-native/sms-retriever/ngx';
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 const firebaseConfig = {
    apiKey: 'AIzaSyCvSr9rntVsKJ0qIbylZpJbb00AuL3WEoA',
@@ -55,6 +57,8 @@ const firebaseConfig = {
       StatusBar,
       SplashScreen,
       FCM,
+      NativeGeocoder,
+      SmsRetriever,
       NativeStorage,
       Deeplinks,
       Geolocation,

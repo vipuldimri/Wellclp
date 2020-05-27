@@ -10,6 +10,7 @@ import { ProductsListPage } from './products-list.page';
 import { FilterComponent } from './filter/filter/filter.component';
 import { SearchComponent } from './filter/search/search.component';
 import { CategoryComponent } from './filter/category/category.component';
+import { DiscountPipe } from '../Pipes/discount.pipe';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { CategoryComponent } from './filter/category/category.component';
     IonicModule,
     ProductsListPageRoutingModule
   ],
-  declarations: [ProductsListPage , FilterComponent , SearchComponent , CategoryComponent],
+  declarations: [ProductsListPage , FilterComponent , DiscountPipe ,
+     SearchComponent , CategoryComponent],
   entryComponents: [FilterComponent , SearchComponent , CategoryComponent],
 })
 export class ProductsListPageModule {}

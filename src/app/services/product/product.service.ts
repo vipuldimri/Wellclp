@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProductService {
 
 constructor(private http: HttpClient ) { }
+baseURL = environment.baseURL;
 
 GetHomeList() {
-  return this.http.get('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/home.php');
+  return this.http.get( this.baseURL +  '/api/Home/home.php');
 }
 
 ProductSearch(searchkey) {
@@ -22,7 +24,7 @@ ProductSearch(searchkey) {
   const formData = new FormData();
   formData.append('key', searchkey);
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/searchproduct.php',
+  return this.http.post(this.baseURL +  '/api/Home/searchproduct.php',
       formData
   );
 }
@@ -38,7 +40,7 @@ GetProductDetails(productid) {
   formData.append('key', productid);
 
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/sproductdetails.php',
+  return this.http.post( this.baseURL +  '/api/Home/sproductdetails.php',
   formData
   );
 }
@@ -55,7 +57,7 @@ GetProductList(categoryid , option , startindex) {
   formData.append('Option', option);
   formData.append('StartIndex', startindex);
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/sproductlisting.php',
+  return this.http.post( this.baseURL +  '/Home/sproductlisting.php',
   formData
   );
 }
@@ -67,7 +69,7 @@ GetProductTypes() {
       'Content-Type':  'application/json'
     })
   };
-  return this.http.get('http://www.wellclap.com/vaibhavapp/ionicapp/api/Extra/getproducttypes.php');
+  return this.http.get(this.baseURL +  '/Extra/getproducttypes.php');
 }
 
 GetProductBrands() {
@@ -76,7 +78,7 @@ GetProductBrands() {
       'Content-Type':  'application/json'
     })
   };
-  return this.http.get('http://www.wellclap.com/vaibhavapp/ionicapp/api/Extra/getproductbrands.php');
+  return this.http.get(this.baseURL +  '/Extra/getproductbrands.php');
 }
 
 

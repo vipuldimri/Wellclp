@@ -6,6 +6,9 @@ import { CartService } from '../services/cart/cart.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CommonProviderService } from '../services/CommonProvider.service';
 import { LoadingController } from '@ionic/angular';
+import { LocationService } from '../services/location/location.service';
+import { User } from '../services/auth/user.model';
+import { AuthService } from '../services/auth/auth.service';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.page.html',
@@ -25,12 +28,14 @@ export class ProductDetailPage implements OnInit {
   ShowAttributes =  false;
   ShowGoToCart =  false;
   RelatedProducts = [];
+  Location = 'Not set';
   sliderConfig = {
     slidesPerView: 2.5,
     spaceBetween: 15,
     centeredSlides: false
   };
   LoadingObj;
+  LogedInUser: User;
   constructor(private ProductS: ProductService,
               private photoViewer: PhotoViewer,
               private route: ActivatedRoute,
@@ -38,15 +43,19 @@ export class ProductDetailPage implements OnInit {
               private cartS: CartService,
               private socialSharing: SocialSharing,
               private commonP: CommonProviderService,
+              private LocationS: LocationService,
+              private AuthS: AuthService,
               public loadingController: LoadingController) { }
   ngOnInit() {
+
+    this.LogedInUser =  this.AuthS.GetLoginUser();
+    console.log(this.LogedInUser);
 
     this.route.params.subscribe(params => {
         const id = params.id;
         this.ShowProduct =  false;
         // const id =  this.route.snapshot.params.id;
         this.GetProductData(id);
-
     });
 
     this.CartCount =  this.cartS.GetCount();
@@ -55,6 +64,9 @@ export class ProductDetailPage implements OnInit {
         this.CartCount =  data;
       }
     );
+    this.LocationS.GetLocation().then((Data: any) => {
+      this.Location  = Data;
+    });
   }
 
   async GetProductData(id) {
@@ -99,7 +111,13 @@ export class ProductDetailPage implements OnInit {
       quantity : this.count
       };
 
-    this.cartS.AddProduct(obj)
+    const formData = new FormData();
+    formData.append('productid', this.CurrentProduct.product_id);
+    formData.append('attributeid', this.CurrentProduct.attributes_ids);
+    formData.append('attributeidvalue', this.SelectedPrice.attibute);
+    formData.append('userid', this.LogedInUser.UserId + '');
+    formData.append('quantity', this.count + '');
+    this.cartS.AddProduct(formData)
       .subscribe(
         (RES: any) => {
               if (RES.Status) {

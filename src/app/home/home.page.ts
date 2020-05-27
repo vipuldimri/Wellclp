@@ -4,6 +4,7 @@ import { HomeService } from '../services/home/home.service';
 import { ProductService } from '../services/product/product.service';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CartService } from '../services/cart/cart.service';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,13 @@ export class HomePage implements OnInit {
   Slides: any[];
   CartCount: number;
   Categories = [];
+  Location = 'Not Set';
   constructor(private router: Router,
               private HS: HomeService,
               private PS: ProductService,
               private cartS: CartService,
               private activatedRoute: ActivatedRoute,
+              private locationS: LocationService,
               private callNumber: CallNumber ) { }
     sliderConfig = {
       slidesPerView: 2.5,
@@ -38,6 +41,10 @@ export class HomePage implements OnInit {
     );
     this.GetSlideShow();
     this.GetHoimeProducts();
+
+    this.locationS.GetLocation().then((Data: any) => {
+      this.Location  = Data;
+    });
   }
 
   Upload()   {

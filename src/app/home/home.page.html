@@ -9,11 +9,11 @@
             <!-- <img src="/assets/imgs/asset_white_logo.png"> -->
             <ion-row>
                     <p 
-                    style="font-size: 15px;margin-top: -10px">Deliver To</p>
+                    style="font-size: 15px;margin-top: -10px">Wellclap.com</p>
             </ion-row>
 
              <ion-row [routerLink]="['/main/location']">
-                    <p style="font-size: 17px;margin-top: -15px;font-weight: bolder">110084 Delhi NCR
+                    <p style="font-size: 17px;margin-top: -15px;font-weight: bolder">Delivers To {{Location}}
                             <ion-icon name="chevron-down"></ion-icon>
                     </p>
                             </ion-row>
@@ -57,9 +57,10 @@
 </ion-header> 
 
 
- <ion-content style="background-color: #dddddd">
+ <ion-content >
 
-  <!-- <div  style="background-color: #31a3a0" class="top_menu nav_header">
+  <div style="background: #fcf9f9;">
+        <!-- <div  style="background-color: #31a3a0" class="top_menu nav_header">
     <ul>
         <li  (click)="CommingSoon()">
             <img src="/assets/imgs/asset_m1.png">
@@ -82,204 +83,255 @@
 </div> -->
 
 <div class="home_offer_slider">
-    <ion-slides loop="true"
-    [pager]="true"
-    slidesPerView="1.5" spaceBetween="5px">
-     <ion-slide (click)="medicinelist()">
-            <img src="assets/imgs/asset_poster1.png">
-        </ion-slide>
-        <ion-slide (click)="medicinelist()">
-            <img src="assets/imgs/asset_poster2.png">
-        </ion-slide>
-
-
-
-
-        <!-- <ion-slide 
-        
-        *ngFor="let slide of Slides">
-            <img  
-            [src]="slide" >
-        </ion-slide> -->
-
-    </ion-slides>
-</div>
-<div style="height: 50px;" class="home_header">
-    <div class="home_header_left">
-        Order with prescriptions
-    </div>
-    <button 
-    (click)="Upload()"
-    class="upload_btn">UPLOAD</button>
-    <div class="clear"></div>
-</div>
-<h4 >Shop by catagory</h4>
-
-<div class="catagory_list" >
-
-        <ion-slides [options]="sliderConfig">
-       
-            <ion-slide 
-            *ngFor="let cat of Categories">
-
-                    <div
-                    (click)="Nevigatetocategory(cat.category_id)" 
-                    class="card">
-                            <div class="price-corner"></div>
-                            <div class="img-wrapper">
-                                <img [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="">
-                            </div>
-                            <div class="content-wrapper">
-                                <h3 class="title">{{cat.category_name}}</h3>
-                             
-                            </div>
-                        </div>
-
-
-
-                        
+        <ion-slides loop="true"
+        [pager]="true"
+        slidesPerView="1.5" spaceBetween="5px">
+         <ion-slide (click)="medicinelist()">
+                <img src="assets/imgs/asset_poster1.png">
             </ion-slide>
-                    
+            <ion-slide (click)="medicinelist()">
+                <img src="assets/imgs/asset_poster2.png">
+            </ion-slide>
+    
+    
+    
+    
+            <!-- <ion-slide 
+            
+            *ngFor="let slide of Slides">
+                <img  
+                [src]="slide" >
+            </ion-slide> -->
+    
         </ion-slides>
-
-</div>
-
-        <div class="shop_list" >
-                <h4>Deals at Steal</h4>
-                <ion-slides [options]="sliderConfig">
-                        <ion-slide  
-                        *ngFor="let product of BestDealsProducts"                        >
-
-                      <!-- <div
-                        (click)="Nevigatetoproduct(product)"
-                        class="card">
-                            <div class="price-corner"></div>
-                            <div class="img-wrapper">
-                                <img [src]="product.image" alt="">
-                            </div>
-                            <div class="content-wrapper">
-                                    <h3 class="title">{{product.name| slice:0:30}}</h3>
-                                     <p class="price">{{product.discount }}</p> 
-                                </div>
-
-                      
-                        <div style="bottom: 0">
-                                <p>{{product.discount }}</p>
+    </div>
+    <div style="height: 50px;" class="home_header">
+        <div class="home_header_left">
+            Order with prescriptions
+        </div>
+        <button 
+        (click)="Upload()"
+        class="upload_btn">UPLOAD</button>
+        <div class="clear"></div>
+    </div>
+    <h4 >Shop by catagory</h4>
+    
+    <div  >
+            <div class="catagory_list" >
+                    <ion-slides [options]="sliderConfig">
+    <!--                
+                            <ion-slide 
+                            *ngFor="let cat of Categories">
+                
+                                    <div
+                                    (click)="Nevigatetocategory(cat.category_id)" 
+                                    class="card">
+                                            <div class="price-corner"></div>
+                                            <div class="img-wrapper">
+                                                <img [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="">
+                                            </div>
+                                            <div class="content-wrapper">
+                                                <h3 class="title">{{cat.category_name}}</h3>
+                                             
+                                            </div>
+                                        </div>
+                
+                
+                
+                                        
+                            </ion-slide> -->
+    
+                            <ion-slide 
+                            *ngFor="let cat of Categories"
+                            >
+                            <div  (click)="Nevigatetocategory(cat.category_id)" >
+                                    <ion-card 
+                                    style="height: 150px;width: 150px;">
+                                    <img  
+                                    [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="" />
+                                </ion-card>
+            
+                                <ion-row>
+                                        <ion-col>
+                                                <p style="font-size: 15px" >{{cat.category_name}}</p>
+                                              </ion-col>
+                                          
+                                </ion-row>
+            
+                            
+                              </div>
+                             
+                            </ion-slide>
+                                    
+                        </ion-slides>
+            </div>
+     
+        </div>
+    
+    
+    
+            <div class="shop_list" >
+                    <h4>Deals at Steal</h4>
+                    <div  >
+                            <ion-slides [options]="sliderConfig">
+                                    <ion-slide  
+                                    *ngFor="let product of BestDealsProducts"                        >
+            
+                                  <!-- <div
+                                    (click)="Nevigatetoproduct(product)"
+                                    class="card">
+                                        <div class="price-corner"></div>
+                                        <div class="img-wrapper">
+                                            <img [src]="product.image" alt="">
+                                        </div>
+                                        <div class="content-wrapper">
+                                                <h3 class="title">{{product.name| slice:0:30}}</h3>
+                                                 <p class="price">{{product.discount }}</p> 
+                                            </div>
+            
+                                  
+                                    <div style="bottom: 0">
+                                            <p>{{product.discount }}</p>
+                                    </div>
+                               
+                                    </div>  -->
+            
+                                  <div  (click)="Nevigatetoproduct(product)">
+                                        <ion-card 
+                                        style="height: 150px;width: 150px">
+                                        <img 
+                                        [src]="product.image" />
+                                    </ion-card>
+            
+                                    <ion-row>
+                                            <ion-col>
+                                                    <p style="font-size: 15px" >{{product.name| slice:0:30}}</p>
+                                                  </ion-col>
+                                              
+                                    </ion-row>
+            
+                                    <ion-row style="text-align: center;margin-top: -20px">
+                                          
+                                            <ion-col>
+                                                    <p
+                                                    style="font-size: 15px"
+                                                    > &#x20b9; {{product.discount}}</p>
+                                                  </ion-col>
+                                  
+                                    </ion-row>
+                                
+                                  </div>
+                                 
+                                        
+                                    </ion-slide>
+                                
+                           </ion-slides>
                         </div>
                    
-                        </div>  -->
-
-                      <div  (click)="Nevigatetoproduct(product)">
+                   
+                </div>
+                <h4>Hot sellers</h4>
+    
+        <div  >
+      
+            <ion-slides [options]="sliderConfig">
+                    <ion-slide 
+                    *ngFor="let product of BestSellersProducts"
+                    >
+                    <div  (click)="Nevigatetoproduct(product)">
                             <ion-card 
                             style="height: 150px;width: 150px">
                             <img 
                             [src]="product.image" />
                         </ion-card>
-
+    
                         <ion-row>
                                 <ion-col>
                                         <p style="font-size: 15px" >{{product.name| slice:0:30}}</p>
                                       </ion-col>
                                   
                         </ion-row>
-
+    
                         <ion-row style="text-align: center;margin-top: -20px">
                               
                                 <ion-col>
                                         <p
                                         style="font-size: 15px"
-                                        > &#x20b9; {{product.discount}}</p>
+                                        >  &#x20b9; {{product.discount}}</p>
                                       </ion-col>
                       
                         </ion-row>
                     
                       </div>
                      
-                            
-                        </ion-slide>
-                    
-               </ion-slides>
-            </div>
-
-    <div class="shop_list" >
-        <h4>Hot sellers</h4>
-
-        <ion-slides [options]="sliderConfig">
-                <ion-slide 
-                *ngFor="let product of BestSellersProducts"
-                >
-                <div  (click)="Nevigatetoproduct(product)">
-                        <ion-card 
-                        style="height: 150px;width: 150px">
-                        <img 
-                        [src]="product.image" />
-                    </ion-card>
-
-                    <ion-row>
-                            <ion-col>
-                                    <p style="font-size: 15px" >{{product.name| slice:0:30}}</p>
-                                  </ion-col>
-                              
-                    </ion-row>
-
-                    <ion-row style="text-align: center;margin-top: -20px">
-                          
-                            <ion-col>
-                                    <p
-                                    style="font-size: 15px"
-                                    >  &#x20b9; {{product.discount}}</p>
-                                  </ion-col>
-                  
-                    </ion-row>
+                    </ion-slide>
                 
-                  </div>
-                 
-                </ion-slide>
-            
-            </ion-slides>
-    </div>
-
-    <br>
- 
+                </ion-slides>
+        </div>
     
-
-        <h4>MISCELLANEOUS</h4>
-        
-    <ion-card >
-            <ion-item (click)="Call()">
-                    <ion-icon color="medium"  name="call-outline"></ion-icon>
-                    <ion-label style="font-weight: bolder"
-                     style="margin-left: 20px">Call to Order </ion-label>
-                     <span 
-                     class="badge badge-pill badge-primary">
-                     Call</span>
-
-            </ion-item>
-
-     
-           
-
-            <ion-item>
-                    <ion-icon  color="medium" name="alarm-outline"></ion-icon>                    <ion-label
-                     style="margin-left: 20px">Dosage Reminder</ion-label>
-            </ion-item>
-        </ion-card >
-        <ion-card >
-
-
-                <ion-item>
-                        <ion-thumbnail slot="start">
-                          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                        </ion-thumbnail>
-                        <ion-label>
-                                <h3>Never miss a dose</h3>
-                                <p>Set reminder now </p>
-                              </ion-label>
-                      </ion-item>
-
-        </ion-card>
         <br>
+        <div class="home_offer_slider">
+                <ion-slides loop="true"
+                [pager]="true"
+                slidesPerView="1.5" spaceBetween="5px">
+                 <ion-slide (click)="Nevigatetocategory(101)">
+                        <img src="assets/imgs/Offers.png">
+                    </ion-slide>
     
+            
+            
+            
+            
+                    <!-- <ion-slide 
+                    
+                    *ngFor="let slide of Slides">
+                        <img  
+                        [src]="slide" >
+                    </ion-slide> -->
+            
+                </ion-slides>
+            </div>
+            <br>
+        
+    
+            <h4>MISCELLANEOUS</h4>
+            
+        <ion-card >
+                <ion-item (click)="Call()">
+                        <ion-icon color="medium"  name="call-outline"></ion-icon>
+                        <ion-label style="font-weight: bolder"
+                         style="margin-left: 20px">Call to Order </ion-label>
+                         <span 
+                         class="badge badge-pill badge-primary">
+                         Call</span>
+    
+                </ion-item>
+    
+         
+               
+    
+                <!-- <ion-item>
+                        <ion-icon  color="medium" name="alarm-outline"></ion-icon>                    <ion-label
+                         style="margin-left: 20px">Dosage Reminder</ion-label>
+                </ion-item> -->
+            </ion-card >
+            <!-- <ion-card >
+    
+          
+                    <ion-item>
+                            <ion-thumbnail slot="start">
+                              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                            </ion-thumbnail>
+                            <ion-label>
+                                    <h3>Never miss a dose</h3>
+                                    <p>Set reminder now </p>
+                                  </ion-label>
+                          </ion-item>
+    
+            </ion-card> -->
+            <br>
+        
+  </div>
 
 </ion-content>
 

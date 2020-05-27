@@ -7,9 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class HomeService {
 
 constructor(private http: HttpClient ) { }
-
+baseURL = 'http://localhost/API';
 get_slidshow() {
-  return this.http.get('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/slidshow.php');
+  return this.http.get( this.baseURL +  '/api/Home/slidshow.php');
 }
 
 }

@@ -8,7 +8,8 @@ export class AuthService {
 
  private LoginUser: User;
  constructor(private http: HttpClient) { }
-
+ baseURL = environment.baseURL;
+ // http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/login.php
 login(userphone, userpassword) {
   const httpOptions = {
     headers: new HttpHeaders({
@@ -21,7 +22,7 @@ login(userphone, userpassword) {
   formData.append('phone', userphone);
   formData.append('password', userpassword);
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/login.php',
+  return this.http.post( this.baseURL +  '/api/auth/login.php',
   formData );
 }
 
@@ -38,6 +39,32 @@ Googlelogin(email) {
 
   return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/googlelogin.php',
   formData );
+}
+
+GoogleRegisteration(Fromobj) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+
+  };
+
+
+  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/googleregister.php',
+  Fromobj );
+}
+
+SendOTP(Fromobj) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+
+  };
+
+
+  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/sendregisterationOTP.php',
+  Fromobj );
 }
 
 SaveToken(userid ,  Token) {

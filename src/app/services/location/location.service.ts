@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { CommonProviderService } from '../CommonProvider.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,27 +13,47 @@ Lat;
 Lon;
 displayAddress;
 completeAddress;
+Location: NativeGeocoderResult;
+
+constructor(private geolocation: Geolocation ,
+            private http: HttpClient,
+            private nativeGeocoder: NativeGeocoder,
+            private commonP: CommonProviderService) {}
 
 
-constructor(private geolocation: Geolocation , private http: HttpClient) {}
+  async GetLocation() {
+//  if (!this.Location) {
+//     return 'Location not set';
+//  }
 
-
-GetLocation() {
-  this.geolocation.getCurrentPosition().then((resp) => {
+ await this.RefreshLocation();
+ this.commonP.presentToast( 'Your location  ' + this.Location.postalCode + ' ' + this.Location.subLocality + ' ' + this.Location.locality);
+ return this.Location.postalCode + ' ' + this.Location.subLocality + ' ' + this.Location.locality;
+}
+  async RefreshLocation() {
+    await this.geolocation.getCurrentPosition().then(async (resp) => {
     // resp.coords.latitude
     // resp.coords.longitude
-    console.log(resp);
+    console.log(resp.coords.latitude);
+    console.log(resp.coords.longitude);
+
+    const options: NativeGeocoderOptions = {
+      useLocale: true,
+      maxResults: 5
+    };
+
+    await this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude, options)
+    .then((result: NativeGeocoderResult[]) => {
+      // alert(JSON.stringify(result[0]));
+      this.Location =  result[0];
+    })
+    .catch((error: any) => console.log(error));
+
    }).catch((error) => {
      console.log('Error getting location', error);
    });
-  //  let watch = this.geolocation.watchPosition();
-  //  watch.subscribe((data) => {
-  //   // data can be a set of coordinates, or an error (if an error occurred).
-  //   // data.coords.latitude
-  //   // data.coords.longitude
-  //  });
-}
 
+}
 GetUserAddresses(userid) {
   const httpOptions = {
     headers: new HttpHeaders({

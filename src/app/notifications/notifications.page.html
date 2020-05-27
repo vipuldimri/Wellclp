@@ -10,14 +10,29 @@
 
 
 <ion-content>
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content
+                  pullingIcon="arrow-dropdown"
+                  pullingText="Pull to refresh"
+                  refreshingSpinner="circles"
+                  refreshingText="Refreshing...">
+                </ion-refresher-content>
+              </ion-refresher>
     <div class="notification_wrapper">
         <ul>
-                <li *ngFor="let item of NotiList; let i = index">
-                        <div class="circle_details">
-                            <h5>{{item.title}}</h5>
+                <li 
+                (click)="NavigateToNoti(item)"
+                *ngFor="let item of NotiList; let i = index">
+                      
+                <div class="circle_details">
+                            <h5>{{item.title}}  <span> <strong style="font-size: 15px;float: right;">  {{item.server_date | date: 'MMM d, y' }} </strong></span></h5>
                             <p>{{item.text}}</p>
-                         
-                            <p> Date :  <strong>{{item.server_date | date: 'MMM d, y' }}</strong></p>
+                              
+<div  *ngIf="item.img_url && item.img_url.trim().length != 0"  >
+        <img
+        [src]=" 'http://www.wellclap.com/pictures/notificationimage/' +item.img_url" alt="">
+</div>
+                            <!-- <p> Date :  <strong>{{item.server_date | date: 'MMM d, y' }}</strong></p> -->
                         </div>
         
                         <div class="clear"></div>
@@ -26,6 +41,8 @@
                 <div class="circle_details">
                     <h5>Medicine Offer</h5>
                     <p>OFFER ENDS TODAY: Save 40% on Medicines. Get up to 20% off on allopathy medicines +75 P24 cash +Extra 15% Amzon Pay Cashback (up to Rs200) Use Coupen 20PLUS T&C Applay</p>
+             
+        
                 </div>
 
                 <div class="clear"></div>

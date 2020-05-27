@@ -13,11 +13,20 @@
               <div id="wrapper">
                   <div id="dialog">
                     
-                    <span>Please enter the 4-digit verification code we sent via SMS.</span>
+                    <span>Please enter the 4-digit verification code we sent to {{PhoneNo}} via SMS.</span>
                     <div id="form">
-                      <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
-                      <input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /><input type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
-                      <button class="btn btn-primary btn-embossed">Verify</button>
+                      <input 
+                      [(ngModel)]="OTPVALUE"
+                      type="text" name="OTP"
+                       maxLength="4" size="4" min="0" 
+                       max="9" pattern="[0-9]+" />
+                      <!-- <input type="number" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                      <input type="number" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                      <input type="number" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /> -->
+                      <button 
+                      [disabled]="OTPVALUE.length !== 4"
+                      (click)="VerifyOTP()"
+                      class="btn btn-primary btn-embossed">Verify</button>
                     </div>
                     
                     <div>

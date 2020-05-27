@@ -66,13 +66,14 @@
                         margin: 0px;
                         padding: 0px;
                         font-size: 18px;
-                        color: #4f4f4f;
+                        color: black;
                         padding-bottom: 1px;
                     }
                     p {
                         margin: 0px;
                         padding: 0px;
-                        color: #4f4f4f;
+                        color: black;
+                        font-weight: bold;
                         padding-bottom: 5px;
                         font-size: 14px;
                     }
@@ -90,7 +91,7 @@
                         font-size: 16px;
                     }
                     .order_quantity {
-                        color: #da1c5c;
+                        color: green;
                         font-weight: 400;
                         border-right: 1px solid #afb0b1;
                         padding-left: 10px;
@@ -157,7 +158,7 @@
                         color: #d1d1d1;
                     }
                     .fav {
-                        color: #e1497d !important;
+                        color: green !important;
                     }
                     .add_btn {
                         border: 2px solid #e6ae04;

@@ -2,12 +2,14 @@
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
+  baseURL = environment.baseURL;
   private ProductsList = [];
   public cartCountsubject;
   public cartItemsubject;
@@ -30,8 +32,8 @@ AddProduct(cartobj) {
       'Content-Type':  'application/json'
     })
   };
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/addtocart.php',
-   cartobj , httpOptions
+  return this.http.post( this.baseURL +  '/api/Home/addtocart.php',
+  cartobj
   );
 }
 
@@ -58,7 +60,7 @@ GetCart(cartobj) {
   };
 
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/getcart.php',
+  return this.http.post(this.baseURL +  '/api/Home/getcart.php',
   cartobj
   );
 }
