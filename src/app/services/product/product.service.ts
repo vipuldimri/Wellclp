@@ -11,7 +11,9 @@ constructor(private http: HttpClient ) { }
 baseURL = environment.baseURL;
 
 GetHomeList() {
-  return this.http.get( this.baseURL +  '/api/Home/home.php');
+  const formData = new FormData();
+  formData.append('version', '0.1');
+  return this.http.post( this.baseURL +  '/api/Home/home.php' , formData);
 }
 
 ProductSearch(searchkey) {

@@ -40,17 +40,14 @@ export class AppComponent implements OnInit {
       try {
         this.fcm.subscribeToTopic('marketing');
       } catch (error) {
-        alert('error 1' );
       }
 
       this.fcm.onNotification().subscribe(data => {
       if (data.wasTapped) {
         console.log('Received in background');
-        alert('Mess b ');
         console.log(data);
       } else {
         console.log('Received in foreground');
-        alert('Mess f');
         console.log(data);
       }
     });
@@ -70,13 +67,9 @@ export class AppComponent implements OnInit {
       // match.$args - the args passed in the link
       // match.$link - the full link data
        console.log('Successfully matched route', match);
-       // alert('HERE');
-       // alert(match);
     }, nomatch => {
       // nomatch.$link - the full link data
       console.error('Got a deeplink that didn\'t match', nomatch);
-      // alert(' not match');
-      // alert('HERE not match');
     });
   }
 

@@ -119,7 +119,7 @@ GetAddressIcon(ID) {
 
 CheckOut() {
 
-  if (!this.SelectedAddress) {
+  if (!this.SelectedAddress || !this.AddressList || this.AddressList.length === 0) {
     alert('Please select address first');
     return;
   }

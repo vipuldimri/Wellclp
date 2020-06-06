@@ -119,35 +119,14 @@
     <div  >
             <div class="catagory_list" >
                     <ion-slides [options]="sliderConfig">
-    <!--                
-                            <ion-slide 
-                            *ngFor="let cat of Categories">
-                
-                                    <div
-                                    (click)="Nevigatetocategory(cat.category_id)" 
-                                    class="card">
-                                            <div class="price-corner"></div>
-                                            <div class="img-wrapper">
-                                                <img [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="">
-                                            </div>
-                                            <div class="content-wrapper">
-                                                <h3 class="title">{{cat.category_name}}</h3>
-                                             
-                                            </div>
-                                        </div>
-                
-                
-                
-                                        
-                            </ion-slide> -->
     
                             <ion-slide 
                             *ngFor="let cat of Categories"
                             >
                             <div  (click)="Nevigatetocategory(cat.category_id)" >
                                     <ion-card 
-                                    style="height: 150px;width: 150px;margin: auto auto">
-                                    <img  
+                                    style="height: 150px;width: 150px;">
+                                    <img  style="align-self: center"
                                     [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="" />
                                 </ion-card>
             

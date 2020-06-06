@@ -117,7 +117,7 @@ export class ProductDetailPage implements OnInit {
     formData.append('productid', this.CurrentProduct.product_id);
     formData.append('attributeid', this.CurrentProduct.attributes_ids);
     formData.append('attributeidvalue', this.SelectedPrice.attibute);
-    formData.append('userid', this.LogedInUser.UserId + '');
+    formData.append('userid', '10');
     formData.append('quantity', this.count + '');
     this.cartS.AddProduct(formData)
       .subscribe(
@@ -128,7 +128,12 @@ export class ProductDetailPage implements OnInit {
                 if (this.CartCount >= 1) {
                       this.ShowGoToCart =  true;
                 }
+              } else {
+                alert(RES.Mess);
               }
+        },
+        (error) => {
+          alert('Something went wrong.');
         }
 
       );

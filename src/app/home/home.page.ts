@@ -39,7 +39,7 @@ export class HomePage implements OnInit {
         this.CartCount =  data;
       }
     );
-    this.GetSlideShow();
+    // this.GetSlideShow();
     this.GetHoimeProducts();
 
     this.locationS.GetLocation().then((Data: any) => {
@@ -81,7 +81,16 @@ export class HomePage implements OnInit {
              this.BestSellersProducts = Data.data.BestSeller;
              this.BestDealsProducts = Data.data.BestDeals;
              this.Categories  = Data.data.Categories;
+             } else {
+              alert(Data.Mess);
+               // tslint:disable-next-line:no-string-literal
+              navigator['app'].exitApp();
              }
+          } ,
+          (error) => {
+            alert('something went wrong');
+            // tslint:disable-next-line:no-string-literal
+            navigator['app'].exitApp();
           }
         );
   }
