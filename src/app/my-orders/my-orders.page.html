@@ -1,9 +1,64 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>my-orders</ion-title>
-  </ion-toolbar>
+  <ion-toolbar [color]="'medium'">
+      <ion-buttons slot="start">
+        <ion-back-button style="color:white"></ion-back-button> 
+         </ion-buttons>
+      <ion-title style="color:white">My orders</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+
+<ion-content>
+  <div class="order_wrapper">
+
+
+        <div *ngIf="!Orders    ||    Orders.length == 0">
+
+                <img 
+                class="center"
+                style="height: 20%;margin-top: 100px"
+                src="/assets/imgs/order.png" alt="">
+       
+       
+       
+                <div >
+                       <p
+                      
+                       style="font-size: 20px;font-weight: bolder;text-align: center;
+                       ">No orders yet
+                       </p>
+       
+                 
+                </div>
+      
+           
+       
+         </div>
+
+
+
+
+
+      <ul>
+          <li  
+          
+          [routerLink]="[item.order_id]" 
+          *ngFor="let item of Orders">
+              <h4>Order ID
+                (   AP/{{item.order_date | date:'y' }}/00{{item.order_id}}  )
+              </h4>
+              <h6>{{item.order_date | date:'medium' }}</h6>
+                  <h4><strong>Order total: </strong>  &#x20b9; {{item.order_total_amount}}</h4>
+                  <h4><strong>Payment mode : </strong> {{GetPaymentmode(item.payment_method)}}</h4>
+                  <h4><strong>Order status : </strong>
+                    <span class="badge badge-primary">{{GetOrderStatus(item.order_status)}}</span>
+                    </h4>
+
+            
+              <div class="clear"></div>
+          </li>
+   
+      </ul>
+  </div>
 </ion-content>

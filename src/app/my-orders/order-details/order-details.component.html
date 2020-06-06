@@ -1,0 +1,121 @@
+<ion-header>
+    <ion-toolbar [color]="'medium'">
+        <ion-buttons slot="start">
+          <ion-back-button style="color:white"></ion-back-button> 
+           </ion-buttons>
+        <ion-title style="color:white">Order</ion-title>
+      </ion-toolbar>
+  </ion-header>
+  
+  
+  
+  <ion-content>
+  
+
+  
+    <div  *ngIf="ShowOrder" class="order_wrapper" >
+     
+  
+      <div class="payment order_wrapper" >
+          
+
+        
+          <ion-row>
+              <ion-col class="p0">
+                  <h2>Order Summary</h2>
+              </ion-col>
+
+              <ion-col
+              class="textRight p0">
+<h2>
+    <span class="badge badge-primary">{{GetOrderStatus(OrderData.OrderData.order_status)}}</span>
+
+</h2>              </ion-col>
+                </ion-row>
+
+                
+
+
+          <strong>Shipping Address </strong>
+          <br>
+          {{OrderData.OrderData.shipp_first_name}}        {{OrderData.OrderData.shipp_last_name}}
+         <br>
+          {{OrderData.OrderData.shipp_address}}
+
+          <hr class="solid">
+
+          <strong>Items</strong>
+
+          <br>
+
+          
+
+          <ul>
+              <li *ngFor="let item of OrderData.Items; let i = index">
+                  <div class="med_container_details">
+                      <h4>{{item.product_name}}</h4>
+                    
+
+                      <h5 class="order_quantity p0 borderNone">Unit Price&nbsp;:&nbsp;<strong>&nbsp; &#x20b9; {{item.unit_price}}</strong></h5>
+                      <h5 class="order_quantity p0 borderNone">Quantity&nbsp;:&nbsp;<strong>&nbsp;{{item.quantity}}</strong></h5>
+                      <h5 class="order_quantity p0 borderNone">Total Price&nbsp;:&nbsp;<strong>&nbsp; &#x20b9; {{item.total_price}}</strong></h5>
+                  </div>
+       
+                  <div class="clear"></div>
+              </li>
+          </ul>
+
+          <br>
+         
+
+          
+      
+      
+      </div>
+      
+  </div>
+  </ion-content>
+  
+  
+  
+
+
+  <ion-footer  *ngIf="ShowOrder"
+ padding style="background-color: #efefef;padding: 20px">
+   
+ <strong>Order Details </strong>
+          <ion-row>
+              <ion-col class="p0">Order ID</ion-col>
+              <ion-col class="textRight p0">AP/{{OrderData.OrderData.order_date | date:'y' }}/00{{OrderData.OrderData.order_id}} </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col class="p0">Order Date</ion-col>
+              <ion-col class="textRight p0">{{OrderData.OrderData.order_date}}</ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col class="p0">Payment Method</ion-col>
+              <ion-col class="textRight p0">{{GetPaymentmode(OrderData.OrderData.payment_method)}}</ion-col>
+          </ion-row>
+
+          
+          <ion-row>
+              <ion-col class="p0">Payment Status</ion-col>
+              <ion-col class="textRight p0">{{GetPaymentstatus(OrderData.OrderData.payment_status)}}</ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col class="p0">Sub Total</ion-col>
+            <ion-col class="textRight p0">{{OrderData.OrderData.sub_total}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col class="p0">Delivery Price</ion-col>
+            <ion-col class="textRight p0">{{OrderData.OrderData.cod_charge}}</ion-col>
+        </ion-row>
+          
+          <ion-row style="margin-bottom: 8px">
+              <ion-col class="p0"><strong>Final Payable</strong></ion-col>
+              <ion-col class="textRight p0"><strong>&#x20b9; {{OrderData.OrderData.total_price}}</strong></ion-col>
+          </ion-row>
+
+</ion-footer>

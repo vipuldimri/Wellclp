@@ -57,7 +57,7 @@ GetProductList(categoryid , option , startindex) {
   formData.append('Option', option);
   formData.append('StartIndex', startindex);
 
-  return this.http.post( this.baseURL +  '/Home/sproductlisting.php',
+  return this.http.post( this.baseURL +  '/api/Home/sproductlisting.php',
   formData
   );
 }
@@ -69,7 +69,7 @@ GetProductTypes() {
       'Content-Type':  'application/json'
     })
   };
-  return this.http.get(this.baseURL +  '/Extra/getproducttypes.php');
+  return this.http.get(this.baseURL +  '/api/Extra/getproducttypes.php');
 }
 
 GetProductBrands() {
@@ -78,7 +78,33 @@ GetProductBrands() {
       'Content-Type':  'application/json'
     })
   };
-  return this.http.get(this.baseURL +  '/Extra/getproductbrands.php');
+  return this.http.get(this.baseURL +  '/api/Extra/getproductbrands.php');
+}
+
+GetMyOrders(userid) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
+  const formData = new FormData();
+  formData.append('userid', userid);
+
+  return this.http.post(this.baseURL +  '/api/Home/getorderhistory.php' , formData);
+}
+
+GetOrderData(userid , orderid) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
+  const formData = new FormData();
+  formData.append('userid', userid);
+  formData.append('orderid', orderid);
+  return this.http.post(this.baseURL +  '/api/Home/getorderdetails.php' , formData);
 }
 
 

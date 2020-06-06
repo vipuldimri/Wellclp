@@ -1,0 +1,132 @@
+<ion-header>
+        <div class="nav_header">
+            <button 
+            (click)="Dismiss()"
+            ion-button class="nav_btn floatLeft" >
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </button>
+            <div class="nav_header_title floatLeft">
+               Select address
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </ion-header>
+
+
+
+
+<ion-content >
+    
+    <div class="familytree_wrapper">
+        
+
+        <!-- <div style="padding: 20px">
+                <ion-button
+                (click)="NewAddress()"
+                expand="block">ADD NEW ADDRESS</ion-button>
+        </div> -->
+
+
+        <ul style="margin: 15px">
+        
+                <ion-radio-group  [(ngModel)]="SelectedAddress">
+                <div class="card" 
+
+                style="margin-bottom: 5px"
+                *ngFor="let item of Address">
+                     
+                            <div class="row">
+
+                                    <div class="col-2">
+
+                                            
+            
+                                    <ion-icon
+                                    *ngIf="item.address_type == 1"
+                                    style="margin-left: 50%;margin-top: 50%"
+                                    size = "large"
+                                    src="assets/icon/home.svg"></ion-icon>
+            
+            
+                                    <ion-icon 
+                                    *ngIf="item.address_type == 2"
+                                    style="margin-left: 50%;margin-top: 50%"
+                                    size = "large"
+                                    src="assets/icon/office.svg"></ion-icon>
+            
+            
+                                    </div>
+            
+                                    <div class="col-10">
+                                            <div class="card-body">
+                                                    <h5 
+                                                    *ngIf="item.address_type == 1"
+                                                    class="card-title">Home</h5>
+                                                    <h5 
+                                                    *ngIf="item.address_type == 2"
+                                                    class="card-title">Office</h5>
+
+                                    <ion-radio style="float: right;"
+                                    [value]="item.id"
+                                     >
+                                    </ion-radio>
+                                    <p class="card-text">
+
+                                                    {{item.address}}  <br>
+                                                    {{item.landmark}}  <br>
+                                                    <strong>{{item.name}}</strong>  <br>
+                                                    {{item.phone}}  <br>
+            
+                                                    </p>
+                                                  </div>
+                                                  <div class="card-body">
+                                                    <a 
+                                                    style="color: #31a3a0"
+                                                    (click)="Delete(item)"
+                                                    class="card-link">
+                                                            <ion-icon name="trash-outline"></ion-icon>
+                                                        Remove</a>
+                                                    <a 
+                                                    style="float: right;color: #31a3a0"
+                                                    (click)="EditAddress(item)"
+                                                    class="card-link">
+                                                    <ion-icon  name="create-outline"></ion-icon>
+                                                    Edit</a>
+                                                  </div>
+                                    </div>
+            
+                                </div>
+                        
+
+          
+
+                </div>
+            </ion-radio-group>
+              
+
+        </ul>
+    </div>
+
+      <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button 
+      (click)="NewAddress()"
+      color="medium">
+        <ion-icon style="color:white" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  
+
+</ion-content>
+<ion-footer style="padding: 20px">
+
+        <ion-button 
+        *ngIf="this.Address.length !== 0 && SelectedAddress"
+        size="large"
+         (click)="DeliverHere()"
+        expand="block">DELIVER HERE</ion-button>
+
+</ion-footer>
+

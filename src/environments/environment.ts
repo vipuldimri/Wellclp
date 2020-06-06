@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  baseURL : 'http://localhost/API',
+   baseURL : 'http://localhost/API',
+   // baseURL : 'http://192.168.43.149/API',
    // http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/login.php
   production: false
 };

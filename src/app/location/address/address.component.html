@@ -14,7 +14,9 @@
     <div class="familytree_wrapper">
         <ul style="margin: 15px">
         
-                <div class="card" *ngFor="let item of Address">
+                <div class="card" 
+                style="margin-bottom: 5px"
+                *ngFor="let item of Address">
                       
 
                     <div class="row">
@@ -49,18 +51,22 @@
 
                                         {{item.address}}  <br>
                                         {{item.landmark}}  <br>
-                                        {{item.name}}  <br>
+                                        <strong>{{item.name}}</strong>  <br>
                                         {{item.phone}}  <br>
 
                                         </p>
                                       </div>
                                       <div class="card-body">
-                                        <a href="#" class="card-link">
+                                        <a 
+                                        style="color: #31a3a0"
+                                        (click)="Delete(item)"
+                                        class="card-link">
                                                 <ion-icon name="trash-outline"></ion-icon>
                                             Remove</a>
                                         <a 
-                                        style="float: right"
-                                        href="#" class="card-link">
+                                        style="float: right;color: #31a3a0"
+                                        (click)="EditAddress(item)"
+                                        class="card-link">
                                         <ion-icon  name="create-outline"></ion-icon>
                                         Edit</a>
                                       </div>
@@ -68,8 +74,8 @@
 
                     </div>
 
-
                 </div>
+         
               
 
         </ul>

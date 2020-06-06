@@ -64,9 +64,9 @@ export class ProductDetailPage implements OnInit {
         this.CartCount =  data;
       }
     );
-    this.LocationS.GetLocation().then((Data: any) => {
-      this.Location  = Data;
-    });
+    // this.LocationS.GetLocation().then((Data: any) => {
+    //   this.Location  = Data;
+    // });
   }
 
   async GetProductData(id) {
@@ -92,6 +92,8 @@ export class ProductDetailPage implements OnInit {
                this.breakcrumb =  Data.data[0].breakcrumb;
                this.ShowProduct =  true;
                this.RelatedProducts = Data.data[0].RelatedProducts;
+              } else {
+                alert('Something went wrong');
               }
               await  this.LoadingObj.dismiss();
           }

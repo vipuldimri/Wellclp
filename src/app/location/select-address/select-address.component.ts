@@ -1,27 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LocationService } from 'src/app/services/location/location.service';
 import { ModalController } from '@ionic/angular';
 import { AddAddressComponent } from '../add-address/add-address.component';
 import { User } from 'src/app/services/auth/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertController } from '@ionic/angular';
+import { fromEvent, Subscription } from 'rxjs';
+import { CommonProviderService } from 'src/app/services/CommonProvider.service';
 @Component({
   selector: 'app-address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss'],
+  templateUrl: './select-address.component.html',
+  styleUrls: ['./select-address.component.scss'],
 })
-export class AddressComponent implements OnInit {
+export class SelectAddressComponent implements OnInit {
 
   Address = [];
   LogedInUser: User;
+  BackButtonSub: Subscription;
   constructor(private locaS: LocationService,
               private AuthS: AuthService,
+              private CommonProviderS: CommonProviderService,
               public alertController: AlertController,
               public modalController: ModalController) { }
 
+
+  @Input() SelectedAddress;
+
   ngOnInit() {
-    this.LogedInUser =  this.AuthS.GetLoginUser();
     this.GetMyLocation();
+
+
+    this.LogedInUser =  this.AuthS.GetLoginUser();
+    const event = fromEvent(document, 'backbutton');
+    this.BackButtonSub = event.subscribe(async () => {
+       this.Dismiss();
+    });
   }
 
   GetMyLocation() {
@@ -33,6 +46,13 @@ export class AddressComponent implements OnInit {
           }
         );
   }
+  Dismiss() {
+    console.log(this.SelectedAddress);
+    this.BackButtonSub.unsubscribe();
+    this.modalController.dismiss({
+      list: this.Address
+    });
+}
   async NewAddress() {
     const modal = await this.modalController.create({
       component: AddAddressComponent,
@@ -100,6 +120,21 @@ export class AddressComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+
+  DeliverHere() {
+    if (!this.SelectedAddress) {
+
+      this.CommonProviderS.presentToast('Please select atleast one address.');
+      return;
+    }
+
+
+    this.modalController.dismiss({
+        id: this.SelectedAddress,
+        list: this.Address
+    });
   }
 
 }

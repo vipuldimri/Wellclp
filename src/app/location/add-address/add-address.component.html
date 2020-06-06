@@ -6,9 +6,11 @@
             <ion-icon name="arrow-back-outline"></ion-icon>
         </button>
         <div class="nav_header_title floatLeft">
-            Address details
+           Add New Address
         </div>
-        <button ion-button class="nav_btn floatLeft">
+        <button 
+        (click)="Submit()"
+        ion-button class="nav_btn floatLeft">
             <ion-icon name="save-outline"></ion-icon>
                   </button>
         <div class="clear"></div>
@@ -18,47 +20,83 @@
 
 <ion-content padding>
     <div class="personal_detail_wrapper">
+        <form [formGroup]="Addressform">
+            <div class="personal_details_form">
 
-        <div class="personal_details_form">
+                <ion-item>
+                    <ion-label>Address Type</ion-label>
+                    <ion-select
+                    formControlName="AddressType"
+                    placeholder="Select One">
+                      <ion-select-option value="1">Home</ion-select-option>
+                      <ion-select-option value="2">Office</ion-select-option>
+                      <ion-select-option value="0">Other</ion-select-option>
+    
+                    </ion-select>
+                  </ion-item>
+    
+                <ion-item>
+                        <ion-label position="floating">Name</ion-label>
+                    <ion-input 
+                    formControlName="Name"
+                     type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                        <ion-label position="floating">Mobile No</ion-label>
+                    <ion-input
+                    formControlName="Mobile"
+                  type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating">Address</ion-label>
+                    <ion-textarea
 
-            <ion-item>
-                <ion-label>Address Type</ion-label>
-                <ion-select placeholder="Select One">
-                  <ion-select-option value="1">Home</ion-select-option>
-                  <ion-select-option value="2">Office</ion-select-option>
-                  <ion-select-option value="0">Other</ion-select-option>
+                    formControlName="Address"  
+                    ></ion-textarea>
 
-                </ion-select>
-              </ion-item>
+                </ion-item>
+                <ion-item>
+                        <ion-label position="floating">State</ion-label>
 
-            <ion-item>
-                <ion-input placeholder="Name" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-input placeholder="Mobile Number" type="number"></ion-input>
-            </ion-item>
-            <ion-item>
-                <textarea class="personal_textarea" rows="3">Address</textarea>
-            </ion-item>
-            <ion-item>
-                <ion-input placeholder="State" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-input placeholder="City" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-input placeholder="Pincode" type="number"></ion-input>
-            </ion-item>
+                    <ion-input
+                    formControlName="State"
+                     type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                        <ion-label position="floating">City</ion-label>
 
-            <ion-item>
-                <ion-input placeholder="Landmark" type="text"></ion-input>
-            </ion-item>
+                    <ion-input 
+                    formControlName="City"
+                     type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                        <ion-label position="floating">Pincode</ion-label>
 
-            <ion-item>
-                <ion-input placeholder="Place" type="text"></ion-input>
-            </ion-item>
-          
-           
-        </div>
+                    <ion-input
+                    formControlName="Pincode"
+                     type="text"></ion-input>
+                </ion-item>
+    
+                <ion-item>
+                        <ion-label position="floating">LandMark</ion-label>
+
+                    <ion-input 
+                    formControlName="LandMark"
+                     type="text"></ion-input>
+                </ion-item>
+    
+                <ion-item>
+                        <ion-label position="floating">Place</ion-label>
+
+                    <ion-input 
+                    formControlName="Place"
+                     type="text"></ion-input>
+                </ion-item>
+              
+               
+            </div>
+
+        </form>
+       
     </div>
 </ion-content>

@@ -3,6 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { CommonProviderService } from '../CommonProvider.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ Lon;
 displayAddress;
 completeAddress;
 Location: NativeGeocoderResult;
+baseURL = environment.baseURL;
 
 constructor(private geolocation: Geolocation ,
             private http: HttpClient,
@@ -64,7 +66,15 @@ GetUserAddresses(userid) {
   const formData = new FormData();
   formData.append('user_id', userid);
   return this.http
-  .post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/getuseraddress.php',
+  .post( this.baseURL + '/api/Home/getuseraddress.php',
+    formData
+  );
+
+}
+
+AddAddress(formData) {
+  return this.http
+  .post( this.baseURL + '/api/Home/adduseraddress.php',
     formData
   );
 

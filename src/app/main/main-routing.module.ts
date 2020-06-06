@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('../my-prescription/my-prescription.module').then( m => m.MyPrescriptionPageModule)
   },
   {
+    path: 'my-orders',
+    loadChildren: () => import('../my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
+  },
+  {
     path: 'products-list',
     loadChildren: () => import('../products-list/products-list.module').then( m => m.ProductsListPageModule)
   },

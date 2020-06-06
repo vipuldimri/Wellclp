@@ -45,7 +45,7 @@
                     }
                 }
                 .med_container_details {
-                    width: calc(100% - 80px);
+                    
                     float: left;
                     padding-left: 10px;
                     h4 {
@@ -65,12 +65,15 @@
                     h5 {
                         margin: 0px;
                         font-size: 14px;
+                        padding-bottom: 4px;
+                        padding-top: 4px;
                     }
                     .order_price {
                         color: #212121;
-                        font-weight: 500;
+                        font-weight: 600;
                         border-right: 1px solid #afb0b1;
                         padding-right: 10px;
+                        font-size: 16px;
                     }
                     .order_quantity {
                         color: #4f4f4f;
@@ -98,7 +101,83 @@
                         background-position: right;
                         padding-right: 20px;
                     }
+                    .circle {
+                        width: 20px;
+                        height: 20px;
+                        border: 1px solid #707070;
+                        text-align: center;
+                        color: #707070;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        display: inline-block;
+                        position: relative;
+                        bottom: 2px;
+                        font-size: 12px;
+                        padding: 2px;
+                    }
+                    .circle_cntrl {
+                        width: 20px;
+                        height: 20px;
+                        color: #707070;
+                        border: 1px solid transparent;
+                        text-align: center;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        display: inline-block;
+                        margin-left: 5px;
+                        margin-right: 5px;
+                        position: relative;
+                        bottom: 2px;
+                    }
+                }
+                .med_container_remove {
+                    float: left;
+                    width: 100px;
+                    .med_btn {
+                        background: #31a3a0;
+                        color: #fff;
+                        border-radius: 20px;
+                        -webkit-border-radius: 20px;
+                        -moz-border-radius: 20px;
+                        -ms-border-radius: 20px;
+                        -o-border-radius: 20px;
+                        padding: 5px;
+                        padding-left: 15px;
+                        padding-right: 15px;
+                        position: relative;
+                        top: 20px;
+                        font-size: 12px;
+                        font-weight: 300;
+                    }
                 }
             }
         }
+        .payment {
+            color: #8f8f8f;
+            font-size: 15px;
+            strong {
+                color: #565656;
+                font-size: 16px;
+            }
+            h2 {
+                color: #404040;
+                font-size: 18px;
+                padding-bottom: 10px;
+            }
+            .row {
+                padding-bottom: 7px;
+            }
+        }
     }
+
+
+    /* Solid border */
+hr.solid {
+    border-top: 3px solid #bbb;
+  }

@@ -65,4 +65,15 @@ GetCart(cartobj) {
   );
 }
 
+Placeorder(obj) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+  return this.http.post(this.baseURL +  '/api/Home/placeorder.php',
+  obj
+  );
+}
+
 }
