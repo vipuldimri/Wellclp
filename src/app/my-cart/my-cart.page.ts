@@ -113,7 +113,9 @@ GetAddressIcon(ID) {
   } else if (ID === '2') {
     return 'assets/icon/office.svg';
   } else if (ID === '0') {
-    return 'Other';
+    return 'assets/icon/other.svg';
+  } else {
+    return 'assets/icon/other.svg';
   }
 }
 

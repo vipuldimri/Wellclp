@@ -101,7 +101,14 @@ export class ProductDetailPage implements OnInit {
   }
   ViewPrescription(img) {
     console.log(img);
-    this.photoViewer.show(img[0]);
+    const options = {
+      share: true, // default is false
+      closeButton: false, // default is true
+      copyToReference: true, // default is false
+      headers: '',  // If this is not provided, an exception will be triggered
+      piccasoOptions: { } // If this is not provided, an exception will be triggered
+  };
+    this.photoViewer.show(img[0], this.CurrentProduct.product_name , options);
   }
 
   Addtocart() {

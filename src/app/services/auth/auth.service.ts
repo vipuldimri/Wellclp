@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user.model';
 import { environment } from 'src/environments/environment';
+import { HTTP } from '@ionic-native/http/ngx';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +10,7 @@ export class AuthService {
 
  private LoginUser: User;
  constructor(private http: HttpClient) { }
+// constructor(private http: HTTP, private oldhttp: HttpClient) {}
  baseURL = environment.baseURL;
  // http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/login.php
 login(userphone, userpassword) {
@@ -23,8 +25,10 @@ login(userphone, userpassword) {
   formData.append('phone', userphone);
   formData.append('password', userpassword);
 
-  return this.http.post( this.baseURL +  '/api/auth/login.php',
-  formData );
+  return this.http.post(this.baseURL +  '/api/auth/login.php' , formData);
+  // return this.http.get(this.baseURL +  '/api/auth/login.php' , {} , { });
+  // return this.http.post( this.baseURL +  '/api/auth/login.php',
+  // formData );
 }
 
 Googlelogin(email) {
@@ -38,8 +42,8 @@ Googlelogin(email) {
   const formData = new FormData();
   formData.append('email', email);
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/googlelogin.php',
-  formData );
+  return this.http.post(this.baseURL + '/api/auth/googlelogin.php',
+  formData , httpOptions);
 }
 
 GoogleRegisteration(Fromobj) {
@@ -51,8 +55,8 @@ GoogleRegisteration(Fromobj) {
   };
 
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/googleregister.php',
-  Fromobj );
+  return this.http.post( this.baseURL + '/api/auth/googleregister.php',
+  Fromobj , httpOptions);
 }
 
 SendOTP(Fromobj) {
@@ -64,8 +68,8 @@ SendOTP(Fromobj) {
   };
 
 
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/sendregisterationOTP.php',
-  Fromobj );
+  return this.http.post(this.baseURL + '/api/auth/sendregisterationOTP.php',
+  Fromobj , httpOptions);
 }
 
 SaveToken(userid ,  Token) {
@@ -78,8 +82,8 @@ SaveToken(userid ,  Token) {
   const formData = new FormData();
   formData.append('user_id', userid);
   formData.append('token', Token);
-  return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/savetoken.php',
-  formData
+  return this.http.post(this.baseURL + '/api/auth/savetoken.php',
+  formData , httpOptions
   );
 }
 SaveLoginUser(user: User) {

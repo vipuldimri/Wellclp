@@ -145,8 +145,10 @@
   
             <li *ngIf="CurrentProduct && CurrentProduct.description && CurrentProduct.description.length >= 2">PRODUCT DETAILS
                     <br>
-                   
-                    <p>{{CurrentProduct.description}}</p>
+
+                    <div [innerHTML]="CurrentProduct.description">
+
+                    </div>
 
             </li>
            

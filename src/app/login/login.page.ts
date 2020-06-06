@@ -172,6 +172,18 @@ export class LoginPage implements OnInit,  OnDestroy {
 
         }
       );
+      // this.AuthS.login($event.value.phone, $event.value.Password)
+      // .then(data => {
+      //   console.log(data);
+      //   console.log(data.status);
+      //   console.log(data.data); // data received by server
+      //   console.log(data.headers);
+      // })
+      // .catch(error => {
+      //   console.log(error);
+      //  // console.log(error.error); // error message as string
+      //  // console.log(error.headers);
+      // });
   }
   async presentAlert(mess , mess2) {
     const alert = await this.alertController.create({
@@ -203,15 +215,15 @@ export class LoginPage implements OnInit,  OnDestroy {
   }
 
   saveFirebaseToken(userid) {
-    try {
-      this.fcm.getToken().then(token => {
-        this.AuthS.SaveToken(userid , token)
-        .subscribe();
-        console.log(token);
-      });
-    } catch (error) {
-      alert('error 2');
-    }
+    // try {
+    //   this.fcm.getToken().then(token => {
+    //     this.AuthS.SaveToken(userid , token)
+    //     .subscribe();
+    //     console.log(token);
+    //   });
+    // } catch (error) {
+    //   alert('error 2');
+    // }
   }
 
 }

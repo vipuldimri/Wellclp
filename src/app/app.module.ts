@@ -27,6 +27,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Sim } from '@ionic-native/sim/ngx';
 import { SmsRetriever  } from '@ionic-native/sms-retriever/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 
 const firebaseConfig = {
    apiKey: 'AIzaSyCvSr9rntVsKJ0qIbylZpJbb00AuL3WEoA',
@@ -71,7 +72,8 @@ const firebaseConfig = {
       CommonProviderService,
       AuthService,
       HomeService,
-      AuthGuardService
+      AuthGuardService,
+      HTTP
    ],
    bootstrap: [
       AppComponent
