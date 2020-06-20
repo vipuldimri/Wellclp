@@ -55,7 +55,6 @@ export class ProductDetailPage implements OnInit , OnDestroy {
 
     // this.LogedInUser =  this.AuthS.GetLoginUser();
     // console.log(this.LogedInUser);
-
     this.route.params.subscribe(params => {
         const id = params.id;
         this.ShowProduct =  false;
@@ -80,6 +79,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
         this.ProductS.GetProductDetails(id)
         .subscribe(
           async (Data: any) => {
+              this.ShowProduct =  true;
               console.log(Data);
               if (Data.Status) {
                this.CurrentProduct =  Data.data[0].product;
@@ -87,7 +87,6 @@ export class ProductDetailPage implements OnInit , OnDestroy {
                this.Images =  Data.data[0].images;
                this.CartProduct =  Data.data[0];
                this.breakcrumb =  Data.data[0].breakcrumb;
-               this.ShowProduct =  true;
                this.RelatedProducts = Data.data[0].RelatedProducts;
                this.SelectedPrice =  this.Prices[0];
 
@@ -106,7 +105,9 @@ export class ProductDetailPage implements OnInit , OnDestroy {
               }
               await  this.LoadingObj.dismiss();
           },
-          (error) => {
+          async (error) => {
+            await  this.LoadingObj.dismiss();
+            this.ShowProduct =  true;
             alert('Something went wrong');
           }
         );

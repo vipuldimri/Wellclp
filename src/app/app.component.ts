@@ -9,6 +9,7 @@ import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { User } from './services/auth/user.model';
 import { Router } from '@angular/router';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-root',
@@ -42,34 +43,7 @@ export class AppComponent implements OnInit {
       } catch (error) {
       }
 
-      this.fcm.onNotification()
-      .subscribe(data => {
-      if (data.wasTapped) {
-        //     "Belongs" => $Belongs,
-        //     "Parent_ID" => $ParentID
-        console.log('Received in background');
-        console.log(data);
-        if (data.Belongs === '1') {
-          this.router
-          .navigate( ['main/products-list', data.Parent_ID ] , { queryParams: { option: '0'} ,
-           queryParamsHandling: 'merge' }  );
-        } else if (data.Belongs === '2') {
-          this.router.navigate(['main/product-detail', data.Parent_ID]);
-        }
-         // alert('Back');
-      } else {
-        // alert('front');
-        console.log('Received in foreground');
-        console.log(data);
-        if (data.Belongs === '1') {
-          this.router
-          .navigate( ['main/products-list', data.Parent_ID ] , { queryParams: { option: '0'} ,
-           queryParamsHandling: 'merge' }  );
-        } else if (data.Belongs === '2') {
-          this.router.navigate(['main/product-detail', data.Parent_ID]);
-        }
-      }
-    });
+
       console.log('Getting');
     });
 

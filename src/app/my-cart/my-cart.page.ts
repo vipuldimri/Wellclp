@@ -6,6 +6,7 @@ import { LocationService } from '../services/location/location.service';
 import { ModalController, AlertController } from '@ionic/angular';
 import { SelectAddressComponent } from '../location/select-address/select-address.component';
 import { Router } from '@angular/router';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-my-cart',
@@ -22,6 +23,7 @@ export class MyCartPage implements OnInit {
   ShowCart =  false;
   constructor(private cartS: CartService, private locationS: LocationService,
               private router: Router, public alertController: AlertController,
+              private localNotifications: LocalNotifications,
               private AuthS: AuthService, public modalController: ModalController) { }
 
   sliderConfig = {
@@ -162,9 +164,20 @@ CheckOut() {
     (Data: any) => {
       console.log(Data);
       if (Data.Status) {
-          alert('Order placed successfully');
-          this.CartProducts = [];
-          this.router
+
+        this.localNotifications.schedule({
+          id: 1,
+          title: 'Order placed successfully',
+          text:  'Order amount ' +  this.GetFinalPrice(this.TotalPrice)
+          + ', our custom support will contact you once your order is ready.' ,
+          smallIcon: 'https://www.wellclap.com/pictures/common/wellclap-logo-v7.png',
+          icon: 'https://www.wellclap.com/pictures/common/wellclap-logo-v7.png'
+          });
+
+
+        alert('Order placed successfully');
+        this.CartProducts = [];
+        this.router
           .navigate(
             [ 'main' , 'my-orders' , Data.OrderId] ,
             { queryParams: { allowback : false } } ) ;

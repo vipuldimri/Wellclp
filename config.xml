@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.wellclap" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.wellclap"
+ version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>WellClap</name>
     <description>Wellclap pharmacy app</description>
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -143,5 +144,6 @@
         <variable name="OKHTTP_VERSION" value="3.10.0" />
     </plugin>
     <plugin name="com-sarriaroman-photoviewer" spec="^1.2.4" />
+    <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
     <engine name="android" spec="8.0.0" />
 </widget>

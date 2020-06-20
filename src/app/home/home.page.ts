@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HomeService } from '../services/home/home.service';
 import { ProductService } from '../services/product/product.service';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { CartService } from '../services/cart/cart.service';
 import { LocationService } from '../services/location/location.service';
+import { FCM } from '@ionic-native/fcm/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ import { LocationService } from '../services/location/location.service';
   providers: [CallNumber]
 })
 export class HomePage implements OnInit {
-
+  clickSub: any;
   BestSellersProducts: [];
   BestDealsProducts: [];
   Slides: any[];
@@ -24,6 +26,9 @@ export class HomePage implements OnInit {
               private HS: HomeService,
               private PS: ProductService,
               private cartS: CartService,
+              private fcm: FCM,
+              private ngZone: NgZone,
+              private localNotifications: LocalNotifications,
               private activatedRoute: ActivatedRoute,
               private locationS: LocationService,
               private callNumber: CallNumber ) { }
@@ -45,6 +50,76 @@ export class HomePage implements OnInit {
     this.locationS.GetLocation().then((Data: any) => {
       this.Location  = Data;
     });
+
+    this.fcm.onNotification()
+    .subscribe(data => {
+    if (data.wasTapped) {
+      //     "Belongs" => $Belongs,
+      //     "Parent_ID" => $ParentID
+      console.log('Received in background');
+      console.log(data);
+      if (data.Belongs === '1') {
+         this.ngZone.run(() => {
+          this.router
+          .navigate( ['main/products-list', data.Parent_ID ] , { queryParams: { option: '0'} ,
+           queryParamsHandling: 'merge' }  );
+        });
+      } else if (data.Belongs === '2') {
+        this.ngZone.run(() => {
+          this.router.navigate(['main/product-detail', data.Parent_ID]);
+        });
+      }
+       // alert('Back');
+    } else {
+      // alert('front');
+
+      this.localNotifications.schedule({
+        id: 1,
+        title: data.title,
+        text: data.body ,
+        data: { secret: data } ,
+        smallIcon: 'https://www.wellclap.com/pictures/common/wellclap-logo-v7.png',
+        icon: 'https://www.wellclap.com/pictures/common/wellclap-logo-v7.png'
+      });
+
+
+      this.clickSub = this.localNotifications.on('click')
+      .subscribe(notification => {
+            this.clickSub.unsubscribe();
+        // Insert your logic here
+            console.log(notification);
+            if (notification.data.secret.Belongs === '1') {
+              this.ngZone.run(() => {
+                this.router
+                .navigate( ['main/products-list', notification.data.secret.Parent_ID ] , { queryParams: { option: '0'} ,
+                 queryParamsHandling: 'merge' }  );
+              });
+
+            } else if (notification.data.secret.Belongs === '2') {
+              this.ngZone.run(() => {
+                this.router.navigate(['main/product-detail', notification.data.secret.Parent_ID]);
+              });
+            }
+      });
+      console.log('Received in foreground');
+      console.log(data);
+      // if (data.Belongs === '1') {
+      //   this.router
+      //   .navigate( ['main/products-list', data.Parent_ID ] , { queryParams: { option: '0'} ,
+      //    queryParamsHandling: 'merge' }  );
+      // } else if (data.Belongs === '2') {
+      //   this.router.navigate(['main/product-detail', data.Parent_ID]);
+      // }
+    }
+  }
+  ,
+  (erro) => {
+    alert('ERROr');
+    console.log(erro);
+  }
+  );
+
+
   }
 
   Upload()   {
@@ -113,5 +188,8 @@ export class HomePage implements OnInit {
     .navigate( ['main/products-list', catid ] , { queryParams: { option: '0'} ,
      queryParamsHandling: 'merge' }  );
   }
+
+
+
 
 }
