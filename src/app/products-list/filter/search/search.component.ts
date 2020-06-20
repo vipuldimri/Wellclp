@@ -9,8 +9,10 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class SearchComponent implements OnInit {
 
+  @Input() catid;
   @Input() Type: number;
   @Input() PrevSelectedItems;
+  @Input() Brands;
   Title = '';
   List = [];
   SelectedItems = [];
@@ -51,17 +53,27 @@ export class SearchComponent implements OnInit {
   }
 
   GetProductBrands() {
-    this.proS.GetProductBrands()
+    this.proS.GetProductBrands(this.catid)
     .subscribe(
       (Data: any) => {
         if (Data.Status) {
             this.List =  Data.data;
             this.List.forEach(element => {
-              element.Ischecked = false;
               element.Show = true;
+              const value = this.Brands.find(x => x.id === element.id);
+              if (value) {
+                element.Ischecked = true;
+              } else {
+                element.Ischecked = false;
+              }
             });
             console.log(this.List);
+            console.log(this.Brands);
            }
+      },
+      (error) => {
+        console.log(error);
+        alert('Something went wrong.');
       }
     );
   }

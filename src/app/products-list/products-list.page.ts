@@ -19,6 +19,13 @@ export class ProductsListPage implements OnInit {
   CategoryID;
   Option;
   ShowLoading =  true;
+  TotalCountDisplay = '';
+
+  Order = 'NONE';
+
+  Brandids = '';
+  Brands = [];
+  Subcat = [];
   constructor(private productS: ProductService,
               private route: ActivatedRoute,
               private router: Router,
@@ -27,22 +34,34 @@ export class ProductsListPage implements OnInit {
               public modalController: ModalController) { }
 
   ngOnInit() {
-     const id =  this.route.snapshot.params.id;
-     const option =  this.route.snapshot.queryParams.option;
-     console.log(id);
-     console.log(option);
-     this.CategoryID = id;
-     this.Option =  option;
+     this.route.params.subscribe(
+       (RES: any) => {
+        const id =  RES.id;
+        this.Brands = [];
+        const option =  this.route.snapshot.queryParams.option;
+        console.log(id);
+        console.log(option);
+        this.ShowLoading =  true;
+        this.StartIndex = 0;
+        this.CategoryID = id;
+        this.Option =  option;
+        this.GetList(id , option , this.StartIndex);
+       }
+     );
 
-     this.GetList(id , option , this.StartIndex);
+
   }
 
   GetList(id , option , startindex) {
-    this.productS.GetProductList(id, option , startindex )
+    this.ShowLoading =  true;
+    this.TotalCount = 1000;
+    this.productS.GetProductList(id, option , startindex , this.Brandids , this.Order)
     .subscribe(
       (Data: any) => {
          console.log(Data);
          this.ProductList =  Data.Products;
+
+         this.Subcat = Data.Sub_cat;
 
          // tslint:disable-next-line:triple-equals
          if (this.Option == 1) {
@@ -51,6 +70,7 @@ export class ProductsListPage implements OnInit {
           this.Title =  Data.Title;
          }
          this.TotalCount = Data.Total_Count;
+         this.TotalCountDisplay = Data.Total_Count + ' items';
          this.StartIndex += 20;
          this.ShowLoading =  false;
       } ,
@@ -65,8 +85,10 @@ export class ProductsListPage implements OnInit {
   }
 
   loadData(event) {
+    console.log(this.ProductList.length);
+    console.log(this.TotalCount);
     if (this.ProductList.length < this.TotalCount) {
-      this.productS.GetProductList(this.CategoryID, this.Option , this.StartIndex )
+      this.productS.GetProductList(this.CategoryID, this.Option , this.StartIndex  , this.Brandids , this.Order)
       .subscribe(
         (Data: any) => {
            console.log(Data);
@@ -95,27 +117,37 @@ export class ProductsListPage implements OnInit {
   async sortActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Sort',
-      buttons: [{
+      buttons: [
+        {
+          text: 'Price: Best Sellers first',
+          role: 'destructive',
+          icon: 'cart-outline',
+          handler: () => {
+            this.Order = 'NONE';
+            this.StartIndex = 0;
+            this.infiniteScroll.disabled = false;
+            this.GetList(this.CategoryID , this.Option , this.StartIndex);
+          }
+        }, {
         text: 'Price: Low To High',
         role: 'destructive',
         icon: 'arrow-up',
         handler: () => {
-          console.log('Delete clicked');
+          this.Order = 'ASC';
+          this.StartIndex = 0;
+          this.infiniteScroll.disabled = false;
+          this.GetList(this.CategoryID , this.Option , this.StartIndex);
         }
       }, {
         text: 'Price: High To Low',
         icon: 'arrow-down',
         handler: () => {
-          console.log('Share clicked');
+          this.Order = 'DESC';
+          this.StartIndex = 0;
+          this.infiniteScroll.disabled = false;
+          this.GetList(this.CategoryID , this.Option , this.StartIndex);
         }
       },
-      // }, {
-      //   text: 'Discount',
-      //   icon: 'pricetags',
-      //   handler: () => {
-      //     console.log('Play clicked');
-      //   }
-      // },
       {
         text: 'Cancel',
         icon: 'close',
@@ -130,8 +162,36 @@ export class ProductsListPage implements OnInit {
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: FilterComponent
+      component: FilterComponent,
+      componentProps: {
+        catid: this.CategoryID,
+        Brands: this.Brands,
+      }
     });
-    return await modal.present();
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    console.log(data);
+    if (data.apply) {
+      const brands =  data.Brands;
+      this.Brands =  brands;
+      this.Brandids = '';
+      brands.forEach(element => {
+            if (this.Brandids === '') {
+              this.Brandids  =  element.id;
+            } else {
+              this.Brandids  =  this.Brandids +  ' , ' +  element.id;
+            }
+      });
+      console.log(this.Brandids);
+      this.StartIndex = 0;
+      this.infiniteScroll.disabled = false;
+      this.GetList(this.CategoryID , this.Option , this.StartIndex);
+    }
+  }
+
+  NevigatetoSubcat(cat) {
+    this.router
+    .navigate( ['main/products-list', cat.category_id ] , { queryParams: { option: '0'} ,
+     queryParamsHandling: 'merge' }  );
   }
 }

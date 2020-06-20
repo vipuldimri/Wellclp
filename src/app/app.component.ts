@@ -38,17 +38,36 @@ export class AppComponent implements OnInit {
       this.SetUpDeepLinks();
 
       try {
-        this.fcm.subscribeToTopic('marketing');
+        this.fcm.subscribeToTopic('all');
       } catch (error) {
       }
 
-      this.fcm.onNotification().subscribe(data => {
+      this.fcm.onNotification()
+      .subscribe(data => {
       if (data.wasTapped) {
+        //     "Belongs" => $Belongs,
+        //     "Parent_ID" => $ParentID
         console.log('Received in background');
         console.log(data);
+        if (data.Belongs === '1') {
+          this.router
+          .navigate( ['main/products-list', data.Parent_ID ] , { queryParams: { option: '0'} ,
+           queryParamsHandling: 'merge' }  );
+        } else if (data.Belongs === '2') {
+          this.router.navigate(['main/product-detail', data.Parent_ID]);
+        }
+         // alert('Back');
       } else {
+        // alert('front');
         console.log('Received in foreground');
         console.log(data);
+        if (data.Belongs === '1') {
+          this.router
+          .navigate( ['main/products-list', data.Parent_ID ] , { queryParams: { option: '0'} ,
+           queryParamsHandling: 'merge' }  );
+        } else if (data.Belongs === '2') {
+          this.router.navigate(['main/product-detail', data.Parent_ID]);
+        }
       }
     });
       console.log('Getting');

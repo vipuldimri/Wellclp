@@ -95,7 +95,12 @@
                     class="circle_cntrl">  +
                   </div>
                 </h5>
-                <h5 class="order_quantity p0 borderNone">{{item.attribute_name}}&nbsp;:&nbsp;<strong>&nbsp;{{item.attribute_name_value}}</strong></h5>
+                <h5
+                *ngFor="let att of item.attributeslist;"
+                class="order_quantity p0 borderNone">{{att.attributename  | titlecase}}&nbsp;:&nbsp;
+                <strong>&nbsp;{{att.attributevalue  | titlecase}}
+                </strong>
+                </h5>
             </div>
             <div class="med_container_remove textRight">
                 <button 
@@ -152,10 +157,16 @@
         </ion-row> 
       </ion-grid>
      -->
-        <ion-row style="margin-bottom: 8px">
-            <ion-col class="p0"><strong>Final Payable</strong></ion-col>
-            <ion-col class="textRight p0"><strong>&#x20b9; {{TotalPrice}}</strong></ion-col>
+        <ion-row >
+            <ion-col class="p0">Sub-Total</ion-col>
+            <ion-col class="textRight p0">&#x20b9; {{TotalPrice}}</ion-col>
         </ion-row>
+
+        <ion-row style="margin-bottom: 8px">
+                <ion-col class="p0"><strong>Final Payable</strong></ion-col>
+                <ion-col class="textRight p0"><strong>&#x20b9; {{ GetFinalPrice(TotalPrice)}}</strong></ion-col>
+            </ion-row>
+        
     
     </div>
 
@@ -259,7 +270,7 @@ class="addressarea">
   <hr class="solid">
 
      <ion-button   
-     (click)="CheckOut()"
+     (click)="CheckoutButton()"
      size="large"
      color="medium" shape="round"
      style="margin: 10px;color: white;" 

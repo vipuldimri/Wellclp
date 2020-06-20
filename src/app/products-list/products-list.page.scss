@@ -177,3 +177,25 @@
             }
         }
     }
+
+
+    .scrolling-wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .card1 {
+          display: inline-block;
+        }
+      }
+
+      .dot {
+        height: 10px;
+        width: 10px;
+        background-color: #24abaa;
+        border-radius: 50%;
+        display: inline-block;
+      }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../services/product/product.service';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { AuthService } from '../services/auth/auth.service';
   templateUrl: './product-detail.page.html',
   styleUrls: ['./product-detail.page.scss'],
 })
-export class ProductDetailPage implements OnInit {
+export class ProductDetailPage implements OnInit , OnDestroy {
 
   CurrentProduct;
   Prices;
@@ -25,7 +25,7 @@ export class ProductDetailPage implements OnInit {
   CartProduct;
   CartCount;
   breakcrumb;
-  ShowAttributes =  false;
+
   ShowGoToCart =  false;
   RelatedProducts = [];
   Location = 'Not set';
@@ -36,6 +36,11 @@ export class ProductDetailPage implements OnInit {
   };
   LoadingObj;
   LogedInUser: User;
+
+  AttributeList = [];
+  TempList = [];
+  InvalidCombination =  false;
+
   constructor(private ProductS: ProductService,
               private photoViewer: PhotoViewer,
               private route: ActivatedRoute,
@@ -48,8 +53,8 @@ export class ProductDetailPage implements OnInit {
               public loadingController: LoadingController) { }
   ngOnInit() {
 
-    this.LogedInUser =  this.AuthS.GetLoginUser();
-    console.log(this.LogedInUser);
+    // this.LogedInUser =  this.AuthS.GetLoginUser();
+    // console.log(this.LogedInUser);
 
     this.route.params.subscribe(params => {
         const id = params.id;
@@ -79,23 +84,30 @@ export class ProductDetailPage implements OnInit {
               if (Data.Status) {
                this.CurrentProduct =  Data.data[0].product;
                this.Prices =  Data.data[0].price;
-
-               if (this.Prices.attibute === 'NULL' || this.Prices.attibute === 'NULL') {
-                    this.ShowAttributes =  false;
-               } else {
-                 this.ShowAttributes =  true;
-               }
-
                this.Images =  Data.data[0].images;
                this.CartProduct =  Data.data[0];
-               this.SelectedPrice =  this.Prices[0];
                this.breakcrumb =  Data.data[0].breakcrumb;
                this.ShowProduct =  true;
                this.RelatedProducts = Data.data[0].RelatedProducts;
+               this.SelectedPrice =  this.Prices[0];
+
+
+               this.SelectedPrice.attibutelist.forEach(element => {
+                   this.TempList.push(element.attibute);
+               });
+
+               console.log(this.SelectedPrice);
+               this.AttributeList =  Data.data[0].AttributeList;
+              //  this.AttributeList.forEach(element => {
+              //      this.TempList.push('');
+              //  });
               } else {
                 alert('Something went wrong');
               }
               await  this.LoadingObj.dismiss();
+          },
+          (error) => {
+            alert('Something went wrong');
           }
         );
   }
@@ -112,18 +124,11 @@ export class ProductDetailPage implements OnInit {
   }
 
   Addtocart() {
-    const obj = {
-      productid :  this.CurrentProduct.product_id,
-      attributeid : this.CurrentProduct.attributes_ids,
-      attributeidvalue :  this.SelectedPrice.attibute,
-      userid : 10,
-      quantity : this.count
-      };
 
     const formData = new FormData();
     formData.append('productid', this.CurrentProduct.product_id);
-    formData.append('attributeid', this.CurrentProduct.attributes_ids);
-    formData.append('attributeidvalue', this.SelectedPrice.attibute);
+    formData.append('attributeid', this.SelectedPrice.attribute_id);
+    formData.append('attributeidvalue', this.SelectedPrice.attribute_id_value);
     formData.append('userid', '10');
     formData.append('quantity', this.count + '');
     this.cartS.AddProduct(formData)
@@ -164,5 +169,59 @@ export class ProductDetailPage implements OnInit {
       message: 'Please wait...'
     });
     await  this.LoadingObj.present();
+  }
+
+  NevigatetoCart() {
+    this.router.navigate(['main/my-cart']);
+  }
+
+  AttributeChange(index , value) {
+      console.log(index);
+      console.log(value);
+
+
+      let NewPrice;
+
+      let found =  false;
+      this.Prices.forEach(element => {
+          // if (element.attibutelist[index].attibute === value) {
+          //   found =  true;
+          //   NewPrice = element;
+          // }
+          let tempfound =  true;
+          let count = 0;
+          element.attibutelist.forEach(element2 => {
+              if (element2.attibute !== this.TempList[count]) {
+                  tempfound = false;
+              }
+              count = count + 1;
+          });
+
+          if (tempfound === true) {
+            NewPrice = element;
+            found =  true;
+          }
+
+
+      });
+
+      if (!found) {
+          this.InvalidCombination =  true;
+          this.SelectedPrice =  null;
+      } else {
+        this.SelectedPrice =  NewPrice;
+        this.InvalidCombination =  false;
+      }
+
+  }
+
+  Nevigatetocategory(catid) {
+    this.router
+    .navigate( ['main/products-list', catid ] , { queryParams: { option: '0'} ,
+     queryParamsHandling: 'merge' }  );
+  }
+
+  async ngOnDestroy(): Promise<void> {
+    await  this.LoadingObj.dismiss();
   }
 }

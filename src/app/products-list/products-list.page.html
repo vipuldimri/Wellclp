@@ -3,13 +3,30 @@
         <ion-buttons slot="start">
           <ion-back-button style="color:white"></ion-back-button> 
            </ion-buttons>
-        <ion-title style="color:white">{{Title}}</ion-title>
+        <ion-title *ngIf="!ShowLoading" style="color:white">{{Title}}</ion-title>
         <ion-list-header *ngIf="ShowLoading">
                 <ion-label>
                   <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
                 </ion-label>
               </ion-list-header>
       </ion-toolbar>
+
+
+      <div *ngIf="!ShowLoading">
+          <div class="scrolling-wrapper">
+              <ion-chip  
+              (click)="NevigatetoSubcat(item)"
+              *ngFor="let item of Subcat" color="tertiary" class="card1">
+                  <ion-label>{{item.category_name | titlecase}}</ion-label>
+                </ion-chip>
+                 </div>
+    
+                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <p style="margin: 0px">{{TotalCountDisplay}}</p>
+                  </nav>
+      </div>
+  
+        
 </ion-header>
 
 
@@ -312,7 +329,7 @@
 
 
 
-    <div class="wishlist_wrapper">
+    <div class="wishlist_wrapper" *ngIf="!ShowLoading">   
         <!-- <div class="wish_head">
             <h5 class="floatLeft">Ayurvedic</h5>
             <ion-icon class="floatRight" name="git-compare" (click)="add()"></ion-icon>
@@ -347,7 +364,8 @@
         </ul>
     </div>
 
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll threshold="100px"
+     (ionInfinite)="loadData($event)">
         <ion-infinite-scroll-content
           loadingSpinner="bubbles"
           loadingText="Loading more products...">
@@ -373,7 +391,7 @@
 </ion-content>
 
 
-<!-- <ion-footer>
+<ion-footer>
         <ion-toolbar>
          
 
@@ -392,8 +410,6 @@
 
                                     Sort
                                 </ion-row>
-                     
-
                           </ion-col>
                           <ion-col 
                           (click)="presentModal()"
@@ -401,9 +417,14 @@
                                 <ion-row class="center">
                                         <ion-icon 
                                         size="large"
-                                        name="filter-outline"></ion-icon>
-
-                                    Filter
+                                        name="filter-outline">
+                                      </ion-icon>
+                                      
+                                      Filter
+                               
+                                    <span
+                                    *ngIf="Brands.length > 0"
+                                    class="dot"></span>
                                 </ion-row>
 
                             </ion-col>
@@ -411,4 +432,4 @@
                     </ion-grid>
 
         </ion-toolbar>
-</ion-footer> -->
+</ion-footer> 

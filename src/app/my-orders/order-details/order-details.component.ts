@@ -58,6 +58,10 @@ export class OrderDetailsComponent implements OnInit , OnDestroy {
           this.OrderData =  data.data;
           await  this.LoadingObj.dismiss();
           this.ShowOrder =  true;
+        } ,
+        async (error) => {
+          await  this.LoadingObj.dismiss();
+          alert('Something went wrong');
         }
       );
   }

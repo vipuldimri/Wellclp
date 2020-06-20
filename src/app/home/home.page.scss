@@ -35,7 +35,7 @@
     }
     .home_offer_slider {
 
-        .slides {}
+        
     }
     .home_header {
         width: 100%;
@@ -291,3 +291,28 @@ ion-badge {
 
 
 
+.frame {
+    height: 150px; /*can be anything*/
+    width: 150px; /*can be anything*/
+    display: inline-block;
+    position: relative;
+  }
+  
+  .classimg {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  hr {
+    border-top: 1px solid red;
+    margin: 0px;
+  }
+  

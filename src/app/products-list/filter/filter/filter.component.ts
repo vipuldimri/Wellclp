@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { SearchComponent } from '../search/search.component';
 import { CategoryComponent } from '../category/category.component';
@@ -9,7 +9,8 @@ import { CategoryComponent } from '../category/category.component';
 })
 export class FilterComponent implements OnInit {
 
-
+  @Input() catid;
+  @Input() Brands;
   SelectedBrands = [];
   SelectedPTypes = [];
   BrandsText = 'Select Brand';
@@ -17,12 +18,27 @@ export class FilterComponent implements OnInit {
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
+
+    if (this.Brands.length > 0) {
+    this.BrandsText =  '';
+    }
+    let count = 0;
+    this.Brands.forEach(element => {
+        if (count === 0) {
+          this.BrandsText =     element.title;
+        } else {
+          this.BrandsText =     this.BrandsText +  ',' + element.title;
+        }
+        count =  count + 1;
+    });
   }
   dismiss() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
-      dismissed: true
+      dismissed: true,
+      apply: false,
+      Brands: this.SelectedBrands
     });
   }
   async presentSearchModal(value) {
@@ -33,6 +49,8 @@ export class FilterComponent implements OnInit {
         component: SearchComponent,
         componentProps: {
           Type: value,
+          catid: this.catid,
+          Brands: this.Brands,
           PrevSelectedItems: this.SelectedBrands
         }
       });
@@ -40,6 +58,13 @@ export class FilterComponent implements OnInit {
       const { data } = await modal.onWillDismiss();
       console.log(data);
       console.log('here');
+
+      let selectedBrand = [];
+      if (data.selectedItems) {
+        selectedBrand = data.selectedItems;
+        this.SelectedBrands =  selectedBrand;
+      }
+      console.log(selectedBrand);
 
       if (data.type === 0) {
             this.BrandsText = data.title;
@@ -86,5 +111,13 @@ export class FilterComponent implements OnInit {
     });
     await modal.present();
 
+  }
+
+  ApplyFilter() {
+    this.modalController.dismiss({
+      dismissed: true,
+      apply: true,
+      Brands: this.SelectedBrands
+    });
   }
 }

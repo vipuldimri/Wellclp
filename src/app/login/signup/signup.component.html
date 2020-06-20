@@ -9,23 +9,28 @@
             name="myForm">
                 <ion-item>
                     <ion-input type="text" 
-                    required
+                    required 
+                    [autocomplete]="off"
                     [(ngModel)]="Name"
                     name="name"
                     minlength="3"
                     placeholder="Name"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-input type="mail"
-                    [(ngModel)]="Email"
+                    <ion-input 
+                    type="mail"
+                    [(ngModel)]="Email" 
+                    [autocomplete]="'off'"
+                    
                     required
                     email
                     name="Email"
-                     placeholder="Email ID"></ion-input>
+                    placeholder="Email ID">
+                    </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-input type="text" 
-                    [(ngModel)]="Mobile"
+                    [(ngModel)]="Mobile" autocomplete="off"
                     required
                     minlength="10"
                     maxlength="10"
@@ -34,7 +39,7 @@
                 </ion-item>
                 <ion-item>
                     <ion-input 
-                    [(ngModel)]="Password"
+                    [(ngModel)]="Password" autocomplete="off"
                     required
                     minlength="6"
                     name="Password"

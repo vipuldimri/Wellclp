@@ -215,15 +215,28 @@ export class LoginPage implements OnInit,  OnDestroy {
   }
 
   saveFirebaseToken(userid) {
-    // try {
-    //   this.fcm.getToken().then(token => {
-    //     this.AuthS.SaveToken(userid , token)
-    //     .subscribe();
-    //     console.log(token);
-    //   });
-    // } catch (error) {
-    //   alert('error 2');
-    // }
+    try {
+      this.fcm.getToken()
+      .then(token => {
+        // alert(token);
+        this.AuthS.SaveToken(userid , token)
+        .subscribe(
+          (RES: any) => {
+            if (RES.status) {
+             // alert('Saved');
+            } else {
+             // alert(RES.Mess);
+            }
+          } ,
+          (error) => {
+           // alert('ERROR');
+          }
+        );
+        console.log(token);
+      });
+    } catch (error) {
+      alert('error 2');
+    }
   }
 
 }

@@ -13,7 +13,7 @@
        </button>
 
        <button  slot="end"
-       [routerLink]="['../../my-cart']" 
+       (click)="NevigatetoCart()"
        class="nav_btn nav_cart floatLeft">
     
       </button>
@@ -30,7 +30,28 @@
     
 <ion-content >   
     <div *ngIf="ShowProduct" class="product_wrapper" >
+
+
+
+     <div style="margin: 5px">
+            <nav aria-label="breadcrumb">
+                    <ol 
+                    style="margin: 3px"
+                    class="breadcrumb">
+                      <li 
+                      (click)="Nevigatetocategory(item.prop2)"
+                      style="color: #24abaa"
+                      *ngFor="let item of breakcrumb; index as i;"
+                      class="breadcrumb-item">
+                      {{item.prop1  | titlecase}}
+                      </li>
+                  
+                    </ol>
+                  </nav>
+     </div>
+
     <div class="product_banner">
+        
         <div 
         (click)="Share()"
         class="heart">
@@ -59,13 +80,25 @@
         <h3>{{CurrentProduct.product_name}}</h3>
         <h6 *ngIf="CurrentProduct.composition && CurrentProduct.composition.length >= 1" style="text-align: left">Composition : {{CurrentProduct.composition}}</h6>
         <h6 *ngIf="CurrentProduct.strength && CurrentProduct.strength.length >= 1" style="text-align: left">Strength : {{CurrentProduct.strength}}</h6>
-<br>
-        <h4>
-            <span class="original_price">&#x20b9; {{SelectedPrice.price | number:'1.0-0'}}</span>
-            <span class="discount_price">&#x20b9; {{SelectedPrice.discount | number:'1.0-0'}}</span>
+        <h4 *ngIf="!InvalidCombination">
+            <div style="margin-bottom: 3px;margin-top: 3px">
+                    <span>Sale price</span>
+            </div>
+            <span 
+            *ngIf="SelectedPrice.price > SelectedPrice.discount"
+            class="original_price">&#x20b9; {{SelectedPrice.price | number:'1.0-0'}}
+            </span>
+            <span class="discount_price">&#x20b9; 
+                {{SelectedPrice.discount | number:'1.0-0'}}
+            </span>
         </h4>
-        <ion-row>
-            <ion-col col-4 class="p0">
+        <h4 *ngIf="InvalidCombination">
+                This combination is not available
+        </h4>
+        <ion-row *ngIf="!InvalidCombination">
+            <ion-col 
+            *ngIf="SelectedPrice.discount_persent > 0 && SelectedPrice.price > SelectedPrice.discount"
+            col-4 class="p0">
                 <h5>{{SelectedPrice.discount_persent | number:'1.0-0'}}% OFF</h5>
             </ion-col>
             <ion-col col-8 class="p0 textRight">
@@ -87,7 +120,7 @@
         <ion-row>
                 <ion-col col-4 class="p0">
                         <ion-button  
-                        [disabled]="SelectedPrice.quantity <= 0 || !SelectedPrice || !SelectedPrice.quantity"
+                        [disabled]="SelectedPrice.quantity <= 0 || !SelectedPrice || !SelectedPrice.quantity || InvalidCombination" 
                         class="float-right"
                         size="medium"
                         (click)="Addtocart()"
@@ -105,9 +138,28 @@
     
      <div class="product_details">
         <ul>
-            <li>
+            <li *ngIf="AttributeList.length != 0">
+             <ion-list>
+                           
+                <ion-item *ngFor="let item of AttributeList; index as i;">
+                              <ion-label>{{item.key  | titlecase}}</ion-label>
+                              <ion-select interface="action-sheet" text-wrap
+                              (ionChange)="AttributeChange(i,TempList[i])"
+                              [(ngModel)]="TempList[i]"
+                               >
+                                <ion-select-option  text-wrap
+                                *ngFor="let item2 of item.list;"
+                                [value]="item2.attibute">{{item2.attibute_name}}
+                               </ion-select-option>
+                              
+                              </ion-select>
+                </ion-item>
 
-                    <ion-item *ngIf="ShowAttributes">
+                            
+            </ion-list>
+
+                    <!-- <ion-item   
+                        *ngIf="ShowAttributes && CurrentProduct.attibute_name.length >= 1">
                         <ion-label>{{CurrentProduct.attibute_name}}</ion-label>
                         <ion-select
                         [(ngModel)]="SelectedPrice"
@@ -117,9 +169,7 @@
                         [value]="Pitem"
                          >{{Pitem.attibute_name}}</ion-select-option>
                         </ion-select>
-                      </ion-item>
-
-
+                      </ion-item> -->
 
                         <!-- <ion-list>  
                          <ion-icon style="margin-right: 10px" name="location-outline"></ion-icon>                      
@@ -127,7 +177,7 @@
                          >Delivers in <strong>{{Location}}</strong></ion-label>
                          <ion-button expand="block" fill="outline">Change</ion-button>
                         </ion-list> -->
-                 
+            
                         
             </li>
             <li>Stock
@@ -145,16 +195,14 @@
   
             <li *ngIf="CurrentProduct && CurrentProduct.description && CurrentProduct.description.length >= 2">PRODUCT DETAILS
                     <br>
-
-                    <div [innerHTML]="CurrentProduct.description">
-
+                    <!-- [innerHTML]="CurrentProduct.description" -->
+                    <div class="description">
+                        <div [innerHTML]="CurrentProduct.description">
+                        </div>
                     </div>
 
             </li>
            
-            
-
-
 
         </ul>
         <div class="shop_list">
@@ -166,7 +214,7 @@
                     <div  (click)="Nevigatetoproduct(product)">
                             <ion-card 
                             style="height: 150px;width: 150px">
-                            <img 
+                            <img  class="classimg"
                             [src]="product.image" />
                         </ion-card>
 
@@ -183,7 +231,7 @@
                                         <p
                                         style="font-size: 15px"
                                         >  &#x20b9; {{product.discount}}</p>
-                                      </ion-col>
+                                </ion-col>
                       
                         </ion-row>
                     
@@ -202,15 +250,11 @@
 
 </ion-content>
 
-<ion-footer 
+<!-- <ion-footer 
 *ngIf="ShowGoToCart"
 padding style="background-color: #efefef">
-        <!-- <button ion-button  expand="block" fill="outline"
-       
-         class="btn_normal " (click)="writereview()">Add to cart</button> -->
-
          <ion-button   
-         [routerLink]="['../../my-cart']" 
+         (click)="NevigatetoCart()"
          size="large"
          color="medium" shape="round"
          style="margin: 20px;color: white;" 
@@ -218,4 +262,4 @@ padding style="background-color: #efefef">
             <span><ion-icon name="arrow-forward-outline"></ion-icon></span>
             View Cart</span> </ion-button>
 
-    </ion-footer>
+    </ion-footer> -->

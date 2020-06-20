@@ -122,15 +122,15 @@ readFile(file: any) {
 }
 
   async uploadImageData(formData: FormData) {
-
   await this.CommonS.loadingPresent('Please wait..');
-
   this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/auth/upload_prescription.php', formData)
   .subscribe(async (data: any) => {
           await this.CommonS.loadingDismiss();
           if (data.Status) {
             this.CommonS.presentToast('Prescription uploded successfully.');
-
+            this.DoctorName = '';
+            this.PatientName = '';
+            this.CommonS.presentToast('Our Executive will contact you shortly.');
           } else  {
             this.CommonS.presentToast(data.Mess);
           }

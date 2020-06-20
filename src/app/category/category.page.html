@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar [color]="'medium'">
+        <ion-buttons slot="start">
+          <ion-back-button style="color:white"></ion-back-button> 
+           </ion-buttons>
+        <ion-title style="color:white">Categories</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+      <ion-list>
+          <div *ngFor="let cat of CatList; index as i;">
+              <ion-item 
+              
+              >
+                  <ion-label
+                  (click)="Nevigatetocategory(cat.category_id)"
+                  >{{cat.category_name | titlecase}}</ion-label>
+                  <ion-icon slot="end"  *ngIf="cat.sub &&  cat.sub.length >= 1 && cat.parent_id != '-1'"
+                  (click)=" cat.parent_id = '-1'"
+                  name="add-outline"></ion-icon>
+                   <ion-icon slot="end"   *ngIf="cat.sub &&  cat.sub.length >= 1 && cat.parent_id == '-1'"
+                  (click)=" cat.parent_id = '0'"
+                  name="remove-outline"></ion-icon>
+                </ion-item>
+                <div 
+                *ngIf="cat.sub  &&  cat.sub.length >= 1  &&  cat.parent_id == '-1'">
+                  <div  
+                 
+                  *ngFor="let Subcat of cat.sub; index as i;">
+                      <ion-item 
+                     
+                      style="margin-left: 20px; border: 2px solid red;"
+                      >
+                        <ion-label
+                        (click)="Nevigatetocategory(Subcat.category_id)"
+                        >{{Subcat.category_name | titlecase}}</ion-label>
+                        <ion-icon slot="end"  *ngIf="Subcat.sub &&  Subcat.sub.length >= 1 && Subcat.parent_id != '-1'"
+                        (click)="Subcat.parent_id = '-1'"
+                        name="add-outline"></ion-icon>
+                        <ion-icon slot="end"   *ngIf="Subcat.sub &&  Subcat.sub.length >= 1 && Subcat.parent_id == '-1'"
+                        (click)="Subcat.parent_id = '0'"
+                        name="remove-outline"></ion-icon>
+                      </ion-item>
+
+                      <div 
+                    
+                      *ngIf="Subcat.sub &&  Subcat.sub.length >= 1 &&  Subcat.parent_id == '-1'">
+                          <ion-item 
+                          (click)="Nevigatetocategory(SubSubcat.category_id)"
+                            *ngFor="let SubSubcat of Subcat.sub; index as i;"
+                            style="margin-left: 40px; border: 5px solid lightgray;"
+                            >
+                              <ion-label>{{SubSubcat.category_name | titlecase}}</ion-label>
+                            </ion-item>
+                      </div>
+
+
+                  </div>
+
+            
+                </div>
+
+   
+        
+          </div>
+    
+    
+        </ion-list>
+</ion-content>

@@ -76,6 +76,10 @@ const routes: Routes = [
         loadChildren: () => import('../notifications/notifications.module').then( m => m.NotificationsPageModule)
       },
       {
+        path: 'category',
+        loadChildren: () => import('../category/category.module').then( m => m.CategoryPageModule)
+      },
+      {
         path: 'product-search',
         loadChildren: () => import('../product-search/product-search.module').then( m => m.ProductSearchPageModule)
       }

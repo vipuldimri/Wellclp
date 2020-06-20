@@ -40,7 +40,8 @@
             text-decoration: line-through;
         }
         .discount_price {
-            margin-left: 10px;
+            margin-left: 5px;
+            color: black;
         }
         h5 {
             color: green;
@@ -201,3 +202,50 @@
     letter-spacing: 1px;
     bottom: 0px;
 }
+
+
+.description.p {
+    color: green;
+}
+
+
+.classimg {
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+
+
+
+  :host ::ng-deep .description p { 
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  :host ::ng-deep  .description li { 
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  :host ::ng-deep .description th { 
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  :host ::ng-deep .description td { 
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  :host ::ng-deep .description h4 { 
+    font-size: 14px;
+    font-weight: bolder;
+  }

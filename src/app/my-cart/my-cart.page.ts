@@ -3,7 +3,7 @@ import { CartService } from '../services/cart/cart.service';
 import { AuthService } from '../services/auth/auth.service';
 import { User } from '../services/auth/user.model';
 import { LocationService } from '../services/location/location.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { SelectAddressComponent } from '../location/select-address/select-address.component';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class MyCartPage implements OnInit {
   SelectedAddress;
   ShowCart =  false;
   constructor(private cartS: CartService, private locationS: LocationService,
-              private router: Router,
+              private router: Router, public alertController: AlertController,
               private AuthS: AuthService, public modalController: ModalController) { }
 
   sliderConfig = {
@@ -119,6 +119,32 @@ GetAddressIcon(ID) {
   }
 }
 
+async CheckoutButton(EditAddress) {
+
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Confirmation',
+    message: 'Final payable amount : &#x20b9; ' + this.GetFinalPrice(this.TotalPrice),
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }, {
+        text: 'Place order',
+        handler: () => {
+          this.CheckOut();
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
 CheckOut() {
 
   if (!this.SelectedAddress || !this.AddressList || this.AddressList.length === 0) {
@@ -135,19 +161,19 @@ CheckOut() {
   .subscribe(
     (Data: any) => {
       console.log(Data);
-
       if (Data.Status) {
           alert('Order placed successfully');
           this.CartProducts = [];
           this.router
-          .navigate
-          (
+          .navigate(
             [ 'main' , 'my-orders' , Data.OrderId] ,
             { queryParams: { allowback : false } } ) ;
       } else {
         alert(Data.Mess);
       }
-
+    },
+    (Error) => {
+      alert('Something went wrong');
     }
   );
 }

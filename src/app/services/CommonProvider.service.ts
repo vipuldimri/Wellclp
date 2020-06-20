@@ -24,7 +24,7 @@ export class CommonProviderService {
     const toast = await this.toastController.create({
       message: mss,
       duration: 2000,
-      position: 'middle',
+      position: 'bottom',
     });
     toast.present();
   }

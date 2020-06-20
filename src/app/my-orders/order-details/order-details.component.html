@@ -54,6 +54,12 @@
               <li *ngFor="let item of OrderData.Items; let i = index">
                   <div class="med_container_details">
                       <h4>{{item.product_name}}</h4>
+
+                      <h5 
+                      class="order_quantity p0 borderNone"
+                      *ngFor="let att of item.attributelist;">
+                            {{att.key | titlecase}} : <strong> {{att.value | titlecase}} </strong>
+                      </h5>
                     
 
                       <h5 class="order_quantity p0 borderNone">Unit Price&nbsp;:&nbsp;<strong>&nbsp; &#x20b9; {{item.unit_price}}</strong></h5>

@@ -93,9 +93,6 @@
                 <img src="assets/imgs/asset_poster2.png">
             </ion-slide>
     
-    
-    
-    
             <!-- <ion-slide 
             
             *ngFor="let slide of Slides">
@@ -114,7 +111,7 @@
         class="upload_btn">UPLOAD</button>
         <div class="clear"></div>
     </div>
-    <h4 >Shop by catagory</h4>
+    <h4 >Shop by Catagory</h4>
     
     <div  >
             <div class="catagory_list" >
@@ -124,16 +121,21 @@
                             *ngFor="let cat of Categories"
                             >
                             <div  (click)="Nevigatetocategory(cat.category_id)" >
-                                    <ion-card 
-                                    style="height: 150px;width: 150px;">
-                                    <img  style="align-self: center"
-                                    [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="" />
+                                    <ion-card  class="frame"
+                                    >
+                                   
+                                            <img 
+                                            class="classimg"
+                                            [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="" 
+                                            />
+                                   
+                               
                                 </ion-card>
             
                                 <ion-row>
                                         <ion-col>
-                                                <p style="font-size: 15px" >{{cat.category_name}}</p>
-                                              </ion-col>
+                                        <p style="font-size: 15px" >{{cat.category_name | titlecase}}</p>
+                                      </ion-col>
                                           
                                 </ion-row>
             
@@ -147,10 +149,10 @@
      
         </div>
     
-    
-    
+
             <div class="shop_list" >
                     <h4>Deals at Steal</h4>
+               
                     <div  >
                             <ion-slides [options]="sliderConfig">
                                     <ion-slide  
@@ -178,7 +180,7 @@
                                   <div  (click)="Nevigatetoproduct(product)">
                                         <ion-card 
                                         style="height: 150px;width: 150px">
-                                        <img 
+                                        <img  class="classimg"
                                         [src]="product.image" />
                                     </ion-card>
             
@@ -209,8 +211,10 @@
                    
                    
                 </div>
+         
+            
                 <h4>Hot sellers</h4>
-    
+           
         <div  >
       
             <ion-slides [options]="sliderConfig">
@@ -220,7 +224,7 @@
                     <div  (click)="Nevigatetoproduct(product)">
                             <ion-card 
                             style="height: 150px;width: 150px">
-                            <img 
+                            <img  class="classimg"
                             [src]="product.image" />
                         </ion-card>
     
@@ -247,7 +251,7 @@
                 
                 </ion-slides>
         </div>
-    
+  
         <br>
         <div class="home_offer_slider">
                 <ion-slides loop="true"
