@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductsListPageModule } from '../products-list/products-list.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ProductsListPageModule
   ],
   declarations: [HomePage]
 })

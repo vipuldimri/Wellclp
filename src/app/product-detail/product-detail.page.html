@@ -59,7 +59,9 @@
         <!-- <ol class="breadcrumb">
                 {{breakcrumb}}
         </ol> -->
-        <!-- <img src="/assets/imgs/asset_product.png"> -->
+        <!-- <img src="/assets/imgs/asset_product.png"> 
+        
+        -->
         <div class="shop_list">
                 <ion-slides loop="true"
                 [pager]="true"
@@ -68,7 +70,7 @@
                     *ngFor="let item of Images" 
                     (click)="ViewPrescription(item)"
                      >
-                        <img 
+                        <img  
                         [src]="item">
                     </ion-slide>
                 
@@ -210,7 +212,8 @@
                     >
                     <div  (click)="Nevigatetoproduct(product)">
                             <ion-card 
-                            style="height: 150px;width: 150px">
+                            [ngStyle]="{'width.px':  ProductCardWidth , 'height.px': ProductCardHeight}"  
+                            >
                             <img  class="classimg"
                             [src]="product.image" />
                         </ion-card>

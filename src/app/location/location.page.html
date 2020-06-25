@@ -71,32 +71,45 @@
                 <ion-slide 
                 *ngFor="let item of AddressList"
                  >
-                 <ion-card style="width: 70%;border-style: dotted;">
-                        <ion-card-header>
-                          <ion-card-title *ngIf="item.address_type == 1">Home</ion-card-title>
-                          <ion-card-title *ngIf="item.address_type == 2">Office</ion-card-title>
-                          <ion-card-title *ngIf="item.address_type == 0">Other</ion-card-title>
+                 <ion-card 
+                 [ngStyle]="{'width.px': cardWidth}"
+                 style="border-style: dotted;">
 
+                        <ion-card-header>
+
+                                <ion-row>
+                                        <ion-col size="2">
+                                            <ion-icon 
+                                            size = "large"
+                                            [src]="GetAddressIcon(item.address_type)"></ion-icon>
+                                        </ion-col>
+                                        <ion-col>
+
+                                                <ion-card-title *ngIf="item.address_type == 1">Home</ion-card-title>
+                                                <ion-card-title *ngIf="item.address_type == 2">Office</ion-card-title>
+                                                <ion-card-title *ngIf="item.address_type == 0">Other</ion-card-title>
+
+                                </ion-col>
+
+                            </ion-row>
                         </ion-card-header>
-                      
                         <ion-card-content>
                       
                            {{item.name}} <br>
                            {{item.phone}} <br>
-                           {{item.landmark}} <br>
+                           <!-- {{item.landmark}} <br> -->
                            {{item.address}} <br>
-                      
                         </ion-card-content>
                       </ion-card>
 
                 </ion-slide>
 
                 <ion-slide 
-            
                  >
-     
-
-                      <ion-card style="width: 150px;border-style: dotted;color: green">
+                      <ion-card 
+                      [ngStyle]="{'width.px': cardWidth}"
+                      (click)="NewAddress()"
+                      style="border-style: dotted;color: green">
                             <ion-card-header>
                                     <ion-icon  style="color: green"
                                     size="large"

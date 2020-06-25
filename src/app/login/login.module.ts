@@ -11,6 +11,8 @@ import { SignupComponent } from './signup/signup.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PhonenumberComponent } from './phonenumber/phonenumber.component';
 import { OTPComponent } from './otp/otp.component';
+import { OTPSignUpComponent } from './otpSignUp/otpSignUp.component';
+import { ProductsListPageModule } from '../products-list/products-list.module';
 
 @NgModule({
   imports: [
@@ -18,10 +20,11 @@ import { OTPComponent } from './otp/otp.component';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    ProductsListPageModule
   ],
   declarations: [LoginPage , SignupComponent ,
-    ChangePasswordComponent, PhonenumberComponent , OTPComponent],
-    entryComponents: [PhonenumberComponent , OTPComponent ]
+    ChangePasswordComponent, PhonenumberComponent , OTPComponent , OTPSignUpComponent],
+    entryComponents: [PhonenumberComponent , OTPComponent  , OTPSignUpComponent]
 })
 export class LoginPageModule {}

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../services/cart/cart.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CommonProviderService } from '../services/CommonProvider.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
 import { User } from '../services/auth/user.model';
 import { AuthService } from '../services/auth/auth.service';
@@ -36,7 +36,8 @@ export class ProductDetailPage implements OnInit , OnDestroy {
   };
   LoadingObj;
   LogedInUser: User;
-
+  ProductCardWidth = 150;
+  ProductCardHeight = 150;
   AttributeList = [];
   TempList = [];
   InvalidCombination =  false;
@@ -50,8 +51,20 @@ export class ProductDetailPage implements OnInit , OnDestroy {
               private commonP: CommonProviderService,
               private LocationS: LocationService,
               private AuthS: AuthService,
+              private platform: Platform,
               public loadingController: LoadingController) { }
   ngOnInit() {
+
+    this.platform.ready().then((readySource) => {
+      // console.log('Width: ' + platform.width());
+      // const k =  (this.platform.height() * 22 ) / 100;
+      //  this.SliderImageHeight = k;
+      // console.log(k);
+      console.log('Height: ' + this.platform.height());
+      console.log('Width: ' + this.platform.width());
+      this.ProductCardWidth =  (this.platform.width() * 38) / 100;
+      this.ProductCardHeight =  (this.platform.height() * 15) / 100;
+    });
 
     // this.LogedInUser =  this.AuthS.GetLoginUser();
     // console.log(this.LogedInUser);

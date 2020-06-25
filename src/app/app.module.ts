@@ -29,6 +29,7 @@ import { SmsRetriever  } from '@ionic-native/sms-retriever/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { AppUpdate } from '@ionic-native/app-update/ngx';
 const firebaseConfig = {
    apiKey: 'AIzaSyCvSr9rntVsKJ0qIbylZpJbb00AuL3WEoA',
    authDomain: 'wellclap-ca081.firebaseapp.com',
@@ -74,7 +75,8 @@ const firebaseConfig = {
       HomeService,
       AuthGuardService,
       HTTP,
-      LocalNotifications
+      LocalNotifications,
+      AppUpdate
    ],
    bootstrap: [
       AppComponent

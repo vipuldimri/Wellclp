@@ -22,5 +22,6 @@ import { DiscountPipe } from '../Pipes/discount.pipe';
   declarations: [ProductsListPage , FilterComponent , DiscountPipe ,
      SearchComponent , CategoryComponent],
   entryComponents: [FilterComponent , SearchComponent , CategoryComponent],
+  exports : [DiscountPipe]
 })
 export class ProductsListPageModule {}

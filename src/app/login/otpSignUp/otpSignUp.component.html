@@ -1,0 +1,55 @@
+
+  <ion-content>
+      <div class="login_wrapper">
+          <div class="login_form">
+                           
+  <ion-icon class="float-right"
+  style="margin: 22px" 
+  (click)="Dismiss()"
+  size="large"
+  name="close-outline"></ion-icon>
+              <h3>Verify Contact No</h3>
+              <hr>
+              <div id="wrapper">
+                  <div id="dialog">
+                    
+                    <span>Please enter the 4-digit verification code we sent to {{PhoneNo}} via SMS.</span>
+                    <div id="form">
+                      <input 
+                      [(ngModel)]="OTPVALUE"
+                      type="text" name="OTP"
+                       maxLength="4" size="4" min="0" 
+                       max="9" pattern="[0-9]+" />
+                      <!-- <input type="number" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                      <input type="number" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                      <input type="number" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" /> -->
+                      <button 
+                      [disabled]="OTPVALUE.length !== 4"
+                      (click)="VerifyOTP()"
+                      class="btn btn-primary btn-embossed">Verify</button>
+                    </div>
+                    
+                    <div>
+                      Didn't receive the code?<br />
+                  
+                      <span *ngIf="!AllowResend"
+                      style="color:#24abaa"
+                      (click)="SendAgain()">Send code again in {{TimerValue}} Sec </span>
+
+                      <span *ngIf="AllowResend">
+                        <strong>RESEND</strong>
+                      </span>
+
+
+                    <br>
+                      <span 
+                      style="color:#24abaa"
+                      (click)="Dismiss()">Change contact number</span>
+                    </div>
+                     <img src="http://jira.moovooz.com/secure/attachment/10424/VmVyaWZpY2F0aW9uLnN2Zw==" alt="test" />
+                  </div>
+                </div>
+            
+          </div>
+      </div>
+  </ion-content>
