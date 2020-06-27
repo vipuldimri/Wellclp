@@ -19,7 +19,7 @@ import { Platform } from '@ionic/angular';
 export class HomePage implements OnInit {
   clickSub: any;
   BestSellersProducts: [];
-  BabyCare: [] = [];
+  Covid: [] = [];
   BestDealsProducts: [];
   Slides: any[];
   CartCount: number;
@@ -29,6 +29,7 @@ export class HomePage implements OnInit {
   ProductCardHeight = 150;
   ProductCardWidth =  150;
   CategoryImgHeight = 55;
+  Brands = [];
   constructor(private router: Router,
               private HS: HomeService,
               private PS: ProductService,
@@ -55,7 +56,7 @@ export class HomePage implements OnInit {
 
     sliderBrandConfig = {
       slidesPerView: 2.5,
-      spaceBetween: 3,
+      spaceBetween: 15,
       centeredSlides: false
     };
   ngOnInit() {
@@ -203,7 +204,8 @@ export class HomePage implements OnInit {
              this.BestSellersProducts = Data.data.BestSeller;
              this.BestDealsProducts = Data.data.BestDeals;
              this.Categories  = Data.data.Categories;
-             // this.BabyCare  = Data.data.BabyCare;
+             this.Covid  = Data.data.Covid;
+             this.Brands = Data.data.Brands;
              } else {
               alert(Data.Mess);
                // tslint:disable-next-line:no-string-literal
@@ -236,6 +238,8 @@ export class HomePage implements OnInit {
     .navigate( ['main/products-list', catid ] , { queryParams: { option: '0'} ,
      queryParamsHandling: 'merge' }  );
   }
+
+
 
   Nevigatetobrand(brandid) {
     this.router

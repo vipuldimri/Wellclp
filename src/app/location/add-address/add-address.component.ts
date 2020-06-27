@@ -125,7 +125,7 @@ export class AddAddressComponent implements OnInit, OnDestroy {
     formData.append('LandMark', this.Addressform.value.LandMark);
     formData.append('mode', 'ADD');
 
-    formData.append('user_id', '10');
+    formData.append('user_id', this.LogedInUser.UserId +  '');
 
 
     this.locaS.AddAddress(formData).subscribe(

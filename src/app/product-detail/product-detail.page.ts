@@ -188,6 +188,17 @@ export class ProductDetailPage implements OnInit , OnDestroy {
   NevigatetoCart() {
     this.router.navigate(['main/my-cart']);
   }
+  Showsale(Actualprice: number , SellingPrice: number) {
+    if (Actualprice <= SellingPrice) {
+      return false;
+    }
+    const   Discount = (Math.ceil(Actualprice) - Math.ceil(SellingPrice) ) / Math.ceil(Actualprice);
+    if ( Math.ceil(Discount * 100)  >= 30) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   AttributeChange(index , value) {
       console.log(index);

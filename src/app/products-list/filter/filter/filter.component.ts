@@ -1,13 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { SearchComponent } from '../search/search.component';
 import { CategoryComponent } from '../category/category.component';
+import { fromEvent, Subscription } from 'rxjs';
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit , OnDestroy {
 
   @Input() catid;
   @Input() Brands;
@@ -15,9 +16,17 @@ export class FilterComponent implements OnInit {
   SelectedPTypes = [];
   BrandsText = 'Select Brand';
   TypeText = 'Select Form';
+  BackButtonSub: Subscription;
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
+
+
+    const event = fromEvent(document, 'backbutton');
+    this.BackButtonSub = event.subscribe(async () => {
+       this.dismiss();
+    });
+
 
     if (this.Brands.length > 0) {
     this.BrandsText =  '';
@@ -119,5 +128,9 @@ export class FilterComponent implements OnInit {
       apply: true,
       Brands: this.SelectedBrands
     });
+  }
+
+  ngOnDestroy(): void {
+    this.BackButtonSub.unsubscribe();
   }
 }

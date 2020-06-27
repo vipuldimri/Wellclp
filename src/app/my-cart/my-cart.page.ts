@@ -33,19 +33,16 @@ export class MyCartPage implements OnInit {
   };
 
   ngOnInit() {
-    // this.CartProducts =   this.cartS.GetProducts();
-    // console.log(this.CartProducts);
     this.LogedInUser = this.AuthS.GetLoginUser();
-    // this.LogedInUser.UserId = 10;
     this.RefreshCart(null);
     this.GetMyAddress();
   }
 
   RemoveItem(tempid) {
-     const Cobj = { userid : 10 , isDelete : true , d_id : tempid };
+     const Cobj = { userid : this.LogedInUser.UserId , isDelete : true , d_id : tempid };
 
      const formData = new FormData();
-     formData.append('userid', 10 + '');
+     formData.append('userid', this.LogedInUser.UserId + '');
      formData.append('isDelete', 'true');
      formData.append('d_id',  tempid );
      formData.append('mode',  'removeitem' );
@@ -60,10 +57,10 @@ export class MyCartPage implements OnInit {
   }
 
   RefreshCart(event) {
-    const Cobj = { userid : 10 , isDelete : false , d_id : -1 };
+    const Cobj = { userid : this.LogedInUser.UserId , isDelete : false , d_id : -1 };
 
     const formData = new FormData();
-    formData.append('userid', 10 + '');
+    formData.append('userid', this.LogedInUser.UserId + '');
     formData.append('isDelete', 'false');
     formData.append('d_id',  '-1' );
     formData.append('mode',  'refresh' );
@@ -84,7 +81,7 @@ export class MyCartPage implements OnInit {
   }
 
   GetMyAddress() {
-    this.locationS.GetUserAddresses(10)
+    this.locationS.GetUserAddresses(this.LogedInUser.UserId)
     .subscribe(
       (Data: any) => {
         console.log(Data);
@@ -154,7 +151,7 @@ CheckOut() {
     return;
   }
   const formData = new FormData();
-  formData.append('user_id', 10 + '');
+  formData.append('user_id', this.LogedInUser.UserId + '');
   formData.append('address_type_pass', this.SelectedAddress.address_type);
   formData.append('address_id',  this.SelectedAddress.id );
 
@@ -246,7 +243,7 @@ changeQuantity(tempid , qty , mode) {
   }
 
   const formData = new FormData();
-  formData.append('userid', 10 + '');
+  formData.append('userid', this.LogedInUser.UserId + '');
   formData.append('isDelete', 'false');
   formData.append('d_id',  '-1' );
   formData.append('d_id',  '-1' );

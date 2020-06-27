@@ -212,28 +212,107 @@
                     >
                     <div  (click)="Nevigatetoproduct(product)">
                             <ion-card 
-                            [ngStyle]="{'width.px':  ProductCardWidth , 'height.px': ProductCardHeight}"  
+                            [ngStyle]="{'width.px':  ProductCardWidth}"
+                            >
+                   
+                            <div 
+                            *ngIf="Showsale(product.productPrice,product.discount)"
+                            style="height: 10px;margin: 0px">
+                                    <ion-card 
+                                    style="background-color: green;width: 30%">
+                                    
+                                            <p 
+                                            style="color: white">SALE</p>
+                                    </ion-card>
+                            </div>
+
+                            <div 
+                            *ngIf="!Showsale(product.productPrice,product.discount)"
+                            style="height: 10px;margin: 0px;visibility: hidden;">
+                                    <ion-card 
+                                    style="background-color: white;width: 30%">
+                                    
+                                            <p 
+                                            style="color: white"></p>
+                                    </ion-card>
+                            </div>
+
+                            <ion-card 
+                            style="border-radius: 10px;"
+                            [ngStyle]="{'height.px': ProductCardHeight}"
                             >
                             <img  class="classimg"
                             [src]="product.image" />
                         </ion-card>
+              
 
-                        <ion-row>
-                                <ion-col>
-                                        <p style="font-size: 15px" >{{product.name| slice:0:30}}</p>
-                                      </ion-col>
-                                  
-                        </ion-row>
+                                <div [ngStyle]="{'height.px': 110}">
+                                        <ion-row>
+                                                
+                                           
 
-                        <ion-row style="text-align: center;margin-top: -20px">
-                              
-                                <ion-col>
-                                        <p
-                                        style="font-size: 15px"
-                                        >  &#x20b9; {{product.discount}}</p>
-                                </ion-col>
-                      
-                        </ion-row>
+                                            <p style="font-size: 13px;color: black;float: left; text-align: left;margin-left: 8px;
+                                            overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2;  -webkit-box-orient: vertical">
+                                                    {{product.name}}
+                                            </p>
+
+
+                                
+                                                      
+                                            </ion-row>
+                    
+                                            <ion-row 
+                                            *ngIf="product.productPrice > product.discount"
+                                            style="bottom: 0;position: absolute;">
+
+                                                
+                                            <div style="width: 100%">
+                                                 <p
+                                            style="margin: 8px;margin-bottom: 0px; font-size: 2.5vw;float: left;color: black;"
+                                            > MRP:  &#x20b9; <span style="text-decoration: line-through">{{product.productPrice}}</span>
+                                        
+                                                <span style="margin-left: 5px;color: green;"> 
+                                                <strong> {{ product.discount | discount:product.productPrice:product.discount}} </strong>
+                                                </span>
+                                            </p> 
+                                            </div>
+
+                                           
+                                          
+                                                   
+                                            <div>
+                                                    <p
+                                                    style="margin: 8px; margin-top: 0px; font-size: 15px;float: left;color: black;display: block;"
+                                                    >&#x20b9; <strong>{{product.discount}}</strong></p>
+                                            </div>
+                                            
+                                             </ion-row>
+
+
+                                                                      
+                                            <ion-row 
+                                            *ngIf="product.productPrice <= product.discount"
+                                            style="bottom: 0;position: absolute;">
+
+                                                
+
+
+                                                                                      
+                                                   
+                                            <div>
+                                                    <p
+                                                    style="margin: 8px; margin-top: 0px; font-size: 15px;float: left;color: black;display: block;"
+                                                    > MRP: &#x20b9; <strong>{{product.discount}}</strong></p>
+                                            </div>
+                                            
+                                             </ion-row>
+                                </div>
+                          
+
+
+                        </ion-card>
+
+
                     
                       </div>
                      

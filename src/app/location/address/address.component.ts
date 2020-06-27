@@ -25,7 +25,7 @@ export class AddressComponent implements OnInit {
   }
 
   GetMyLocation() {
-        this.locaS.GetUserAddresses(10)
+        this.locaS.GetUserAddresses(this.LogedInUser.UserId)
         .subscribe(
           (Data: any) => {
             console.log(Data.data);
@@ -87,7 +87,7 @@ export class AddressComponent implements OnInit {
             const formData = new FormData();
 
             formData.append('mode', 'DELETE');
-            formData.append('user_id', '10');
+            formData.append('user_id', this.LogedInUser.UserId + '');
             formData.append('AddressID', EditAddress.id);
             this.locaS.AddAddress(formData).subscribe(
               (Res: any) => {

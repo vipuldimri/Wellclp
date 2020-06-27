@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { LocationService } from 'src/app/services/location/location.service';
 import { ModalController } from '@ionic/angular';
 import { AddAddressComponent } from '../add-address/add-address.component';
@@ -12,7 +12,8 @@ import { CommonProviderService } from 'src/app/services/CommonProvider.service';
   templateUrl: './select-address.component.html',
   styleUrls: ['./select-address.component.scss'],
 })
-export class SelectAddressComponent implements OnInit {
+export class SelectAddressComponent implements OnInit , OnDestroy {
+
 
   Address = [];
   LogedInUser: User;
@@ -135,6 +136,10 @@ export class SelectAddressComponent implements OnInit {
         id: this.SelectedAddress,
         list: this.Address
     });
+  }
+
+  ngOnDestroy(): void {
+    this.BackButtonSub.unsubscribe();
   }
 
 }

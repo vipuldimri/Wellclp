@@ -1,13 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalController, NavParams } from '@ionic/angular';
 import { ProductService } from 'src/app/services/product/product.service';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit , OnDestroy {
 
   @Input() catid;
   @Input() Type: number;
@@ -16,9 +17,16 @@ export class SearchComponent implements OnInit {
   Title = '';
   List = [];
   SelectedItems = [];
+  BackButtonSub: Subscription;
   constructor(public modalController: ModalController , private proS: ProductService) { }
  // Data passed in by componentProps
   ngOnInit() {
+
+
+    const event = fromEvent(document, 'backbutton');
+    this.BackButtonSub = event.subscribe(async () => {
+       this.dismiss();
+    });
 
     if (this.Type === 0) {
           this.Title =  'Brands';
@@ -117,5 +125,7 @@ export class SearchComponent implements OnInit {
           type: this.Type
         });
   }
-
+  ngOnDestroy(): void {
+    this.BackButtonSub.unsubscribe();
+  }
 }

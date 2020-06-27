@@ -116,7 +116,12 @@
 
 
 
-    <h4 >Shop by Catagory</h4>
+    <!-- <h4 style="vertical-align: middle">
+                <span style="visibility: collapse">HIDDEN</span>
+                <span 
+                style="float: left;font-size: 4.0vw">
+                SHOP BY CATEGORY</span>
+</h4>
 
     
     <div class="catagory_list">
@@ -191,47 +196,89 @@
                         </li>
                     </ion-slide>
                 </ion-slides>
-        </div>
+        </div> -->
 
-    <div  >
-            <!-- <div class="catagory_list" >
-                    <ion-slides [options]="sliderConfig">
-    
-                            <ion-slide 
-                            *ngFor="let cat of Categories"
-                            >
-                            <div  (click)="Nevigatetocategory(cat.category_id)" >
-                                    <ion-card  class="frame"
-                                    >
-                                   
-                                            <img 
-                                            class="classimg"
-                                            [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt="" 
-                                            />
-                                   
-                               
-                                </ion-card>
-            
-                                <ion-row>
-                                        <ion-col>
-                                        <p style="font-size: 15px" >{{cat.category_name | titlecase}}</p>
-                                      </ion-col>
-                                          
-                                </ion-row>
-            
-                            
-                              </div>
-                             
-                            </ion-slide>
+        <div  class="shop_list" >
+                        <h4 style="vertical-align: middle">
+                                        <span style="visibility: collapse">HIDDEN</span>
+                                        <span 
+                                        style="float: left;font-size: 4.0vw">
+                                        SHOP BY CATEGORY</span>
+
+                                        <span 
+                                        [routerLink]="['../../../category']"
+                                        style="float: right;color: #31a3a0;font-size: 3.0vw">
+                                        <strong>SEE ALL</strong></span>
+   
+                        </h4>
+               
+                  <div style="padding: 10px">
+                        <ion-slides [options]="sliderBrandConfig" >
+                                <ion-slide  *ngFor="let cat of Categories">
+                           
+                                                <div  >
+                                                                <ion-card  (click)="Nevigatetocategory(cat.category_id)"
+                                                                [ngStyle]="{'width.px':  ProductCardWidth}"
+                                                                >
+                                           
+                                                                <ion-card 
+                                                                style="border-radius: 10%;"
+                                                                [ngStyle]="{'height.px': ProductCardHeight}"
+                                                                >
+                                                                <img  class="classimg"
+                                                                [src]=" 'http://www.wellclap.com/' +  cat.category_pic" alt=""  />
+                                                              
+                                                        
+                        
+                                                              </ion-card>
+
+
+                                                               <div 
+                                                               style="text-align: center;height: 50px;">
+
+                                                                <p>
+                                                                   <strong>{{cat.category_name | titlecase}}</strong>     
+                                                                        </p>
+
+                                                               </div>
+                                                  
+                                                               
+                                       
+                                
+                                                           
+                                                              
+                                
+                                
+                                                            </ion-card>
                                     
-                        </ion-slides>
-            </div> -->
-     
-        </div>
-    
+                                  
+                                                        
+                                                          </div>
+                    
+
+
+                                          
+                                </ion-slide>
+                      
+                       </ion-slides>
+                  </div>
+                        
+                       
+                   
+                   
+                </div>
+
+
 
             <div  class="shop_list" >
-                    <h4>Deals at Steal</h4>
+                        <h4 style="vertical-align: middle;margin-top: 5px">
+                                        <span style="visibility: collapse">HIDDEN</span>
+                                        <span 
+                                        style="float: left;font-size: 4.0vw">
+                                        DEAL TO STEALS</span>
+
+               
+                        </h4>
                
                   <div style="padding: 10px">
                         <ion-slides [options]="sliderConfig">
@@ -358,7 +405,14 @@
          
             
        <div>
-            <h4>Hot sellers</h4>
+                <h4 style="vertical-align: middle">
+                                <span style="visibility: collapse">HIDDEN</span>
+                                <span 
+                                style="float: left;font-size: 4.0vw">
+                                HOT SELLER</span>
+
+       
+                </h4>
            
             <div   style="padding: 10px">
           
@@ -496,8 +550,7 @@
     
         
             
-                    <!-- <ion-slide 
-                    
+                    <!-- <ion-slide      
                     *ngFor="let slide of Slides">
                         <img  
                         [src]="slide" >
@@ -508,90 +561,82 @@
             <br>
         
             <div  class="shop_list" >
-                    <h4>Popular Brands</h4>
+                        <h4 style="vertical-align: middle">
+                                        <span style="visibility: collapse">HIDDEN</span>
+                                        <span 
+                                        style="float: left;font-size: 4.0vw">
+                                        POPULAR BRANDS</span>
+
+   
+                        </h4>
                
                   <div style="padding: 10px">
                         <ion-slides [options]="sliderBrandConfig" >
-                                <ion-slide>
+                                <ion-slide  *ngFor="let brand of Brands"  >
                            
-                                     
-                                <ion-card   style="border-radius: 10px;"
-                                
-                                [ngStyle]="{'height.px': ProductCardHeight,'width.px':  ProductCardWidth}"
-                                >
-                                <img  class="classimg"
-                                [src]="'https://i1.wp.com/greatofindia.com/main/wp-content/uploads/2017/06/himalaya-1.jpg?fit=400%2C400'" />
-                            
+                                                <div  >
+                        <ion-card 
+                        (click)="Nevigatetobrand(brand.brandid)"
+                        [ngStyle]="{'width.px':  ProductCardWidth}"
+                        >
+        
+                        <ion-card 
+                        style="border-radius: 10%;"
+                        [ngStyle]="{'height.px': ProductCardHeight}"
+                        >
+                        <img  class="classimg"
+                        [src]="brand.ImagePath" />
+                        
+                
+                        <ion-row 
+                        style="bottom: 0;position: absolute;">
+                        
+                        <div
+                        [ngStyle]="{'width.px':  ProductCardWidth}"
+                        style="background-color: green;">
+                                        <span style="color: white">
+                                                Upto {{brand.discount}}% off
+                                        </span>
+                        </div>
+                        
+                        </ion-row>
+                        </ion-card>
 
-                                
+                        <div style="text-align: center;height: 50px;">
+                
+                        <p>
+                                <strong>{{brand.brandname}}</strong>     
+                                </p>
 
-                                </ion-card> 
-                    
-                                          
+                        </div>
+                
+                        </ion-card>      
+                                 </div>
+                   
                                 </ion-slide>
-                                <ion-slide>
-                           
-                                     
-
-                                        <ion-card    style="border-radius: 10px;"
-                                       
-                                        [ngStyle]="{'height.px': ProductCardHeight,'width.px':  ProductCardWidth}"
-                                        >
-                                        <img  class="classimg" 
-                                        [src]="'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ53WvUxwChp7ON4NHqwKZiyI_SQF3IqVCEYg&usqp=CAU'" />
-                                   
-                                        </ion-card> 
-                             
-                                          
-                                </ion-slide>
-                                <ion-slide>
-                           
-                                        <ion-card   style="border-radius: 10px;"
-                                        
-                                        [ngStyle]="{'height.px': ProductCardHeight,'width.px':  ProductCardWidth}"
-                                        >
-                                        <img  class="classimg"
-                                        [src]="'https://i1.wp.com/greatofindia.com/main/wp-content/uploads/2017/06/himalaya-1.jpg?fit=400%2C400'" />
-                                   
-                                        </ion-card> 
-                    
-                                      
-                                        
-                                          
-                                </ion-slide>
-                                <ion-slide>
-                           
-                                     
-                            
-                    
-                                        <ion-card   style="border-radius: 10px;"
-                                       
-                                        [ngStyle]="{'height.px': ProductCardHeight,'width.px':  ProductCardWidth}"
-                                        >
-                                        <img  class="classimg" 
-                                        [src]="'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ53WvUxwChp7ON4NHqwKZiyI_SQF3IqVCEYg&usqp=CAU'" />
-                                   
-                                        </ion-card> 
-                                        
-                                          
-                                </ion-slide>
-                            
                        </ion-slides>
                   </div>
                         
-                       
-                   
-                   
                 </div>
-
                 <div>
-                        <h4>Baby care</h4>
+                        <h4 style="vertical-align: middle">
+                                        <span style="visibility: collapse">HIDDEN</span>
+                                        <span 
+                                        style="float: left;font-size: 4.0vw">
+                                        COVID-19 ESSENTIAL</span>
+
+                                <span 
+                                (click)="Nevigatetocategory(101)"
+                                style="float: right;color: #31a3a0;font-size: 3.0vw">
+                                <strong>SEE ALL</strong>
+                        </span>
+                        </h4>
                        
                         <div   style="padding: 10px">
                       
                             <ion-slides [options]="sliderConfig">
                                     <ion-slide 
-                                    *ngFor="let product of BabyCare"
+                                    *ngFor="let product of Covid"
                                     >
 
                                       <div  (click)="Nevigatetoproduct(product)">

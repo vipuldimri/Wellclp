@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product/product.service';
+import { User } from '../services/auth/user.model';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-my-orders',
@@ -9,10 +11,12 @@ import { ProductService } from '../services/product/product.service';
 export class MyOrdersPage implements OnInit {
 
   Orders = [];
-  constructor(private pService: ProductService) { }
+  LogedInUser: User;
+  constructor(private pService: ProductService , private AuthS: AuthService) { }
 
   ngOnInit() {
-    this.GetOrders(10);
+    this.LogedInUser =  this.AuthS.GetLoginUser();
+    this.GetOrders(this.LogedInUser.UserId);
   }
 
   GetOrders(userid) {

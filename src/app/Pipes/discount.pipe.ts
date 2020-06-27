@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DiscountPipe implements PipeTransform {
     transform(value: any, Actualprice: number , SellingPrice: number ) {
         if (Actualprice <= SellingPrice) {
-            return '0';
+            return '';
         }
         const   Discount = (Math.ceil(Actualprice) - Math.ceil(SellingPrice) ) / Math.ceil(Actualprice);
         // const   Discount = (Actualprice - SellingPrice / Actualprice) * 100;
