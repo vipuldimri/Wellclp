@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HomeService } from '../services/home/home.service';
 import { ProductService } from '../services/product/product.service';
@@ -9,6 +9,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AppUpdate } from '@ionic-native/app-update/ngx';
 import { Platform } from '@ionic/angular';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,10 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
   providers: [CallNumber]
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit , OnDestroy {
+
   clickSub: any;
+  BackButtonSub: Subscription;
   BestSellersProducts: [];
   Covid: [] = [];
   BestDealsProducts: [];
@@ -30,6 +33,7 @@ export class HomePage implements OnInit {
   ProductCardWidth =  150;
   CategoryImgHeight = 55;
   Brands = [];
+  Recomm = [];
   constructor(private router: Router,
               private HS: HomeService,
               private PS: ProductService,
@@ -60,6 +64,13 @@ export class HomePage implements OnInit {
       centeredSlides: false
     };
   ngOnInit() {
+
+   // alert('HERE');
+
+    // const event = fromEvent(document, 'backbutton');
+    // this.BackButtonSub = event.subscribe(async () => {
+    //   alert('PRESS');
+    // });
 
     // const updateUrl = 'https://www.wellclap.com/vaibhavapp/ionicapp/AppUpdate/update.xml';
     // this.appUpdate.checkAppUpdate(updateUrl)
@@ -206,6 +217,7 @@ export class HomePage implements OnInit {
              this.Categories  = Data.data.Categories;
              this.Covid  = Data.data.Covid;
              this.Brands = Data.data.Brands;
+             this.Recomm =  Data.data.Fav;
              } else {
               alert(Data.Mess);
                // tslint:disable-next-line:no-string-literal
@@ -259,6 +271,11 @@ export class HomePage implements OnInit {
     } else {
       return false;
     }
+  }
+
+  ngOnDestroy(): void {
+     // alert('GOING');
+    this.BackButtonSub.unsubscribe();
   }
 
 

@@ -17,6 +17,7 @@ import { ProductSearchPageModule } from '../product-search/product-search.module
 import { ProductDetailPageModule } from '../product-detail/product-detail.module';
 import { ProfilePageModule } from '../profile/profile.module';
 import { UploadPrescriptionPageModule } from '../upload-prescription/upload-prescription.module';
+import { ImageViewerComponent } from './common/imageViewer/imageViewer.component';
 
 @NgModule({
   imports: [
@@ -35,6 +36,6 @@ import { UploadPrescriptionPageModule } from '../upload-prescription/upload-pres
     ProfilePageModule,
     UploadPrescriptionPageModule
   ],
-  declarations: [MainPage]
+  declarations: [MainPage ],
 })
 export class MainPageModule {}

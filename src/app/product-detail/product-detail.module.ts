@@ -8,6 +8,7 @@ import { ProductDetailPageRoutingModule } from './product-detail-routing.module'
 import { ProductsListPageModule } from '../products-list/products-list.module';
 
 import { ProductDetailPage } from './product-detail.page';
+import { ImageViewerComponent } from '../main/common/imageViewer/imageViewer.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,8 @@ import { ProductDetailPage } from './product-detail.page';
     ProductDetailPageRoutingModule,
     ProductsListPageModule
   ],
-  declarations: [ProductDetailPage]
+  declarations: [ProductDetailPage , ImageViewerComponent],
+  entryComponents: [ImageViewerComponent],
+  exports: [ImageViewerComponent]
 })
 export class ProductDetailPageModule {}

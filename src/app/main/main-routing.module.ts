@@ -19,10 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('../location/location.module').then( m => m.LocationPageModule)
   },
   {
-    path: 'product-detail',
-    loadChildren: () => import('../product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
-  },
-  {
     path: 'my-prescription',
     loadChildren: () => import('../my-prescription/my-prescription.module').then( m => m.MyPrescriptionPageModule)
   },
@@ -84,7 +80,11 @@ const routes: Routes = [
         loadChildren: () => import('../product-search/product-search.module').then( m => m.ProductSearchPageModule)
       }
     ]
-  }
+  },
+  {
+    path: 'product-detail',
+    loadChildren: () => import('../product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
 ];
 
 @NgModule({

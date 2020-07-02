@@ -5,10 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../services/cart/cart.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CommonProviderService } from '../services/CommonProvider.service';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, Platform, ModalController } from '@ionic/angular';
 import { LocationService } from '../services/location/location.service';
 import { User } from '../services/auth/user.model';
 import { AuthService } from '../services/auth/auth.service';
+import { ImageViewerComponent } from '../main/common/imageViewer/imageViewer.component';
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.page.html',
@@ -52,6 +53,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
               private LocationS: LocationService,
               private AuthS: AuthService,
               private platform: Platform,
+              public modalController: ModalController,
               public loadingController: LoadingController) { }
   ngOnInit() {
 
@@ -66,7 +68,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
       this.ProductCardHeight =  (this.platform.height() * 15) / 100;
     });
 
-    // this.LogedInUser =  this.AuthS.GetLoginUser();
+    this.LogedInUser =  this.AuthS.GetLoginUser();
     // console.log(this.LogedInUser);
     this.route.params.subscribe(params => {
         const id = params.id;
@@ -125,16 +127,25 @@ export class ProductDetailPage implements OnInit , OnDestroy {
           }
         );
   }
-  ViewPrescription(img) {
-    console.log(img);
-    const options = {
-      share: true, // default is false
-      closeButton: false, // default is true
-      copyToReference: true, // default is false
-      headers: '',  // If this is not provided, an exception will be triggered
-      piccasoOptions: { } // If this is not provided, an exception will be triggered
-  };
-    this.photoViewer.show(img[0], this.CurrentProduct.product_name , options);
+  async ViewPrescription(img) {
+  //   console.log(img);
+  //   const options = {
+  //     share: true, // default is false
+  //     closeButton: false, // default is true
+  //     copyToReference: true, // default is false
+  //     headers: '',  // If this is not provided, an exception will be triggered
+  //     piccasoOptions: { } // If this is not provided, an exception will be triggered
+  // };
+  //   this.photoViewer.show(img[0], this.CurrentProduct.product_name , options);
+
+  const modal = await this.modalController.create({
+    component: ImageViewerComponent,
+    componentProps: {
+      Images :  this.Images
+    }
+  });
+  await modal.present();
+
   }
 
   Addtocart() {
@@ -143,7 +154,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
     formData.append('productid', this.CurrentProduct.product_id);
     formData.append('attributeid', this.SelectedPrice.attribute_id);
     formData.append('attributeidvalue', this.SelectedPrice.attribute_id_value);
-    formData.append('userid', '10');
+    formData.append('userid', this.LogedInUser.UserId + '');
     formData.append('quantity', this.count + '');
     this.cartS.AddProduct(formData)
       .subscribe(

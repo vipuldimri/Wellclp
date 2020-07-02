@@ -39,10 +39,9 @@ export class LoginPage implements OnInit,  OnDestroy {
               }
 
   ngOnInit() {
-    const event = fromEvent(document, 'backbutton');
-    this.BackButtonSub = event.subscribe(async () => {
-    });
-
+    // const event = fromEvent(document, 'backbutton');
+    // this.BackButtonSub = event.subscribe(async () => {
+    // });
   }
   GOOGLE() {
     if (this.platform.is('cordova')) {

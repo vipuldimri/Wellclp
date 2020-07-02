@@ -25,7 +25,25 @@
                 *ngFor="let item of NotiList; let i = index">
                       
                 <div class="circle_details">
-                            <h5>{{item.title}}  <span> <strong style="font-size: 15px;float: right;">  {{item.server_date | date: 'MMM d, y' }} </strong></span></h5>
+                        <ion-row>
+                                <ion-col 
+                                style="padding: 0px"
+                                size="8">
+                                        <h5
+                                        style="font-size: 4.2vw;color: black"
+                                        >{{item.title}} 
+                                 
+                                    </h5>
+                                </ion-col>
+                                <ion-col size="4">
+                                        <span> 
+                                                <strong style="font-size: 15px;float: right;">  
+                                                {{item.server_date | date: 'MMM d, y' }} 
+                                            </strong></span>
+                                </ion-col>
+
+                              </ion-row>
+
                             <p>{{item.text}}</p>
                               
 <div  *ngIf="item.img_url && item.img_url.trim().length != 0"  >

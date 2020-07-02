@@ -10,6 +10,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { User } from './services/auth/user.model';
 import { Router } from '@angular/router';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-
+  Splash =  true;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -35,6 +36,10 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
+
+      timer(2000).subscribe( () => { this.Splash = false; });
+
+
       this.statusBar.backgroundColorByHexString('#31a3a0');
       this.SetUpDeepLinks();
 

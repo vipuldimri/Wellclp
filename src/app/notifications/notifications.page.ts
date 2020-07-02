@@ -23,7 +23,7 @@ export class NotificationsPage implements OnInit {
   }
 
   GetMyNotifications() {
-          this.commS.GetMyNotifications(this.LogedInUser.UserId)
+          this.commS.GetMyNotifications(10)
           .subscribe(
               (Data: any) => {
 

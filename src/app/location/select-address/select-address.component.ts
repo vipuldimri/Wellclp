@@ -28,10 +28,8 @@ export class SelectAddressComponent implements OnInit , OnDestroy {
   @Input() SelectedAddress;
 
   ngOnInit() {
-    this.GetMyLocation();
-
-
     this.LogedInUser =  this.AuthS.GetLoginUser();
+    this.GetMyLocation();
     const event = fromEvent(document, 'backbutton');
     this.BackButtonSub = event.subscribe(async () => {
        this.Dismiss();
@@ -39,7 +37,7 @@ export class SelectAddressComponent implements OnInit , OnDestroy {
   }
 
   GetMyLocation() {
-        this.locaS.GetUserAddresses(10)
+        this.locaS.GetUserAddresses(this.LogedInUser.UserId)
         .subscribe(
           (Data: any) => {
             console.log(Data.data);
