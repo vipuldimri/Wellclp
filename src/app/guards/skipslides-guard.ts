@@ -10,15 +10,16 @@ export class AuthGuardService implements CanActivate {
               private AuthS: AuthService) {}
    async canActivate() {
        const result = await this.checkUser();
-       if (result) {
-        this.router.navigate(['main']);
+        // alert(result);
+       if (!result) {
+        this.router.navigate(['intro-slides']);
         return false;
+        // return true;
        } else {
         return true;
        }
   }
   async checkUser() {
-
     try {
         const item  = await  this.nativeStorage.getItem('user');
         const user =  new User();

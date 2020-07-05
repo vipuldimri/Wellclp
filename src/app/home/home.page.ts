@@ -34,6 +34,7 @@ export class HomePage implements OnInit , OnDestroy {
   CategoryImgHeight = 55;
   Brands = [];
   Recomm = [];
+  ShowLoading =  true;
   constructor(private router: Router,
               private HS: HomeService,
               private PS: ProductService,
@@ -223,11 +224,13 @@ export class HomePage implements OnInit , OnDestroy {
                // tslint:disable-next-line:no-string-literal
               navigator['app'].exitApp();
              }
+             this.ShowLoading =  false;
           } ,
           (error) => {
             alert('something went wrong');
             // tslint:disable-next-line:no-string-literal
             navigator['app'].exitApp();
+            this.ShowLoading =  false;
           }
         );
   }

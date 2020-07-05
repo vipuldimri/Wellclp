@@ -8,6 +8,7 @@ import { MyOrdersPageRoutingModule } from './my-orders-routing.module';
 
 import { MyOrdersPage } from './my-orders.page';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { DoneComponent } from '../Common/done/done.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     IonicModule,
     MyOrdersPageRoutingModule
   ],
-  declarations: [MyOrdersPage , OrderDetailsComponent]
+  declarations: [MyOrdersPage , OrderDetailsComponent , DoneComponent] ,
+  entryComponents : [ DoneComponent ]
 })
 export class MyOrdersPageModule {}

@@ -20,10 +20,11 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
   OTP = 'TEST';
   OTPVALUE = '';
 
-  TimerValue = 120;
+  TimerValue = 60;
   AllowResend =  false;
-
+  HashCode = '';
   @Input() FormObj;
+  @Input() PhoneNo;
   source = timer(0, 1000);
   timersubscribe;
   constructor(public modalController: ModalController,
@@ -45,26 +46,39 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
 
     this.smsRetriever.getAppHash()
     .then((res: any) => {
+      console.log('code');
       console.log(res);
+
+      this.HashCode =  res;
+      this.WatchSMS();
+      this.SendOTP();
       // alert(res);
     })
     .catch((error: any) => console.error(error));
-
-    // this.WatchSMS();
-    this.SendOTP();
   }
 
   SendOTP() {
-    // const OTP =  this.random4Digit() ;
-    // // alert(OTP);
-    // this.OTP =  OTP;
+    const OTP =  this.random4Digit() ;
+    // alert(OTP);
+    this.OTP =  OTP;
 
-    // const formData = new FormData();
-    // formData.append('register_mobile', this.PhoneNo);
-    // formData.append('OTP', this.OTP);
+    const formData = new FormData();
+    formData.append('register_mobile', this.PhoneNo);
+    formData.append('OTP', this.OTP);
+    formData.append('HashCode', this.HashCode);
 
-    // this.AuthS.SendOTP(formData)
-    // .subscribe();
+    console.log(this.PhoneNo);
+    console.log(this.OTP);
+
+    this.AuthS.SendOTP(formData)
+    .subscribe(
+      (RES: any) => {
+        console.log(RES);
+      } ,
+      (error) => {
+        console.log(error);
+      }
+    );
 
     this.timersubscribe = this.source
     .subscribe(val => {
@@ -80,7 +94,40 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
   }
 
   SendAgain() {
+    const OTP =  this.random4Digit() ;
+    // alert(OTP);
+    this.OTP =  OTP;
 
+    const formData = new FormData();
+    formData.append('register_mobile', this.PhoneNo);
+    formData.append('OTP', this.OTP);
+    formData.append('HashCode', this.HashCode);
+
+    console.log(this.PhoneNo);
+    console.log(this.OTP);
+
+    this.AuthS.SendOTP(formData)
+    .subscribe(
+      (RES: any) => {
+        console.log(RES);
+      } ,
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    this.AllowResend =  false;
+
+    this.timersubscribe = this.source
+    .subscribe(val => {
+       // console.log(val);
+       this.TimerValue--;
+       if (this.TimerValue === 0) {
+        this.timersubscribe.unsubscribe();
+        this.AllowResend =  true;
+       }
+     }
+      );
   }
 
   random4Digit() {
@@ -92,18 +139,20 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
       return o;
   }
 
+
   WatchSMS() {
 
     this.smsRetriever.startWatching()
     .then((res: any) => {
       this.smsTextmessage = res.Message;
-      console.log(res);
-      alert(res);
+      this.OTPVALUE =  this.smsTextmessage.substr(0 , 4);
+      // console.log(res.Message);
+      // alert(res.Message);
     })
     .catch((error: any) => {
       alert('ERROR');
       console.error(error);
-      this.WatchSMS();
+      // this.WatchSMS();
     });
 
   }
@@ -117,15 +166,26 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
   this.BackButtonSub.unsubscribe();
 }
   async VerifyOTP() {
-
-
     if (this.OTP !== this.OTPVALUE) {
         alert('Invalid OTP');
         return;
     }
-    alert('Valid OTP');
+
+    this.AuthS.SignUp(this.FormObj)
+    .subscribe(
+      (RES: any) => {
+        if (RES.Status) {
+          alert('Registeration Successfull, Please login now.');
+          this.modalController.dismiss();
+          this.router.navigate(['/login']);
+        } else {
+            alert(RES.Mess);
+        }
+      },
+      (Error) => {
+        alert('Oops, something went wrong.');
+      }
+    );
+
 }
-
-
-
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, Subscription, timer } from 'rxjs';
 import { SmsRetriever  } from '@ionic-native/sms-retriever/ngx';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommonProviderService } from 'src/app/services/CommonProvider.service';
@@ -19,11 +19,14 @@ export class OTPComponent implements OnInit, OnDestroy {
   smsTextmessage = '';
   OTP = 'TEST';
   OTPVALUE = '';
-
+  HashCode = '';
+  TimerValue = 60;
+  AllowResend =  false;
   @Input() GoogleEmail: string;
   @Input() GoogleName: string;
   @Input() PhoneNo: string;
-
+  source = timer(0, 1000);
+  timersubscribe;
   constructor(public modalController: ModalController,
               private smsRetriever: SmsRetriever,
               private AuthS: AuthService,
@@ -35,18 +38,20 @@ export class OTPComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const event = fromEvent(document, 'backbutton');
     this.BackButtonSub = event.subscribe(async () => {
-       this.Dismiss();
+       this.Dismiss(false);
     });
 
     this.smsRetriever.getAppHash()
     .then((res: any) => {
+      console.log('code');
       console.log(res);
+
+      this.HashCode =  res;
+      this.WatchSMS();
+      this.SendOTP();
       // alert(res);
     })
     .catch((error: any) => console.error(error));
-
-    // this.WatchSMS();
-    this.SendOTP();
   }
 
   SendOTP() {
@@ -57,10 +62,69 @@ export class OTPComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     formData.append('register_mobile', this.PhoneNo);
     formData.append('OTP', this.OTP);
+    formData.append('HashCode', this.HashCode);
+
+    console.log(this.PhoneNo);
+    console.log(this.OTP);
 
     this.AuthS.SendOTP(formData)
-    .subscribe();
+    .subscribe(
+      (RES: any) => {
+        console.log(RES);
+      } ,
+      (error) => {
+        console.log(error);
+      }
+    );
 
+    this.timersubscribe = this.source
+    .subscribe(val => {
+       console.log(val);
+       this.TimerValue--;
+       if (this.TimerValue === 0) {
+        this.timersubscribe.unsubscribe();
+        this.AllowResend =  true;
+       }
+     }
+      );
+
+  }
+
+  SendAgain() {
+    const OTP =  this.random4Digit() ;
+    // alert(OTP);
+    this.OTP =  OTP;
+
+    const formData = new FormData();
+    formData.append('register_mobile', this.PhoneNo);
+    formData.append('OTP', this.OTP);
+    formData.append('HashCode', this.HashCode);
+
+    console.log(this.PhoneNo);
+    console.log(this.OTP);
+
+    this.AuthS.SendOTP(formData)
+    .subscribe(
+      (RES: any) => {
+        console.log(RES);
+      } ,
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    this.AllowResend =  false;
+
+    this.timersubscribe = this.source
+    .subscribe(val => {
+       console.log(val);
+       this.TimerValue--;
+       if (this.TimerValue === 0) {
+        this.timersubscribe.unsubscribe();
+        this.AllowResend =  true;
+       }
+     }
+      );
   }
 
   random4Digit() {
@@ -77,20 +141,23 @@ export class OTPComponent implements OnInit, OnDestroy {
     this.smsRetriever.startWatching()
     .then((res: any) => {
       this.smsTextmessage = res.Message;
-      console.log(res);
-      alert(res);
+      this.OTPVALUE =  this.smsTextmessage.substr(0 , 4);
+      console.log(res.Message);
+      // alert(res.Message);
     })
     .catch((error: any) => {
       alert('ERROR');
       console.error(error);
-      this.WatchSMS();
+      // this.WatchSMS();
     });
 
   }
 
-  Dismiss() {
+  async Dismiss(statusC: boolean) {
     this.BackButtonSub.unsubscribe();
-    this.modalController.dismiss();
+    await this.modalController.dismiss(
+      { status: statusC }
+    );
   }
  ngOnDestroy(): void {
   this.BackButtonSub.unsubscribe();
@@ -119,6 +186,8 @@ export class OTPComponent implements OnInit, OnDestroy {
           await this.common.loadingDismiss();
 
           if (RES.Status) {
+            this.Dismiss(true);
+
             const user =  new User();
             user.UserId =  RES.data.user_id;
             user.Email =  RES.data.email;
@@ -126,11 +195,15 @@ export class OTPComponent implements OnInit, OnDestroy {
             user.Name =  RES.data.name;
             this.AuthS.SaveLoginUser(user);
 
-            this.nativeStorage.setItem('user' , user)
-            .then(
-              () => console.log('Stored item!'),
-              error => console.error('Error storing item', error)
-            );
+            try {
+              await this.nativeStorage.setItem('user' , user);
+            } catch (error) {
+              console.error('Error storing item', error);
+            }
+            // .then(
+            //   () => console.log('Stored item!'),
+            //   error => console.error('Error storing item', error)
+            // );
             this.saveFirebaseToken(user.UserId);
             this.router.navigate(['main']);
 

@@ -46,7 +46,8 @@ export class SignupComponent implements OnInit {
     const modal = await this.modalController.create({
       component: OTPSignUpComponent,
       componentProps: {
-        FormObj: $event
+        FormObj: formData,
+        PhoneNo:  $event.value.PhoneNumber
       }
     });
     return await modal.present();

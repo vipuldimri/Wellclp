@@ -34,9 +34,9 @@
                   
                       <span *ngIf="!AllowResend"
                       style="color:#24abaa"
-                      (click)="SendAgain()">Send code again in {{TimerValue}} Sec </span>
+                      >Send code again in {{TimerValue}} Sec </span>
 
-                      <span *ngIf="AllowResend">
+                      <span *ngIf="AllowResend" (click)="SendAgain()">
                         <strong>RESEND</strong>
                       </span>
 

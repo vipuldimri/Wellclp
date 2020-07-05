@@ -65,11 +65,11 @@ export class LoginPage implements OnInit,  OnDestroy {
                 user.Name =  RES.data.name;
                 user.Image =  res.user.photoURL;
                 this.AuthS.SaveLoginUser(user);
-                this.nativeStorage.setItem('user' , user)
-                .then(
-                  () => console.log('Stored item!'),
-                  error => console.error('Error storing item', error)
-                );
+                await this.nativeStorage.setItem('user' , user);
+                // .then(
+                //   () => console.log('Stored item!'),
+                //   error => console.error('Error storing item', error)
+                // );
                 this.saveFirebaseToken(user.UserId);
                 this.router.navigate(['main']);
               } else {
@@ -95,7 +95,50 @@ export class LoginPage implements OnInit,  OnDestroy {
         .catch(err => console.error(err));
     } else {
       this.webgooglelogin()
-      .then(res => console.log(res))
+      .then(async res => {
+        console.log(res.user.email);
+        await this.common.loadingPresent('Please wait..');
+
+        this.AuthS.Googlelogin(res.user.email)
+        .subscribe(
+          async (RES: any) => {
+            console.log(RES);
+            await this.common.loadingDismiss();
+            if (RES.Status) {
+              const user =  new User();
+              user.UserId =  RES.data.user_id;
+              user.Email =  RES.data.email;
+              user.Contact =  RES.data.phone_no;
+              user.Name =  RES.data.name;
+              user.Image =  res.user.photoURL;
+              this.AuthS.SaveLoginUser(user);
+              await this.nativeStorage.setItem('user' , user);
+              // .then(
+              //   () => console.log('Stored item!'),
+              //   error => console.error('Error storing item', error)
+              // );
+              this.saveFirebaseToken(user.UserId);
+              this.router.navigate(['main']);
+            } else {
+
+              if (RES.Mess === 'Not Registered') {
+
+                this.SIM(res.user.email , res.user.displayName);
+
+              } else {
+                this.common.presentToast(RES.Mess);
+              }
+            }
+        },
+        async (error) => {
+          console.log(error);
+          console.log(error.headers);
+          console.log(error.error);
+          await this.common.loadingDismiss();
+          this.common.presentToast('Login Failed.');
+        }
+        );
+      })
       .catch(err => console.error(err));
     }
 
@@ -140,8 +183,6 @@ export class LoginPage implements OnInit,  OnDestroy {
       .subscribe(
         async (RES: any) => {
             console.log(RES);
-            await this.common.loadingDismiss();
-
             if (RES.Status) {
               const user =  new User();
               user.UserId =  RES.data.user_id;
@@ -150,17 +191,20 @@ export class LoginPage implements OnInit,  OnDestroy {
               user.Name =  RES.data.name;
               this.AuthS.SaveLoginUser(user);
 
-              this.nativeStorage.setItem('user' , user)
-              .then(
-                () => console.log('Stored item!'),
-                error => console.error('Error storing item', error)
-              );
+              try {
+                await this.nativeStorage.setItem('user' , user);
+              } catch (err) {
+                console.error('Error storing item', err);
+              }
+
               this.saveFirebaseToken(user.UserId);
               this.router.navigate(['main']);
 
             } else {
              this.common.presentToast(RES.Mess);
             }
+            await this.common.loadingDismiss();
+
         },
         async (error) => {
           console.log(error);
@@ -210,6 +254,7 @@ export class LoginPage implements OnInit,  OnDestroy {
         GoogleName: Name
       }
     });
+    this.common.SaveModel(modal.id);
     return await modal.present();
   }
 

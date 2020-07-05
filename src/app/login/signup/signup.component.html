@@ -4,10 +4,11 @@
             <h3>Sign Up</h3>
             <hr>
 
-            <form
+            <form autocomplete="off"
             (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm"
             name="myForm">
                 <ion-item>
+                    <ion-label position="floating">Name</ion-label>
                     <ion-input type="text" 
                     required 
                     [autocomplete]="off"
@@ -17,6 +18,7 @@
                     placeholder="Name"></ion-input>
                 </ion-item>
                 <ion-item>
+                    <ion-label position="floating">Email</ion-label>
                     <ion-input 
                     type="mail"
                     [(ngModel)]="Email" 
@@ -29,15 +31,20 @@
                     </ion-input>
                 </ion-item>
                 <ion-item>
+                    <ion-label position="floating">Phone number</ion-label>
+                    
                     <ion-input type="text" 
-                    [(ngModel)]="Mobile" autocomplete="off"
+                    [(ngModel)]="Mobile" 
+                    autocomplete="nope"
                     required
                     minlength="10"
                     maxlength="10"
                     name="PhoneNumber"
                     placeholder="Phone number"></ion-input>
+
                 </ion-item>
                 <ion-item>
+                    <ion-label position="floating">Password</ion-label>
                     <ion-input 
                     [(ngModel)]="Password" autocomplete="off"
                     required

@@ -5,7 +5,7 @@
                            
   <ion-icon class="float-right"
   style="margin: 22px" 
-  (click)="Dismiss()"
+  (click)="Dismiss(false)"
   size="large"
   name="close-outline"></ion-icon>
               <h3>Verify Contact No</h3>
@@ -32,10 +32,13 @@
                     <div>
                       Didn't receive the code?<br />
                   
-                      <span 
+                      <span *ngIf="!AllowResend"
                       style="color:#24abaa"
-                      (click)="Dismiss()">Send code again</span>
+                      (click)="SendAgain()">Send code again in {{TimerValue}} Sec </span>
 
+                      <span *ngIf="AllowResend">
+                        <strong>RESEND</strong>
+                      </span>
 
                     <br>
                       <span 

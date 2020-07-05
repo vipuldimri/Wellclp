@@ -4,14 +4,13 @@ import { AuthGuardService } from './guards/skipslides-guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'intro-slides',
+    redirectTo: 'main',
     pathMatch: 'full'
   },
   {
     path: 'intro-slides',
     loadChildren: () => import('./intro-slides/intro-slides.module')
     .then( m => m.IntroSlidesPageModule),
-    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
@@ -19,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule)
+    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule),
+    canActivate: [AuthGuardService]
   }
 ];
 

@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { fromEvent, Subscription } from 'rxjs';
 import { Sim } from '@ionic-native/sim/ngx';
 import { OTPComponent } from '../otp/otp.component';
+import { CommonProviderService } from 'src/app/services/CommonProvider.service';
 
 @Component({
   selector: 'app-phonenumber',
@@ -17,12 +18,13 @@ export class PhonenumberComponent implements OnInit, OnDestroy {
   @Input() GoogleEmail: string;
   @Input() GoogleName: string;
   constructor(public modalController: ModalController ,
+              private commonProviderService: CommonProviderService,
               private sim: Sim) { }
 
   ngOnInit() {
     const event = fromEvent(document, 'backbutton');
     this.BackButtonSub = event.subscribe(async () => {
-       this.Dismiss();
+       this.Dismiss(false);
     });
 
     this.GetPhoneNo();
@@ -60,11 +62,9 @@ export class PhonenumberComponent implements OnInit, OnDestroy {
       }
     );
 
-
-
   }
 
-  Dismiss() {
+  Dismiss(status: boolean) {
     this.BackButtonSub.unsubscribe();
     this.modalController.dismiss();
   }
@@ -94,7 +94,18 @@ export class PhonenumberComponent implements OnInit, OnDestroy {
         PhoneNo: this.PhoneNo
       }
     });
-    return await modal.present();
+    this.commonProviderService.SaveModel(modal.id);
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    if (data.status) {
+        await this.modalController.dismiss();
+        await this.modalController.dismiss();
+        this.commonProviderService.GetAllActiveModels().forEach(element => {
+           this.modalController.dismiss(null, null, element);
+        });
+    } else {
+       // this.Dismiss(data.status);
+    }
   }
 
 }

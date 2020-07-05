@@ -59,7 +59,83 @@
 
  <ion-content  >
 
-  <div style="background: #fcf9f9;">
+
+                <ion-list id="skeleton" *ngIf="ShowLoading">
+
+                                        <div class="row" style="margin: 10px">
+                                                        <ion-thumbnail 
+                                                        style="margin-left: 5px;width: 90%"
+                                                        [ngStyle]="{'height.px': ProductCardHeight}" >
+                                                                        <ion-skeleton-text></ion-skeleton-text>
+                                                                      </ion-thumbnail>
+                                        </div>
+
+                                <ion-list-header>
+                                  <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+                                </ion-list-header>
+                              
+                                <div class="row" style="margin: 10px">
+                                                <ion-thumbnail 
+                                                style="margin-left: 10px"
+                                                [ngStyle]="{'width.px':  ProductCardWidth,'height.px': ProductCardHeight}" >
+                                                                <ion-skeleton-text></ion-skeleton-text>
+                                                              </ion-thumbnail>
+                            
+                            
+                                                              <ion-thumbnail 
+                                                              style="margin-left: 10px"
+                                                              [ngStyle]="{'width.px':  ProductCardWidth,'height.px': ProductCardHeight}" >
+                                                                            <ion-skeleton-text></ion-skeleton-text>
+                                                                          </ion-thumbnail>
+                                </div>
+
+                                <ion-list-header>
+                                                <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+                                              </ion-list-header>
+                                            
+                                              <div class="row" style="margin: 10px">
+                                                              <ion-thumbnail 
+                                                              style="margin-left: 10px"
+                                                              [ngStyle]="{'width.px':  ProductCardWidth,'height.px': ProductCardHeight}" >
+                                                                              <ion-skeleton-text></ion-skeleton-text>
+                                                                            </ion-thumbnail>
+                                          
+                                          
+                                                                            <ion-thumbnail 
+                                                                            style="margin-left: 10px"
+                                                                            [ngStyle]="{'width.px':  ProductCardWidth,'height.px': ProductCardHeight}" >
+                                                                                          <ion-skeleton-text></ion-skeleton-text>
+                                                                                        </ion-thumbnail>
+                                              </div>
+
+
+                                              <ion-list-header>
+                                                        <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+                                                      </ion-list-header>
+                                                    
+                                                      <div class="row" style="margin: 10px">
+                                                                      <ion-thumbnail 
+                                                                      style="margin-left: 10px"
+                                                                      [ngStyle]="{'width.px':  ProductCardWidth,'height.px': ProductCardHeight}" >
+                                                                                      <ion-skeleton-text></ion-skeleton-text>
+                                                                                    </ion-thumbnail>
+                                                  
+                                                  
+                                                                                    <ion-thumbnail 
+                                                                                    style="margin-left: 10px"
+                                                                                    [ngStyle]="{'width.px':  ProductCardWidth,'height.px': ProductCardHeight}" >
+                                                                                                  <ion-skeleton-text></ion-skeleton-text>
+                                                                                                </ion-thumbnail>
+                                                      </div>
+                      
+
+                              
+                 </ion-list>
+
+
+
+
+  <div  *ngIf="!ShowLoading" style="background: #fcf9f9;">
 
 <div class="home_offer_slider">
 

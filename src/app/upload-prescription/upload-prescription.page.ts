@@ -7,6 +7,9 @@ import { HttpClient } from '@angular/common/http';
 import { CommonProviderService } from '../services/CommonProvider.service';
 import { User } from '../services/auth/user.model';
 import { AuthService } from '../services/auth/auth.service';
+import { ModalController } from '@ionic/angular';
+import { OTPComponent } from '../login/otp/otp.component';
+import { DoneComponent } from '../Common/done/done.component';
 @Component({
   selector: 'app-upload-prescription',
   templateUrl: './upload-prescription.page.html',
@@ -26,6 +29,7 @@ export class UploadPrescriptionPage implements OnInit {
   constructor(private camera: Camera,
               private CommonS: CommonProviderService,
               private webview: WebView,
+              public modalController: ModalController,
               private http: HttpClient,
               private AuthS: AuthService,
               private photoViewer: PhotoViewer,
@@ -131,6 +135,8 @@ readFile(file: any) {
             this.DoctorName = '';
             this.PatientName = '';
             this.CommonS.presentToast('Our Executive will contact you shortly.');
+            this.ShowSuccess();
+
           } else  {
             this.CommonS.presentToast(data.Mess);
           }
@@ -144,11 +150,24 @@ readFile(file: any) {
 }
 
 Upload_prescription() {
+
+
+
   if (!this.data) {
       this.CommonS.presentToast('Please upload picture');
       return;
   }
   this.startUpload(this.data);
+}
+
+  async ShowSuccess() {
+  const modal = await this.modalController.create({
+    component: DoneComponent,
+    componentProps: {
+      Message: 'Thanks for uploding Prescription , Our Executive will contact you shortly.'
+    }
+  });
+  await modal.present();
 }
 
 removepic() {

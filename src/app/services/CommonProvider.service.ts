@@ -5,6 +5,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CommonProviderService {
+  ModelsID = [];
   loading;
   constructor(private loadingController: LoadingController,
               public toastController: ToastController,
@@ -27,6 +28,15 @@ export class CommonProviderService {
       position: 'bottom',
     });
     toast.present();
+  }
+
+
+  SaveModel(id) {
+    this.ModelsID.push(id);
+  }
+
+  GetAllActiveModels() {
+    return this.ModelsID;
   }
 
   GetMyNotifications(userid) {

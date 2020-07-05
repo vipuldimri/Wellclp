@@ -1,5 +1,62 @@
-<div *ngIf="Splash" class="splashclass">
+<!-- <div *ngIf="Splash" class="splashclass">
     <div class="spinner"></div>
+</div> -->
+
+<div *ngIf="Splash">
+    <div class="login_wrapper">
+        <img src="/assets/imgs/asset_login_img.png" class="login_title">
+        <div class="logo_div">
+            <img src="/assets/imgs/asset_logo.png">
+        </div>
+        
+    </div>
+    
+<div
+style="position: absolute;bottom: 0;background-color: #24abaa"> 
+    <ion-list style="background-color: #24abaa">
+
+
+        <ion-item color="medium">
+          <ion-avatar style="background-color: #24abaa" slot="start">
+            <img src="./avatar-finn.png">
+          </ion-avatar>
+          <p style="color: white"> 
+           Upto 50% Off on wellness products.
+         </p>
+        </ion-item>
+
+        <ion-item color="medium">
+          <ion-avatar slot="start">
+            <img src="./avatar-han.png">
+          </ion-avatar>
+          <p style="color: white"> 
+              Authticity Grantee
+            </p>
+        </ion-item>
+
+        <ion-item color="medium">
+          <ion-avatar slot="start">
+            <img src="./avatar-rey.png">
+          </ion-avatar>
+          <p style="color: white"> 
+              Delivery over 30+ cities.
+            </p>
+        </ion-item>
+
+        <ion-item color="medium">
+          <ion-avatar slot="start">
+            <img src="./avatar-luke.png">
+          </ion-avatar>
+          <p style="color: white"> 
+              10000+ products. Near 100% fulfillment rate
+            </p>
+        </ion-item>
+      </ion-list>
+  </div> 
+
+
+
+
 </div>
 
 <!-- <ion-app>
@@ -23,5 +80,9 @@
   </ion-split-pane>
 </ion-app> -->
 
-<ion-router-outlet ></ion-router-outlet>
+<div  *ngIf="!Splash">
+    <ion-router-outlet ></ion-router-outlet>
+ 
+</div>
 
+ 

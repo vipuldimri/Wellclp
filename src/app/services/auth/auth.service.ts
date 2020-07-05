@@ -43,8 +43,8 @@ Googlelogin(email) {
   const formData = new FormData();
   formData.append('email', email);
 
-  return this.http.post(this.baseURL + '/api/auth/googlelogin.php',
-  formData , httpOptions);
+  return this.http.post(this.baseURL + '/api/auth/checkgoogle.php',
+  formData );
 }
 
 GoogleRegisteration(Fromobj) {
@@ -57,7 +57,7 @@ GoogleRegisteration(Fromobj) {
 
 
   return this.http.post( this.baseURL + '/api/auth/googleregister.php',
-  Fromobj , httpOptions);
+  Fromobj );
 }
 
 SendOTP(Fromobj) {
@@ -70,7 +70,7 @@ SendOTP(Fromobj) {
 
 
   return this.http.post(this.baseURL + '/api/auth/sendregisterationOTP.php',
-  Fromobj , httpOptions);
+  Fromobj );
 }
 
 SaveToken(userid: string ,  Token: string) {
@@ -142,4 +142,3 @@ ChangePassword(Obj) {
 
 
 }
-
