@@ -25,6 +25,7 @@
     "@ionic-native/camera": "^5.22.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/deeplinks": "^5.23.0",
+    "@ionic-native/downloader": "^5.27.0",
     "@ionic-native/fcm": "^5.22.0",
     "@ionic-native/file": "^5.22.0",
     "@ionic-native/geolocation": "^5.23.0",
@@ -71,6 +72,7 @@
     "core-js": "^2.5.4",
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^7.14.1",
+    "integrator-cordova-plugin-downloader": "^1.1.0",
     "ionic-plugin-deeplinks": "^1.0.20",
     "mx.ferreyra.callnumber": "~0.0.2",
     "rxjs": "~6.5.1",
@@ -153,7 +155,8 @@
       },
       "cordova-plugin-nativegeocoder": {},
       "cordova-plugin-local-notification": {},
-      "cordova-plugin-app-update": {}
+      "cordova-plugin-app-update": {},
+      "integrator-cordova-plugin-downloader": {}
     },
     "platforms": [
       "android"

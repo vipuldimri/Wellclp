@@ -30,6 +30,8 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import { HTTP } from '@ionic-native/http/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AppUpdate } from '@ionic-native/app-update/ngx';
+import { Downloader } from '@ionic-native/downloader/ngx';
+
 const firebaseConfig = {
    apiKey: 'AIzaSyCvSr9rntVsKJ0qIbylZpJbb00AuL3WEoA',
    authDomain: 'wellclap-ca081.firebaseapp.com',
@@ -76,7 +78,8 @@ const firebaseConfig = {
       AuthGuardService,
       HTTP,
       LocalNotifications,
-      AppUpdate
+      AppUpdate,
+      Downloader
    ],
    bootstrap: [
       AppComponent

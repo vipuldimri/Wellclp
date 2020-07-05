@@ -5,7 +5,7 @@ import { User } from '../services/auth/user.model';
 import { AuthService } from '../services/auth/auth.service';
 import { ModalController } from '@ionic/angular';
 import { ImageViewerComponent } from '../main/common/imageViewer/imageViewer.component';
-
+import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
 @Component({
   selector: 'app-my-prescription',
   templateUrl: './my-prescription.page.html',
@@ -16,6 +16,7 @@ export class MyPrescriptionPage implements OnInit {
   list: [];
   constructor(private PresS: PrescriptionService,
               private AuthS: AuthService,
+              private downloader: Downloader,
               public modalController: ModalController,
               private photoViewer: PhotoViewer) { }
 
@@ -49,8 +50,31 @@ export class MyPrescriptionPage implements OnInit {
 
   download(url: string) {
       // const url = 'http://www.example.com/file.pdf';
-      const result = url.split('.');
-      // alert(result[result.length - 1]);
+      const result  = url.split('.');
+      const result2 = url.split('/');
+      // alert(result2[result2.length - 1]);
+
+      console.log('Going for download');
+      console.log(url);
+      console.log(result2[result2.length - 1]);
+      const request: DownloadRequest = {
+        uri: url,
+        title: 'Prescription',
+        description: '',
+        mimeType: '',
+        visibleInDownloadsUi: true,
+        notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+        destinationInExternalFilesDir: {
+            dirType: 'Downloads',
+            subPath: result2[result2.length - 1]
+        }
+    };
+
+
+      this.downloader.download(request)
+            .then((location: string) => console.log('File downloaded at:' + location))
+            .catch((error: any) => console.error(error));
+
   }
 
 
