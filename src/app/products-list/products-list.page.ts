@@ -77,6 +77,7 @@ export class ProductsListPage implements OnInit {
       (error) => {
         this.ShowLoading =  false;
         console.log(error);
+        alert('Something went wrong.');
       }
     );
   }

@@ -43,6 +43,8 @@ export class ProductDetailPage implements OnInit , OnDestroy {
   TempList = [];
   InvalidCombination =  false;
 
+  ShowErroPage =  false;
+
   constructor(private ProductS: ProductService,
               private photoViewer: PhotoViewer,
               private route: ActivatedRoute,
@@ -73,6 +75,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
     this.route.params.subscribe(params => {
         const id = params.id;
         this.ShowProduct =  false;
+        this.ShowErroPage =  false;
         // const id =  this.route.snapshot.params.id;
         this.GetProductData(id);
     });
@@ -116,6 +119,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
               //      this.TempList.push('');
               //  });
               } else {
+                this.ShowErroPage =  true;
                 alert('Something went wrong');
               }
               await  this.LoadingObj.dismiss();
@@ -123,6 +127,7 @@ export class ProductDetailPage implements OnInit , OnDestroy {
           async (error) => {
             await  this.LoadingObj.dismiss();
             this.ShowProduct =  true;
+            this.ShowErroPage =  true;
             alert('Something went wrong');
           }
         );

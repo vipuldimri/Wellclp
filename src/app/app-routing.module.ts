@@ -20,7 +20,19 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () => import('./main/main.module').then( m => m.MainPageModule),
     canActivate: [AuthGuardService]
-  }
+  },
+  {
+    path: 'upload-prescription',
+    loadChildren: () => import('./upload-prescription/upload-prescription.module').then( m => m.UploadPrescriptionPageModule)
+  },
+  {
+    path: 'product-detail',
+    loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+  {
+    path: 'products-list',
+    loadChildren: () => import('./products-list/products-list.module').then( m => m.ProductsListPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class CommonProviderService {
   ModelsID = [];
   loading;
+  BackButtonSub: Subscription[] = [];
   constructor(private loadingController: LoadingController,
               public toastController: ToastController,
               public http: HttpClient
@@ -53,6 +55,17 @@ export class CommonProviderService {
     return this.http.post('http://www.wellclap.com/vaibhavapp/ionicapp/api/Home/getnotifications.php',
     formData
     );
+  }
+
+
+  AddSubcribeBack(Subobj) {
+      this.BackButtonSub.push(Subobj);
+  }
+
+  RemoveUnSubcribeBack() {
+    this.BackButtonSub.forEach(element => {
+      element.unsubscribe();
+    });
   }
 
 }

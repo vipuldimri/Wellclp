@@ -10,6 +10,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AppUpdate } from '@ionic-native/app-update/ngx';
 import { Platform } from '@ionic/angular';
 import { fromEvent, Subscription } from 'rxjs';
+import { CommonProviderService } from '../services/CommonProvider.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,6 @@ import { fromEvent, Subscription } from 'rxjs';
 export class HomePage implements OnInit , OnDestroy {
 
   clickSub: any;
-  BackButtonSub: Subscription;
   BestSellersProducts: [];
   Covid: [] = [];
   BestDealsProducts: [];
@@ -43,6 +43,7 @@ export class HomePage implements OnInit , OnDestroy {
               private appUpdate: AppUpdate,
               private ngZone: NgZone,
               private platform: Platform,
+              private commonProviderService: CommonProviderService,
               private localNotifications: LocalNotifications,
               private activatedRoute: ActivatedRoute,
               private locationS: LocationService,
@@ -68,10 +69,7 @@ export class HomePage implements OnInit , OnDestroy {
 
    // alert('HERE');
 
-    // const event = fromEvent(document, 'backbutton');
-    // this.BackButtonSub = event.subscribe(async () => {
-    //   alert('PRESS');
-    // });
+
 
     // const updateUrl = 'https://www.wellclap.com/vaibhavapp/ionicapp/AppUpdate/update.xml';
     // this.appUpdate.checkAppUpdate(updateUrl)
@@ -95,7 +93,18 @@ export class HomePage implements OnInit , OnDestroy {
       this.ProductCardHeight =  (this.platform.height() * 15) / 100;
       this.ProductCardWidth =  (this.platform.width() * 38) / 100;
       this.CategoryImgHeight = (this.platform.height() * 4) / 100;
+
+
+
+      // this.platform.backButton.subscribe(
+      //   () => {
+      //     alert('HERE');
+      //   }
+      // );
+
     });
+
+
 
 
     this.CartCount =  this.cartS.GetCount();
@@ -182,8 +191,29 @@ export class HomePage implements OnInit , OnDestroy {
 
   }
 
+  ionViewWillEnter() {
+    // alert('Event attached Home');
+    const event = fromEvent(document, 'backbutton');
+    const obj  = event.subscribe(async () => {
+             // tslint:disable-next-line:no-string-literal
+             navigator['app'].exitApp();
+    });
+
+    this.commonProviderService.AddSubcribeBack(obj);
+  }
+
+  ionViewWillLeave() {
+    // alert('Remove from Home');
+    this.UnsubscribeBack();
+  }
+
+  // ionViewDidLeave() {
+  //   // alert('ionViewDidLeave');
+  //   this.UnsubscribeBack();
+  // }
+
   Upload()   {
-    this.router.navigate(['main/upload-prescription']);
+    this.router.navigate(['upload-prescription']);
   }
 
   GetSlideShow() {
@@ -244,13 +274,13 @@ export class HomePage implements OnInit , OnDestroy {
   }
 
   Nevigatetoproduct(product) {
-    this.router.navigate(['main/product-detail', product.product_id] ,
+    this.router.navigate(['product-detail', product.product_id] ,
 );
   }
 
   Nevigatetocategory(catid) {
     this.router
-    .navigate( ['main/products-list', catid ] , { queryParams: { option: '0'} ,
+    .navigate( ['products-list', catid ] , { queryParams: { option: '0'} ,
      queryParamsHandling: 'merge' }  );
   }
 
@@ -258,7 +288,7 @@ export class HomePage implements OnInit , OnDestroy {
 
   Nevigatetobrand(brandid) {
     this.router
-    .navigate( ['main/products-list', brandid ] , { queryParams: { option: '2'} ,
+    .navigate( ['products-list', brandid ] , { queryParams: { option: '2'} ,
      queryParamsHandling: 'merge' }  );
   }
 
@@ -278,7 +308,10 @@ export class HomePage implements OnInit , OnDestroy {
 
   ngOnDestroy(): void {
      // alert('GOING');
-    this.BackButtonSub.unsubscribe();
+  }
+
+  UnsubscribeBack() {
+    this.commonProviderService.RemoveUnSubcribeBack();
   }
 
 

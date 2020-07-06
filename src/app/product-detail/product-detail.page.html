@@ -29,7 +29,7 @@
 
     
 <ion-content >   
-    <div *ngIf="ShowProduct" class="product_wrapper" >
+    <div *ngIf="ShowProduct && !ShowErroPage" class="product_wrapper" >
      <div style="margin: 5px">
             <nav aria-label="breadcrumb">
                     <ol 
@@ -326,9 +326,31 @@
 
     </div>
 
+
+    <div  *ngIf="ShowErroPage" class="container">
+
+            <img 
+            class="center"
+            style="height: 20%;margin-top: 100px"
+            src="/assets/icon/error.svg" alt="">
+        
+        
+            <br>
+            <br>
+        
+            <ion-label 
+            class=" ion-text-wrap ">
+            <h5 style="font-size: 6vw;text-align: center">Something went wrong.</h5>
+            </ion-label>
+        
+       
+        </div>
     
 
 </ion-content>
+
+
+
 
 <!-- <ion-footer 
 *ngIf="ShowGoToCart"

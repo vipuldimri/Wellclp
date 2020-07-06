@@ -4,16 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainPage } from './main.page';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
-  {
-    path: '',
-    redirectTo: 'tabs',
-    pathMatch: 'full'
-  },
   {
     path: 'location',
     loadChildren: () => import('../location/location.module').then( m => m.LocationPageModule)
@@ -33,10 +23,6 @@ const routes: Routes = [
   {
     path: 'my-cart',
     loadChildren: () => import('../my-cart/my-cart.module').then( m => m.MyCartPageModule)
-  },
-  {
-    path: 'upload-prescription',
-    loadChildren: () => import('../upload-prescription/upload-prescription.module').then( m => m.UploadPrescriptionPageModule)
   },
   {
     path: 'tabs',
@@ -84,6 +70,11 @@ const routes: Routes = [
   {
     path: 'product-detail',
     loadChildren: () => import('../product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'tabs',
+    pathMatch: 'full'
   },
 ];
 
