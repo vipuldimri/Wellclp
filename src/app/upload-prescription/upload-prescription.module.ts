@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { UploadPrescriptionPageRoutingModule } from './upload-prescription-routing.module';
 
 import { UploadPrescriptionPage } from './upload-prescription.page';
+import { CommonModuleModule } from '../Common/CommonModule/CommonModule.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    UploadPrescriptionPageRoutingModule
+    UploadPrescriptionPageRoutingModule,
+    CommonModuleModule
   ],
-  declarations: [UploadPrescriptionPage]
+  declarations: [UploadPrescriptionPage ],
 })
 export class UploadPrescriptionPageModule {}

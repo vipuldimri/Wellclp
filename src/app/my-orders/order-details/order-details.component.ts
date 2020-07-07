@@ -25,18 +25,18 @@ export class OrderDetailsComponent implements OnInit , OnDestroy {
   LogedInUser: User;
   ngOnInit() {
 
-    const event = fromEvent(document, 'backbutton');
-    this.BackButtonSub = event.subscribe(async () => {
-      if (!this.AllowBack) {
-        this.router.navigate(['main']);
-      }
-    });
+    // const event = fromEvent(document, 'backbutton');
+    // this.BackButtonSub = event.subscribe(async () => {
+    //   if (!this.AllowBack) {
+    //     this.router.navigate(['main']);
+    //   }
+    // });
 
     this.route.params.subscribe(params => {
       const id = params.orderID;
       // const id =  this.route.snapshot.params.id;
       this.GetOrderdata(10 , id);
-  });
+     });
 
 
 

@@ -1,19 +1,15 @@
 <ion-header >
     <div class="nav_header">
-
-        <ion-menu-button class="nav_btn nav_menu floatLeft"></ion-menu-button>
-
         <div 
-        style="padding-bottom: 0px;margin: 5px"
+        style="padding-bottom: 0px;"
         class="nav_header_title floatLeft">
-            <!-- <img src="/assets/imgs/asset_white_logo.png"> -->
             <ion-row>
                     <p 
-                    style="font-size: 15px;margin-top: -10px">Wellclap.com</p>
+                    style="font-size: 3vw;;margin-bottom: 2px">Wellclap.com</p>
             </ion-row>
 
              <ion-row [routerLink]="['/main/location']">
-                    <p style="font-size: 17px;margin-top: -15px;font-weight: bolder">Delivers To {{Location}}
+                    <p style="font-size: 4vw;font-weight: bolder;margin-bottom: 2px">Delivers To {{Location}}
                             <ion-icon name="chevron-down"></ion-icon>
                     </p>
                             </ion-row>
@@ -178,7 +174,7 @@
     </div>
     <div style="height: 50px;" class="home_header">
         <div class="home_header_left">
-                <p style="font-size: 3.9vw;margin: 0px">
+                <p style="font-size: 3.9vw">
                                 Order with prescriptions
                 </p>
           
@@ -666,7 +662,7 @@
         <div class="home_offer_slider">
                 <ion-slides loop="true"
                 [pager]="true"
-                slidesPerView="1.5" spaceBetween="5px">
+                slidesPerView="1" spaceBetween="0px">
                  <ion-slide (click)="Nevigatetocategory(101)">
                         <img src="assets/imgs/Offers.png">
                     </ion-slide>

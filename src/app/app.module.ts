@@ -31,6 +31,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AppUpdate } from '@ionic-native/app-update/ngx';
 import { Downloader } from '@ionic-native/downloader/ngx';
+import { CommonModuleModule } from './Common/CommonModule/CommonModule.module';
 
 const firebaseConfig = {
    apiKey: 'AIzaSyCvSr9rntVsKJ0qIbylZpJbb00AuL3WEoA',
@@ -53,7 +54,8 @@ const firebaseConfig = {
       IonicModule.forRoot(),
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireAuthModule,
-      AppRoutingModule
+      AppRoutingModule,
+      CommonModuleModule
    ],
    providers: [
       GooglePlus,

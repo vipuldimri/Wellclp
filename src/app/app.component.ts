@@ -39,10 +39,10 @@ export class AppComponent implements OnInit {
 
 
 
-      this.platform.backButton
-      .subscribeWithPriority(999999,  () =>  {
-          alert('here');
-      });
+      // this.platform.backButton
+      // .subscribeWithPriority(999999,  () =>  {
+      //     alert('here');
+      // });
 
 
 
