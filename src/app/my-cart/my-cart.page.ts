@@ -34,6 +34,8 @@ export class MyCartPage implements OnInit {
 
   ngOnInit() {
     this.LogedInUser = this.AuthS.GetLoginUser();
+    // this.LogedInUser =  new User();
+    // this.LogedInUser.UserId = 10;
     this.RefreshCart(null);
     this.GetMyAddress();
   }

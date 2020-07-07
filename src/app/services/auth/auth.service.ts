@@ -140,5 +140,14 @@ ChangePassword(Obj) {
   return this.http.post(this.baseURL +  '/api/auth/changepassword.php' , Obj);
 }
 
+Forgotpassword(Obj) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+  return this.http.post(this.baseURL +  '/api/auth/forgotpassword.php' , Obj);
+}
+
 
 }

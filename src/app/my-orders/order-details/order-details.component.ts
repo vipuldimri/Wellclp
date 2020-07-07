@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { User } from 'src/app/services/auth/user.model';
 import { LoadingController } from '@ionic/angular';
 import { fromEvent, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-order-details',
@@ -20,11 +21,13 @@ export class OrderDetailsComponent implements OnInit , OnDestroy {
   constructor(   private route: ActivatedRoute,
                  private router: Router ,
                  private pService: ProductService,
+                 private AuthS: AuthService,
                  public loadingController: LoadingController) { }
   LoadingObj;
   LogedInUser: User;
   ngOnInit() {
 
+    this.LogedInUser =  this.AuthS.GetLoginUser();
     // const event = fromEvent(document, 'backbutton');
     // this.BackButtonSub = event.subscribe(async () => {
     //   if (!this.AllowBack) {
@@ -35,7 +38,7 @@ export class OrderDetailsComponent implements OnInit , OnDestroy {
     this.route.params.subscribe(params => {
       const id = params.orderID;
       // const id =  this.route.snapshot.params.id;
-      this.GetOrderdata(10 , id);
+      this.GetOrderdata(this.LogedInUser.UserId , id);
      });
 
 
@@ -110,7 +113,7 @@ export class OrderDetailsComponent implements OnInit , OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.BackButtonSub.unsubscribe();
+    // this.BackButtonSub.unsubscribe();
   }
 
 

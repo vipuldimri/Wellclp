@@ -13,6 +13,7 @@ import { PhonenumberComponent } from './phonenumber/phonenumber.component';
 import { OTPComponent } from './otp/otp.component';
 import { OTPSignUpComponent } from './otpSignUp/otpSignUp.component';
 import { ProductsListPageModule } from '../products-list/products-list.module';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { ProductsListPageModule } from '../products-list/products-list.module';
     ProductsListPageModule
   ],
   declarations: [LoginPage , SignupComponent ,
-    ChangePasswordComponent, PhonenumberComponent , OTPComponent , OTPSignUpComponent],
-    entryComponents: [PhonenumberComponent , OTPComponent  , OTPSignUpComponent]
+    ChangePasswordComponent, PhonenumberComponent , OTPComponent , OTPSignUpComponent , ForgotPasswordComponent],
+    entryComponents: [PhonenumberComponent , OTPComponent  , OTPSignUpComponent , ForgotPasswordComponent] ,
 })
 export class LoginPageModule {}

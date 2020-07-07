@@ -12,6 +12,7 @@ import * as firebase from 'firebase';
 import { Sim } from '@ionic-native/sim/ngx';
 import { PhonenumberComponent } from './phonenumber/phonenumber.component';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -281,6 +282,15 @@ export class LoginPage implements OnInit,  OnDestroy {
     } catch (error) {
       alert('error 2');
     }
+  }
+
+  async forgotPassword() {
+    const modal = await this.modalController.create({
+      component: ForgotPasswordComponent,
+      componentProps: {
+      }
+    });
+    return await modal.present();
   }
 
 }

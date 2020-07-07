@@ -15,9 +15,10 @@
               name="phone"
               [(ngModel)]="Phone"
               minlength="10"
+              autocorrect=“false” autocomplete=“false” spellcheck=“false”
               maxlength="10"
               required
-              type="text" placeholder="Phone"></ion-input>
+              type="tel" placeholder="Phone"></ion-input>
           </ion-item>
           <ion-item>
               <ion-label position="floating">Password</ion-label>
@@ -52,7 +53,9 @@
               <p style="font-size: 3.3vw">Don't have an account?
                <strong [routerLink]="['Signup']">Signup</strong></p>
                
-               <p style="font-size: 3.3vw"><strong >Forgot Password </strong></p>
+               <p 
+               (click)="forgotPassword()"
+               style="font-size: 3.3vw"><strong >Forgot Password </strong></p>
                
                <!-- <p><strong  (click)="SIM()">SIM </strong></p>
 
