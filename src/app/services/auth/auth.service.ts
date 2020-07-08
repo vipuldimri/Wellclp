@@ -12,7 +12,7 @@ export class AuthService {
  constructor(private http: HttpClient) { }
 // constructor(private http: HTTP, private oldhttp: HttpClient) {}
  baseURL = environment.baseURL;
-login(userphone, userpassword) {
+login(userphone) {
   const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -22,14 +22,29 @@ login(userphone, userpassword) {
 
   const formData = new FormData();
   formData.append('phone', userphone);
-  formData.append('password', userpassword);
 
-  // alert(this.baseURL);
+
+
+  return this.http.post(this.baseURL +  '/api/auth/loginPhone.php' , formData);
+
+}
+
+loginPassword(userphone  , password) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+
+  };
+
+  const formData = new FormData();
+  formData.append('phone', userphone);
+  formData.append('password', password);
+
+
 
   return this.http.post(this.baseURL +  '/api/auth/login.php' , formData);
-  // return this.http.get(this.baseURL +  '/api/auth/login.php' , {} , { });
-  // return this.http.post( this.baseURL +  '/api/auth/login.php',
-  // formData );
+
 }
 
 Googlelogin(email) {
@@ -139,6 +154,13 @@ ChangePassword(Obj) {
   };
   return this.http.post(this.baseURL +  '/api/auth/changepassword.php' , Obj);
 }
-
+Forgotpassword(Obj) {
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+  return this.http.post(this.baseURL +  '/api/auth/forgotpassword.php' , Obj);
+}
 
 }

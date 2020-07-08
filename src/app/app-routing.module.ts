@@ -23,15 +23,18 @@ const routes: Routes = [
   },
   {
     path: 'upload-prescription',
-    loadChildren: () => import('./upload-prescription/upload-prescription.module').then( m => m.UploadPrescriptionPageModule)
+    loadChildren: () => import('./upload-prescription/upload-prescription.module').then( m => m.UploadPrescriptionPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'product-detail',
-    loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+    loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'products-list',
-    loadChildren: () => import('./products-list/products-list.module').then( m => m.ProductsListPageModule)
+    loadChildren: () => import('./products-list/products-list.module').then( m => m.ProductsListPageModule),
+    canActivate: [AuthGuardService]
   },
 ];
 

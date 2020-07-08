@@ -25,6 +25,8 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
   HashCode = '';
   @Input() FormObj;
   @Input() PhoneNo;
+  @Input() User: User;
+  @Input() IsLogin;
   source = timer(0, 1000);
   timersubscribe;
   constructor(public modalController: ModalController,
@@ -43,6 +45,7 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
     this.BackButtonSub = event.subscribe(async () => {
        this.Dismiss();
     });
+
 
     this.smsRetriever.getAppHash()
     .then((res: any) => {
@@ -63,9 +66,16 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
     this.OTP =  OTP;
 
     const formData = new FormData();
-    formData.append('register_mobile', this.PhoneNo);
     formData.append('OTP', this.OTP);
     formData.append('HashCode', this.HashCode);
+
+    if (this.IsLogin === true) {
+      this.PhoneNo =  this.User.Contact;
+      formData.append('register_mobile', this.User.Contact + '');
+    } else {
+      formData.append('register_mobile', this.PhoneNo);
+    }
+
 
     console.log(this.PhoneNo);
     console.log(this.OTP);
@@ -93,7 +103,25 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
 
   }
 
+  async Login(user) {
+             this.AuthS.SaveLoginUser(user);
+
+             try {
+                await this.nativeStorage.setItem('user' , user);
+              } catch (err) {
+                console.error('Error storing item', err);
+              }
+
+             this.saveFirebaseToken(user.UserId);
+             this.router.navigate(['main']);
+
+             this.Dismiss();
+  }
+
   SendAgain() {
+
+    this.SendOTP();
+    return;
     const OTP =  this.random4Digit() ;
     // alert(OTP);
     this.OTP =  OTP;
@@ -150,11 +178,36 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
       // alert(res.Message);
     })
     .catch((error: any) => {
-      alert('ERROR');
+      // alert('ERROR');
       console.error(error);
       // this.WatchSMS();
     });
 
+  }
+
+  saveFirebaseToken(userid) {
+    try {
+      this.fcm.getToken()
+      .then(token => {
+        // alert(token);
+        this.AuthS.SaveToken(userid , token)
+        .subscribe(
+          (RES: any) => {
+            if (RES.status) {
+             // alert('Saved');
+            } else {
+             // alert(RES.Mess);
+            }
+          } ,
+          (error) => {
+           // alert('ERROR');
+          }
+        );
+        console.log(token);
+      });
+    } catch (error) {
+      alert('error 2');
+    }
   }
 
   Dismiss() {
@@ -171,21 +224,35 @@ export class OTPSignUpComponent implements OnInit, OnDestroy {
         return;
     }
 
-    this.AuthS.SignUp(this.FormObj)
-    .subscribe(
-      (RES: any) => {
-        if (RES.Status) {
-          alert('Registeration Successfull, Please login now.');
-          this.modalController.dismiss();
-          this.router.navigate(['/login']);
-        } else {
-            alert(RES.Mess);
-        }
-      },
-      (Error) => {
-        alert('Oops, something went wrong.');
-      }
-    );
+    if (this.IsLogin) {
 
+          this.Login(this.User);
+
+    } else {
+        this.AuthS.SignUp(this.FormObj)
+        .subscribe(
+          (RES: any) => {
+            if (RES.Status) {
+              alert('Registeration Successfull.');
+              // this.modalController.dismiss();
+              // this.router.navigate(['/login']);
+
+              const user =  new User();
+              user.UserId =  RES.data.user_id;
+              user.Email =  RES.data.email;
+              user.Contact =  RES.data.phone_no;
+              user.Name =  RES.data.name;
+
+              this.Login(user);
+
+            } else {
+                alert(RES.Mess);
+            }
+          },
+          (Error) => {
+            alert('Oops, something went wrong.');
+          }
+        );
+    }
 }
 }

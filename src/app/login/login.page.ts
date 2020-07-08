@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import { AlertController, LoadingController, Platform, ModalController } from '@ionic/angular';
 import { CommonProviderService } from '../services/CommonProvider.service';
@@ -12,6 +12,8 @@ import * as firebase from 'firebase';
 import { Sim } from '@ionic-native/sim/ngx';
 import { PhonenumberComponent } from './phonenumber/phonenumber.component';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { OTPSignUpComponent } from './otpSignUp/otpSignUp.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,12 +22,13 @@ import { FCM } from '@ionic-native/fcm/ngx';
 export class LoginPage implements OnInit,  OnDestroy {
 
   user: Observable<firebase.User>;
-
+  segment = 'Login with OTP';
   Phone = '';
   Password = '';
   LoginProgress;
   BackButtonSub: Subscription;
   constructor(private router: Router,
+              private route: ActivatedRoute,
               private fcm: FCM,
               private AuthS: AuthService,
               private common: CommonProviderService,
@@ -39,9 +42,7 @@ export class LoginPage implements OnInit,  OnDestroy {
               }
 
   ngOnInit() {
-    // const event = fromEvent(document, 'backbutton');
-    // this.BackButtonSub = event.subscribe(async () => {
-    // });
+
   }
   GOOGLE() {
     if (this.platform.is('cordova')) {
@@ -70,7 +71,7 @@ export class LoginPage implements OnInit,  OnDestroy {
                 //   () => console.log('Stored item!'),
                 //   error => console.error('Error storing item', error)
                 // );
-                this.saveFirebaseToken(user.UserId);
+               //  this.saveFirebaseToken(user.UserId);
                 this.router.navigate(['main']);
               } else {
 
@@ -117,7 +118,7 @@ export class LoginPage implements OnInit,  OnDestroy {
               //   () => console.log('Stored item!'),
               //   error => console.error('Error storing item', error)
               // );
-              this.saveFirebaseToken(user.UserId);
+              // this.saveFirebaseToken(user.UserId);
               this.router.navigate(['main']);
             } else {
 
@@ -171,7 +172,7 @@ export class LoginPage implements OnInit,  OnDestroy {
     }
 
 }
-  async onSubmit($event) {
+  async onSubmitOTP($event) {
       const checkN = +$event.value.phone;
       if (isNaN(checkN)) {
               alert('Invalid Phone number');
@@ -179,7 +180,7 @@ export class LoginPage implements OnInit,  OnDestroy {
       }
 
       await this.common.loadingPresent('Please wait..');
-      this.AuthS.login($event.value.phone, $event.value.Password)
+      this.AuthS.login($event.value.phone)
       .subscribe(
         async (RES: any) => {
             console.log(RES);
@@ -189,19 +190,17 @@ export class LoginPage implements OnInit,  OnDestroy {
               user.Email =  RES.data.email;
               user.Contact =  RES.data.phone_no;
               user.Name =  RES.data.name;
-              this.AuthS.SaveLoginUser(user);
 
-              try {
-                await this.nativeStorage.setItem('user' , user);
-              } catch (err) {
-                console.error('Error storing item', err);
-              }
 
-              this.saveFirebaseToken(user.UserId);
-              this.router.navigate(['main']);
+              this.ValidateOTP(user);
+
 
             } else {
-             this.common.presentToast(RES.Mess);
+             if (RES.Mess === 'Contact Not Found.') {
+                this.router.navigate(['Signup'] ,  { relativeTo: this.route , queryParams: { Phone: $event.value.phone } });
+             } else {
+              this.common.presentToast(RES.Mess);
+             }
             }
             await this.common.loadingDismiss();
 
@@ -228,6 +227,70 @@ export class LoginPage implements OnInit,  OnDestroy {
       //  // console.log(error.headers);
       // });
   }
+  async onSubmit($event) {
+    console.log($event);
+    const checkN = +$event.value.phone;
+    if (isNaN(checkN)) {
+            alert('Invalid Phone number');
+            return;
+    }
+
+    await this.common.loadingPresent('Please wait..');
+    this.AuthS.loginPassword($event.value.phone , $event.value.Password)
+    .subscribe(
+      async (RES: any) => {
+          console.log(RES);
+          if (RES.Status) {
+            const user =  new User();
+            user.UserId =  RES.data.user_id;
+            user.Email =  RES.data.email;
+            user.Contact =  RES.data.phone_no;
+            user.Name =  RES.data.name;
+
+
+            this.AuthS.SaveLoginUser(user);
+
+            try {
+                await this.nativeStorage.setItem('user' , user);
+              } catch (err) {
+                console.error('Error storing item', err);
+              }
+
+            this.saveFirebaseToken(user.UserId);
+            this.router.navigate(['main']);
+
+          } else {
+           if (RES.Mess === 'Contact Not Found.') {
+              this.router.navigate(['Signup'] ,  { relativeTo: this.route , queryParams: { Phone: $event.value.phone } });
+           } else {
+            this.common.presentToast(RES.Mess);
+           }
+          }
+          await this.common.loadingDismiss();
+
+      },
+      async (error) => {
+        console.log(error);
+        console.log(error.headers);
+        console.log(error.error);
+        await this.common.loadingDismiss();
+        this.common.presentToast('Login Failed.');
+
+      }
+    );
+    // this.AuthS.login($event.value.phone, $event.value.Password)
+    // .then(data => {
+    //   console.log(data);
+    //   console.log(data.status);
+    //   console.log(data.data); // data received by server
+    //   console.log(data.headers);
+    // })
+    // .catch(error => {
+    //   console.log(error);
+    //  // console.log(error.error); // error message as string
+    //  // console.log(error.headers);
+    // });
+}
   async presentAlert(mess , mess2) {
     const alert = await this.alertController.create({
       header: mess2,
@@ -243,6 +306,21 @@ export class LoginPage implements OnInit,  OnDestroy {
   }
 
 
+  async ValidateOTP(loginuser: User) {
+    const modal = await this.modalController.create({
+      component: OTPSignUpComponent,
+      componentProps: {
+        FormObj: null,
+        PhoneNo:  null,
+        User: loginuser,
+        IsLogin: true
+      }
+    });
+
+    return await modal.present();
+
+
+  }
 
   async SIM(Email: string , Name: string) {
     console.log(Email);
@@ -255,6 +333,16 @@ export class LoginPage implements OnInit,  OnDestroy {
       }
     });
     this.common.SaveModel(modal.id);
+    return await modal.present();
+  }
+
+
+  async forgotPassword() {
+    const modal = await this.modalController.create({
+      component: ForgotPasswordComponent,
+      componentProps: {
+      }
+    });
     return await modal.present();
   }
 

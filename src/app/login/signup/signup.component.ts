@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { OTPSignUpComponent } from '../otpSignUp/otpSignUp.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -16,10 +17,19 @@ export class SignupComponent implements OnInit {
   Mobile = '';
   Password = '';
   TermsChecked  = false;
+  sub: Subscription;
   constructor(private AuthS: AuthService, private router: Router,
+              private route: ActivatedRoute,
               public modalController: ModalController) { }
 
   ngOnInit() {
+    this.sub = this.route
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        // tslint:disable-next-line:no-string-literal
+        this.Mobile = params['Phone'] || 0;
+      });
   }
 
   async onSubmit($event) {

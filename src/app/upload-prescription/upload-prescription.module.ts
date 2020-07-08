@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { UploadPrescriptionPageRoutingModule } from './upload-prescription-routing.module';
 
 import { UploadPrescriptionPage } from './upload-prescription.page';
+import { DoneComponent } from '../Common/done/done.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { UploadPrescriptionPage } from './upload-prescription.page';
     IonicModule,
     UploadPrescriptionPageRoutingModule
   ],
-  declarations: [UploadPrescriptionPage]
+  declarations: [UploadPrescriptionPage , DoneComponent],
+  entryComponents : [DoneComponent]
 })
 export class UploadPrescriptionPageModule {}

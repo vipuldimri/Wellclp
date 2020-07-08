@@ -11,8 +11,6 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     IonicModule,
   ],
-  declarations: [CommonModuleComponent , DoneComponent],
-  entryComponents: [DoneComponent] ,
-  exports: [DoneComponent]
+  declarations: [CommonModuleComponent],
 })
 export class CommonModuleModule { }

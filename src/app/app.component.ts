@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       timer(2000).subscribe( () => { this.Splash = false; });
 
 
-      this.statusBar.backgroundColorByHexString('#31a3a0');
+      this.statusBar.backgroundColorByHexString('#24abaa');
       // this.SetUpDeepLinks();
 
       try {
