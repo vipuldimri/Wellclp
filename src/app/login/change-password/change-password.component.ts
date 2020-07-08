@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { User } from 'src/app/services/auth/user.model';
 
 @Component({
   selector: 'app-change-password',
@@ -12,11 +11,10 @@ export class ChangePasswordComponent implements OnInit {
   OPassword;
   NPassword;
   CPassword;
-  LogedInUser: User;
   constructor(private authS: AuthService) { }
 
   ngOnInit() {
-    this.LogedInUser = this.authS.GetLoginUser();
+
   }
 
   onSubmit($event) {
@@ -37,7 +35,7 @@ export class ChangePasswordComponent implements OnInit {
         }
 
         const formData = new FormData();
-        formData.append('user_id', this.LogedInUser.UserId + '');
+        formData.append('user_id', '10');
         formData.append('oldpassword', this.OPassword);
         formData.append('newpassword', this.NPassword);
 

@@ -152,8 +152,7 @@ readFile(file: any) {
 Upload_prescription() {
 
 
-  this.ShowSuccess();
-  return;
+
   if (!this.data) {
       this.CommonS.presentToast('Please upload picture');
       return;

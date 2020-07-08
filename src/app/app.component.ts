@@ -39,17 +39,17 @@ export class AppComponent implements OnInit {
 
 
 
-      // this.platform.backButton
-      // .subscribeWithPriority(999999,  () =>  {
-      //     alert('here');
-      // });
+      this.platform.backButton
+      .subscribeWithPriority(999999,  () =>  {
+          alert('here');
+      });
 
 
 
       timer(2000).subscribe( () => { this.Splash = false; });
 
 
-      this.statusBar.backgroundColorByHexString('#24abaa');
+      this.statusBar.backgroundColorByHexString('#31a3a0');
       // this.SetUpDeepLinks();
 
       try {

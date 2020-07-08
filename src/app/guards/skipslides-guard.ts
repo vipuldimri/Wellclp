@@ -21,7 +21,7 @@ export class AuthGuardService implements CanActivate {
   }
   async checkUser() {
     try {
-        // return true;
+        return true;
         const item  = await  this.nativeStorage.getItem('user');
         const user =  new User();
         user.UserId =  item.UserId;

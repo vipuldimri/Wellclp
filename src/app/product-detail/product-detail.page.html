@@ -49,14 +49,13 @@
 
     <div class="product_banner">
         
-        <!-- <div 
+        <div 
         (click)="Share()"
         class="heart">
                 <ion-icon 
                 
                 size="large" name="share-social-outline"></ion-icon>
-        </div> -->
-        
+        </div>
         <!-- <ol class="breadcrumb">
                 {{breakcrumb}}
         </ol> -->
@@ -102,8 +101,8 @@
             col-4 class="p0">
                 <h5>{{SelectedPrice.discount_persent | number:'1.0-0'}}% OFF</h5>
             </ion-col>
-            <ion-col col-8 class="p0 textRight" >
-                <!-- <h6>
+            <ion-col col-8 class="p0 textRight">
+                <h6>
                     <span 
                     (click)="count = count - 1"
                     class="control floatRight">-</span>
@@ -111,39 +110,9 @@
                     <span 
                     (click)="count = count + 1"
                     class="control floatRight">+</span>
-           
+                    <!-- <span class="floatRight">SELECT QTY</span> -->
                     <div class="clear"></div>
-                </h6> -->
-                <ion-item style="float: right;" lines="none">
-                        <ion-icon
-                        color="medium"
-                        size="large" name="add-circle" 
-                        (click)="IncCount()" item-right></ion-icon>
-                        <p style="margin: 0px;margin-left: 5px;margin-right: 5px;font-size: 6vw;">{{count}}</p>
-                        <ion-icon 
-                        color="medium"
-                        size="large" name="remove-circle" 
-                        (click)="DexCount()" item-right></ion-icon>
-               </ion-item>
-
-                <!-- <form >
-                    <label for="cars">QTY : </label>
-                    <select 
-                    name="QTY"
-                    [(ngModel)]="count"
-                     >
-                            <option  selected [value]="1">1</option>
-                            <option [value]="2">2</option>
-                            <option [value]="3">3</option>
-                            <option [value]="4">4</option>
-                            <option [value]="5">5</option>
-                            <option [value]="6">6</option>
-                            <option [value]="7">7</option>
-                            <option [value]="8">8</option>
-                            <option [value]="9">9</option>
-                            <option [value]="10">10</option>
-                    </select>
-                  </form> -->
+                </h6>
 
             </ion-col>
         </ion-row>
@@ -172,7 +141,7 @@
             <li *ngIf="AttributeList.length != 0">
              <ion-list>
                            
-                <ion-item  lines="none" *ngFor="let item of AttributeList; index as i;">
+                <ion-item *ngFor="let item of AttributeList; index as i;">
                               <ion-label>{{item.key  | titlecase}}</ion-label>
                               <ion-select interface="action-sheet" text-wrap
                               (ionChange)="AttributeChange(i,TempList[i])"

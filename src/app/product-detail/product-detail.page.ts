@@ -153,16 +153,6 @@ export class ProductDetailPage implements OnInit , OnDestroy {
 
   }
 
-  IncCount() {
-    this.count =  this.count + 1;
-  }
-
-  DexCount() {
-      if (this.count - 1 > 0) {
-        this.count =  this.count - 1;
-      }
-  }
-
   Addtocart() {
 
     const formData = new FormData();

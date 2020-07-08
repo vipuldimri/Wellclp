@@ -1,15 +1,19 @@
 <ion-header >
     <div class="nav_header">
+
+        <ion-menu-button class="nav_btn nav_menu floatLeft"></ion-menu-button>
+
         <div 
-        style="padding-bottom: 0px;"
+        style="padding-bottom: 0px;margin: 5px"
         class="nav_header_title floatLeft">
+            <!-- <img src="/assets/imgs/asset_white_logo.png"> -->
             <ion-row>
                     <p 
-                    style="font-size: 3vw;;margin-bottom: 2px">Wellclap.com</p>
+                    style="font-size: 15px;margin-top: -10px">Wellclap.com</p>
             </ion-row>
 
              <ion-row [routerLink]="['/main/location']">
-                    <p style="font-size: 4vw;font-weight: bolder;margin-bottom: 2px">Delivers To {{Location}}
+                    <p style="font-size: 17px;margin-top: -15px;font-weight: bolder">Delivers To {{Location}}
                             <ion-icon name="chevron-down"></ion-icon>
                     </p>
                             </ion-row>
@@ -47,7 +51,7 @@
     </div>
 
     <ion-searchbar
-    style="background-color: #24abaa"
+    style="background-color: #31a3a0"
     (click)="Search()"
     placeholder="Search medicine"></ion-searchbar>
 </ion-header> 
@@ -174,7 +178,7 @@
     </div>
     <div style="height: 50px;" class="home_header">
         <div class="home_header_left">
-                <p style="font-size: 3.9vw">
+                <p style="font-size: 3.9vw;margin: 0px">
                                 Order with prescriptions
                 </p>
           
@@ -194,7 +198,7 @@
 
                                         <span 
                                         [routerLink]="['../../../category']"
-                                        style="float: right;color: #24abaa;font-size: 3.0vw">
+                                        style="float: right;color: #31a3a0;font-size: 3.0vw">
                                         <strong>SEE ALL</strong></span>
    
                         </h4>
@@ -662,7 +666,7 @@
         <div class="home_offer_slider">
                 <ion-slides loop="true"
                 [pager]="true"
-                slidesPerView="1" spaceBetween="0px">
+                slidesPerView="1.5" spaceBetween="5px">
                  <ion-slide (click)="Nevigatetocategory(101)">
                         <img src="assets/imgs/Offers.png">
                     </ion-slide>
@@ -746,7 +750,7 @@
 
                                 <span 
                                 (click)="Nevigatetocategory(101)"
-                                style="float: right;color: #24abaa;font-size: 3.0vw">
+                                style="float: right;color: #31a3a0;font-size: 3.0vw">
                                 <strong>SEE ALL</strong>
                         </span>
                         </h4>

@@ -78,11 +78,9 @@
             <div class="med_container_details">
                 <h4>{{item.product_name}}</h4>
                 <!-- <p>Lorem ipsum dummy</p> -->
-                 <h5 style="align-items: center;align-content: center">
-                    <strong
-                    style="margin-top: -10px;vertical-align: middle;"
-                    class="order_price">&#x20b9; {{item.total_price}}</strong>
-                    <!-- <span>
+                <h5>
+                    <strong class="order_price">&#x20b9; {{item.total_price}}</strong>
+                    <span>
                     <div 
                     (click)="changeQuantity(item.temp_id , item.quantity , 'Minus')"
                     class="circle_cntrl">-
@@ -95,30 +93,8 @@
                     <div
                     (click)="changeQuantity(item.temp_id , item.quantity  , 'ADD')"
                     class="circle_cntrl">  +
-                  </div> -->
-               
-                       <span style="margin-left: 5px">
-                            <ion-icon
-                            color="medium"
-                            name="add-circle" 
-                            (click)="changeQuantity(item.temp_id , item.quantity  , 'ADD')" item-right></ion-icon>
-                    </span>
-                    <span>
-                        <div 
-                        style="margin-left: 5px;margin-right: 5px"
-                        class="circle">{{item.quantity}}</div>
-                        
-                    </span>
-                    <ion-icon 
-                    color="medium"
-                     name="remove-circle" 
-                    (click)="changeQuantity(item.temp_id , item.quantity , 'Minus')"
-                     item-right></ion-icon>
-
+                  </div>
                 </h5>
-
-
-                
                 <h5
                 *ngFor="let att of item.attributeslist;"
                 class="order_quantity p0 borderNone">{{att.attributename  | titlecase}}&nbsp;:&nbsp;
@@ -229,7 +205,7 @@ style="background-color: #efefef">
 class="addressarea">
   <p 
         (click)="SelectAddress()"
-        style="color: #24abaa;text-align: right">
+        style="color: #31a3a0;text-align: right">
             <strong>Select address
                 <span 
                 style="padding-top: 10px">
@@ -250,7 +226,7 @@ class="addressarea">
   class="addressarea">
     <p 
     (click)="SelectAddress()"
-    style="float: right;color: #24abaa">
+    style="float: right;color: #31a3a0">
         <strong>Change
 
             <span    
